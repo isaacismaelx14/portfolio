@@ -1,3 +1,4 @@
+import Icons from './Icons/_index';
 import ImageLazy from './_ImageLazy';
 function Home() {
     return (
@@ -43,6 +44,11 @@ function Home() {
                             </a>
                         </div>
                     </div>
+                </div>
+                <div className="goDownArrow">
+                    <a href="#about">
+                        <Icons.DownArrow />
+                    </a>
                 </div>
             </section>
             <svg

@@ -18,7 +18,7 @@ import Electron from './Electron.icon';
 import Nextjs from "./Nextjs.icon";
 import Linkedin from './Linkedin.icon';
 import GithubLetter from './GithubLetter.icon';
-
+import DownArrow from "./DownArrow.icon";
 const Icons = {
     HTML,
     CSS,
@@ -40,6 +40,7 @@ const Icons = {
     Nextjs,
     Linkedin,
     GithubLetter,
+    DownArrow,
 };
 
 export default Icons;

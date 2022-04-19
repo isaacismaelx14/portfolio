@@ -146,5 +146,21 @@
                 transition: background-color 0.2s ease-in-out;
             }
         }
+
+        [data-error] {
+            input,
+            textarea {
+                border-color: red;
+                position: relative;
+            }
+
+            &::after {
+                color: red;
+                content: attr(data-error);
+                display: block;
+                font-size: remCalc(12px);
+                margin-left: remCalc(5px);
+            }
+        }
     }
 }

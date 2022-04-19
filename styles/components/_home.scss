@@ -10,6 +10,7 @@
 .home {
     color: $black;
     height: 100vh;
+    position: relative;
     width: 100%;
 
     @include breakpoints("medium") {
@@ -131,5 +132,32 @@
         gap: remCalc(10px);
         justify-content: center;
         width: 100%;
+    }
+
+    .goDownArrow {
+        animation: mymove 1s infinite;
+        bottom: remCalc(100px);
+        left: calc(50% - remCalc(15px));
+        position: absolute;
+        width: remCalc(40px);
+
+        @include breakpoints("medium") {
+            display: none;
+        }
+
+        @keyframes mymove {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(remCalc(15px));
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+            
+        }
     }
 }
