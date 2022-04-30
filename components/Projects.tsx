@@ -27,7 +27,7 @@ function Projects() {
                 setShowC(true);
             }
         };
-        window.addEventListener('scroll', toDo, false);
+        if (TopRef.current) window.addEventListener('scroll', toDo, false);
     }, []);
 
     return (

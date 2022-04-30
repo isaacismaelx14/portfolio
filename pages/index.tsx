@@ -6,6 +6,7 @@ import Stats from '../components/Stats';
 import Home from '../components/Home';
 import Projects from '../components/Projects';
 import Technologies from '../components/Technologies';
+import Footer from '../components/Footer';
 
 const Main: NextPage = () => {
     return (
@@ -26,6 +27,7 @@ const Main: NextPage = () => {
                     <Projects />
                 </div>
                 <Contact />
+                <Footer/>
             </main>
         </>
     );

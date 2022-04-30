@@ -1,0 +1,31 @@
+.footer {
+    background-color: $contact-me-background;
+
+    &__container {
+        align-items: center;
+        display: flex;
+        gap: remCalc(20px);
+        justify-content: space-between;
+        padding: remCalc(20px 30px);
+    }
+
+    &__icons {
+        align-items: center;
+        display: flex;
+        gap: remCalc(20px);
+    }
+
+    .icon {
+        width: 30px;
+    }
+
+    span {
+        color: $cons-white;
+        font-size: remCalc(14px);
+        font-weight: 500;
+    }
+
+    a:hover {
+        transform: scale(1.1);
+    }
+}
