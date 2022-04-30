@@ -1,0 +1,47 @@
+.stats {
+    
+    @include breakpoints("large") {  
+        margin-bottom: 0;
+        margin-top: -5px;
+        padding: remCalc(40px 0);
+    }
+
+    &__container {
+        gap: remCalc(20px);
+        width: 100%;
+
+        @include breakpoints("large") {
+            margin: 0 auto;
+            max-width: $content-max-width-large;
+        }
+
+        img {
+            border-radius: 20px;
+            width: 100%;
+
+            @include breakpoints("large") {
+                width: remCalc(500px);
+            }
+        }
+
+        &-end {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            gap: remCalc(20px);
+            justify-content: left;
+            width: 100%;
+
+            @include breakpoints("large") {
+                flex-direction: row;
+                flex-wrap: wrap;
+            } 
+        }
+    }
+
+    &__title {
+        color: $black;
+        font-size: remCalc(40px);
+        margin-bottom: remCalc(20px);
+    }
+}
