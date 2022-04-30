@@ -190,7 +190,6 @@ function Contact() {
                                         marginTop: '1rem',
                                         marginLeft: '0.5rem'
                                     }}
-                                    
                                 />
                             </div>
                         </form>

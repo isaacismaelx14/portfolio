@@ -20,32 +20,31 @@
 
 }
 
-body.theme {
-    &-dark {
-        --primary-color: var(--primary-color-dark);
-        --background-color: var(--dark-background);
-        --card-background-color: var(--dark-card-background-color);
-        --white: var(--cons-black);
-        --black: var(--cons-white);
-        --input-background: var(--card-background-color);
-        --contact-me-background: var(--contact-me-background-dark);
 
-        .react-loading-skeleton {
-            --base-color: var(--card-background-color);
-            --highlight-color: #4d535f;
-        }
+[data-theme="dark"] {
+    --primary-color: var(--primary-color-dark);
+    --background-color: var(--dark-background);
+    --card-background-color: var(--dark-card-background-color);
+    --white: var(--cons-black);
+    --black: var(--cons-white);
+    --input-background: var(--card-background-color);
+    --contact-me-background: var(--contact-me-background-dark);
+
+    .react-loading-skeleton {
+        --base-color: var(--card-background-color);
+        --highlight-color: #4d535f;
     }
+}
 
-    &-light {
-        --background-color: var(--light-background);
+[data-theme="light"] {
+    --background-color: var(--light-background);
 
-        --white: var(--cons-white);
-        --black: var(--cons-black);
+    --white: var(--cons-white);
+    --black: var(--cons-black);
 
-        .react-loading-skeleton {
-            --base-color: var(--card-background-color);
-            --highlight-color: #f5f5f5;
-        }
+    .react-loading-skeleton {
+        --base-color: var(--card-background-color);
+        --highlight-color: #f5f5f5;
     }
 }
 

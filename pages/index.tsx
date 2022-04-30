@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import AboutMe from '../components/AboutMe';
 import Contact from '../components/Contact';
 import Home from '../components/Home';
@@ -7,15 +8,24 @@ import Technologies from '../components/Technologies';
 
 const Main: NextPage = () => {
     return (
-        <main className="main">
-            <Home />
-            <AboutMe />
-            <Technologies />
-            <div className="container">
-                <Projects />
-            </div>
-            <Contact />
-        </main>
+        <>
+            <Head>
+                <title>Isaac Martinez | Portfolio</title>
+                <meta name="description" content="Portfolio of Isaac Martinez" />
+                <meta name='robots' content='index, follow' />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <main className="main">
+                <Home />
+                <AboutMe />
+                <Technologies />
+                <div className="container">
+                    <Projects />
+                </div>
+                <Contact />
+            </main>
+        </>
     );
 };
 
