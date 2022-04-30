@@ -178,7 +178,7 @@ function Contact() {
 
                             <div className="contact__form-group">
                                 <button type="submit" disabled={sendingMsg}>
-                                    {sendingMsg ? 'sendingMesagge' : 'Submit'}
+                                    {sendingMsg ? 'Sending...' : 'Submit'}
                                 </button>
                                 <ReCAPTCHA
                                     ref={recaptchaRef}

@@ -114,6 +114,11 @@
                 border: 0;
                 border-radius: remCalc(10px);
                 padding: remCalc(8px 10px);
+
+                &:disabled {
+                    background-color: #303030;
+                    cursor: not-allowed;
+                }
             }
 
             input,
