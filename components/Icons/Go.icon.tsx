@@ -8,7 +8,6 @@ const GoIcon = (props: SVGProps<SVGSVGElement>) => (
         y={0}
         viewBox="0 0 254.5 225"
         style={{
-            enableBackground: 'new 0 0 254.5 225',
             fill: '#5dc9e1',
         }}
         xmlSpace="preserve"
