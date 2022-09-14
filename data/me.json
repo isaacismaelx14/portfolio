@@ -30,13 +30,6 @@
             "name": "Typescript"
         },
         {
-            "name": "Python"
-        },
-        {
-            "name": "NodeJs",
-            "title": "Node.Js"
-        },
-        {
             "name": "React"
         },
         {
@@ -47,11 +40,31 @@
             "title": "Next.Js"
         },
         {
-            "name": "Electron"
-        },
-        {
             "name": "Express"
         },
+        {
+            "name": "NodeJs",
+            "title": "Node.Js"
+        },
+        {
+            "name": "Go",
+            "title": "Go Lang"
+        },
+        {
+            "name": "Python"
+        },
+        {
+            "name":"CPlus",
+            "title": "C++"
+        },
+        {
+            "name": "CSharp",
+            "title": "C#"
+        },
+        {
+            "name": "Electron"
+        },
+
         {
             "name": "Git"
         },
@@ -60,12 +73,15 @@
             "title": "MySQL"
         },
         {
+            "name": "Aws",
+            "title": "AWS"
+        },
+        {
             "name": "Linux"
         },
         {
             "name": "Windows"
         },
-
         {
             "name": "Terminal",
             "title": "Bash/Terminal"
@@ -113,6 +129,19 @@
                 {
                     "title": "Visit website",
                     "link": "https://medramart.com/"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "title": "Cominnek ⚙️",
+            "summary": "With this tool you wil be able to create commits following the conventional commits standard. This project was made with Python.",
+            "img": "https://i.imgur.com/nUSdflX.png",
+            "tags": ["python", "console", "cli"],
+            "btns": [
+                {
+                    "title": "Repository",
+                    "link": "https://github.com/Minnek-Digital-Studio/cominnek"
                 }
             ]
         }

@@ -19,6 +19,11 @@ import Nextjs from "./Nextjs.icon";
 import Linkedin from './Linkedin.icon';
 import GithubLetter from './GithubLetter.icon';
 import DownArrow from "./DownArrow.icon";
+import Go from "./Go.icon";
+import CSharp from "./CSharp.icon";
+import Aws from "./Aws.icon";
+import CPlus from "./CPlus";
+
 const Icons = {
     HTML,
     CSS,
@@ -41,6 +46,10 @@ const Icons = {
     Linkedin,
     GithubLetter,
     DownArrow,
+    Go,
+    CSharp,
+    Aws,
+    CPlus,
 };
 
 export default Icons;
