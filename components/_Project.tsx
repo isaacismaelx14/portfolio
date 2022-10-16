@@ -21,6 +21,8 @@ function _Project({ project, classPrefix }: IProps) {
                         width={300}
                         height={150}
                         layout="responsive"
+                        objectFit='cover'
+                        objectPosition='center'
                     />
                 </div>
                 <div className={`${classPrefix}summary`}>
