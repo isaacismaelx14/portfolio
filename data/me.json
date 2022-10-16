@@ -135,9 +135,9 @@
         {
             "id": 4,
             "title": "Cominnek ⚙️",
-            "summary": "With this tool you wil be able to create commits following the conventional commits standard. This project was made with Python.",
+            "summary": "With this tool you wil be able to create commits following the conventional commits standard. This project was made with Go.",
             "img": "https://i.imgur.com/nUSdflX.png",
-            "tags": ["python", "console", "cli"],
+            "tags": ["go", "console", "cli", "conventional commit"],
             "btns": [
                 {
                     "title": "Repository",
