@@ -144,6 +144,19 @@
                     "link": "https://github.com/Minnek-Digital-Studio/cominnek"
                 }
             ]
+        },
+        {
+            "id": 5,
+            "title": "Image Server 🖼",
+            "summary": "This is a server that allows you to upload images, compress it and get them. This project was made with Node JS, Express.",
+            "img": "https://i.imgur.com/nZgksmT.png",
+            "tags": ["node.js", "express", "server", "image", "compression"],
+            "btns": [
+                {
+                    "title": "Repository",
+                    "link": "https://github.com/isaacismaelx14/image-server"
+                }
+            ]
         }
     ]
 }

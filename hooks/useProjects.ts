@@ -10,7 +10,7 @@ function useProjects() {
         try {
             const response = await fetch('/api/projects');
             const data = await response.json();
-            setProjects(data);
+            setProjects(data.reverse());
             setLoading(false);
         } catch (error) {
             setError(true);
