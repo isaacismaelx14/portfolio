@@ -170,7 +170,7 @@
             "tags": ["node.js", "npm", "typescript"],
             "btns": [
                 {
-                    "title": "NPM Package",
+                    "title": "Npm",
                     "link": "https://www.npmjs.com/package/project-templify"
                 },
                 {
