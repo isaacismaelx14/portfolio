@@ -140,6 +140,10 @@
             "tags": ["go", "console", "cli", "conventional commit"],
             "btns": [
                 {
+                    "title": "Website",
+                    "link": "https://cominnek.com/"
+                },
+                {
                     "title": "Repository",
                     "link": "https://github.com/Minnek-Digital-Studio/cominnek"
                 }
@@ -166,7 +170,7 @@
             "tags": ["node.js", "npm", "typescript"],
             "btns": [
                 {
-                    "title": "NPM",
+                    "title": "NPM Package",
                     "link": "https://www.npmjs.com/package/project-templify"
                 },
                 {
