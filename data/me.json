@@ -91,7 +91,7 @@
         {
             "id": 1,
             "title": "Store in react 🛒",
-            "summary": "This project is a store created in React. Contains a home page, login, registration, and more. I also implemented a connection to an API.",
+            "summary": "This project is a store created in React. Contains a home page, log in, registration, and more. I also implemented a connection to an API.",
             "img": "https://i.imgur.com/UereIWL.jpg",
             "tags": ["react", "webpage", "store", "typescript", "sass", "html"],
             "btns": [
@@ -135,7 +135,7 @@
         {
             "id": 4,
             "title": "Cominnek ⚙️",
-            "summary": "With this tool you wil be able to create commits following the conventional commits standard. This project was made with Go.",
+            "summary": "With this tool, you will be able to create commits following the conventional commits standard. This project was made with Go.",
             "img": "https://i.imgur.com/nUSdflX.png",
             "tags": ["go", "console", "cli", "conventional commit"],
             "btns": [
@@ -148,13 +148,30 @@
         {
             "id": 5,
             "title": "Image Server 🖼",
-            "summary": "This is a server that allows you to upload images, compress it and get them. This project was made with Node JS, Express.",
+            "summary": "This is a server that allows you to upload images, compress them and get them. This project was made with Node JS, Express.",
             "img": "https://i.imgur.com/nZgksmT.png",
             "tags": ["node.js", "express", "server", "image", "compression"],
             "btns": [
                 {
                     "title": "Repository",
                     "link": "https://github.com/isaacismaelx14/image-server"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "title": "Project Templify ⚙️",
+            "summary": "CLI that would allow me to create any structure and be easy to configure. That's how Project Templify was born.",
+            "img": "https://i.imgur.com/c2TK3MS.png",
+            "tags": ["node.js", "npm", "typescript"],
+            "btns": [
+                {
+                    "title": "NPM",
+                    "link": "https://www.npmjs.com/package/project-templify"
+                },
+                {
+                    "title": "Repository",
+                    "link": "https://github.com/isaacismaelx14/project-templify#readme"
                 }
             ]
         }
