@@ -1,5 +1,4 @@
 import useProjects from '../hooks/useProjects';
-import ProjectListSkeleton from './skeletons/ProjectList.skeleton';
 import Project from './_Project';
 
 function RecProjects() {
@@ -7,7 +6,6 @@ function RecProjects() {
 
     return (
         <>
-            {loading && <ProjectListSkeleton />}
             <div className="projects__list">
                 {projects.map((project) => (
                     <div className="projects__item" key={project.id}>

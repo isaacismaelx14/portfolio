@@ -3,30 +3,19 @@
     max-width: $content-max-width;
     padding: remCalc(10px 25px);
 
-    @include breakpoints("large") {
+    @include breakpoints('large') {
         max-width: $content-max-width-large;
-    }   
+    }
 
     .title {
         font-size: 1.7rem;
     }
 }
 
-.react-loading-skeleton {
-    border-radius: remCalc(15px);
-}
-
-
 .lazy_load-image {
     height: 100%;
     position: relative;
     width: 100%;
-    
-    .react-loading-skeleton {
-        position: absolute;
-        top: 0;
-        z-index: 1;
-    }
 
     img {
         position: relative;

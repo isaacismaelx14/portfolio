@@ -1,5 +1,4 @@
 import React, { Suspense, useEffect } from 'react';
-import ProjectListSkeleton from './skeletons/ProjectList.skeleton';
 
 const ReactLazy = React.lazy(() => import('./_RecProjects'));
 const isInViewPort = (element: any) => {
@@ -37,8 +36,8 @@ function Projects() {
                     Projects
                 </h2>
             </div>
-            <Suspense fallback={<ProjectListSkeleton />}>
-                {showC ? <ReactLazy /> : <ProjectListSkeleton />}
+            <Suspense fallback={<p>Loading...</p>}>
+                {showC ? <ReactLazy /> : <p>Loading...</p>}
             </Suspense>
         </section>
     );

@@ -6,7 +6,7 @@
 
     --cons-white: #e3e3e3;
     --cons-black: #161616;
-    
+
     --light-background: #f1f1f1;
     --dark-background: #121118;
 
@@ -17,11 +17,9 @@
 
     --contact-me-background: #2d2968;
     --contact-me-background-dark: #16181d;
-
 }
 
-
-[data-theme="dark"] {
+[data-theme='dark'] {
     --primary-color: var(--primary-color-dark);
     --background-color: var(--dark-background);
     --card-background-color: var(--dark-card-background-color);
@@ -29,27 +27,17 @@
     --black: var(--cons-white);
     --input-background: var(--card-background-color);
     --contact-me-background: var(--contact-me-background-dark);
-
-    .react-loading-skeleton {
-        --base-color: var(--card-background-color);
-        --highlight-color: #4d535f;
-    }
 }
 
-[data-theme="light"] {
+[data-theme='light'] {
     --background-color: var(--light-background);
 
     --white: var(--cons-white);
     --black: var(--cons-black);
-
-    .react-loading-skeleton {
-        --base-color: var(--card-background-color);
-        --highlight-color: #f5f5f5;
-    }
 }
 
-$primary-color:  var(--primary-color);
-$primary-color-dark:  var(--primary-color-dark);
+$primary-color: var(--primary-color);
+$primary-color-dark: var(--primary-color-dark);
 $secondary-color: var(--secondary-color);
 $third-color: var(--third-color);
 
@@ -68,9 +56,9 @@ $content-max-width: remCalc(700px);
 $content-max-width-large: remCalc(1200px);
 
 $breakpoints: (
-    "small": 320px,
-    "medium": 481px,
-    "large": 1024px,
-    "xlarge": 1200px,
-    "xxlarge": 1400px,
+    'small': 320px,
+    'medium': 481px,
+    'large': 1024px,
+    'xlarge': 1200px,
+    'xxlarge': 1400px,
 ) !default;
