@@ -1,3 +1,4 @@
+'use client';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import AboutMe from '../components/AboutMe';
@@ -7,27 +8,46 @@ import Home from '../components/Home';
 import Projects from '../components/Projects';
 import Technologies from '../components/Technologies';
 import Footer from '../components/Footer';
+import { useEffect } from 'react';
 
 const Main: NextPage = () => {
+    useEffect(() => {
+        const setColorScheme = () => {
+            const colorScheme = window.matchMedia(
+                '(prefers-color-scheme: dark)'
+            ).matches
+                ? 'dark'
+                : 'light';
+            document.body.dataset.theme = colorScheme;
+        };
+        setColorScheme();
+    }, []);
+
     return (
         <>
             <Head>
                 <title>Isaac Martinez | Portfolio</title>
-                <meta name="description" content="Portfolio of Isaac Martinez" />
-                <meta name='robots' content='index, follow' />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta
+                    name="description"
+                    content="Portfolio of Isaac Martinez"
+                />
+                <meta name="robots" content="index, follow" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className="main">
                 <Home />
                 <AboutMe />
                 <Technologies />
-                <Stats/> 
+                <Stats />
                 <div className="container">
                     <Projects />
                 </div>
                 <Contact />
-                <Footer/>
+                <Footer />
             </main>
         </>
     );

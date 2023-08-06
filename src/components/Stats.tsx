@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 
 function Stats() {
@@ -11,8 +12,7 @@ function Stats() {
                 bg: '30343d',
                 text: 'ffffff',
             });
-        }
-        else {
+        } else {
             setStats({
                 bg: 'e3e3e3',
                 text: '000000',

@@ -1,3 +1,5 @@
+'use client';
+
 import { useId, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -188,7 +190,7 @@ function Contact() {
                                     badge="inline"
                                     style={{
                                         marginTop: '1rem',
-                                        marginLeft: '0.5rem'
+                                        marginLeft: '0.5rem',
                                     }}
                                 />
                             </div>

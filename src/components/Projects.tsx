@@ -1,6 +1,7 @@
-import React, { Suspense, useEffect } from 'react';
+'use client';
+import { Suspense, useEffect, lazy, useRef, useState } from 'react';
 
-const ReactLazy = React.lazy(() => import('./_RecProjects'));
+const ReactLazy = lazy(() => import('./_RecProjects'));
 const isInViewPort = (element: any) => {
     const bounding = element.getBoundingClientRect();
     if (
@@ -17,8 +18,8 @@ const isInViewPort = (element: any) => {
 };
 
 function Projects() {
-    const TopRef = React.useRef<HTMLDivElement>(null);
-    const [showC, setShowC] = React.useState(false);
+    const TopRef = useRef<HTMLDivElement>(null);
+    const [showC, setShowC] = useState(false);
 
     useEffect(() => {
         const toDo = () => {
