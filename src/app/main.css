@@ -6,6 +6,10 @@
     .svg-icon {
         @apply w-16 grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110 p-1;
     }
+
+    .gray-scale-hover {
+        @apply grayscale hover:grayscale-0 transition-all duration-500;
+    }
 }
 
 

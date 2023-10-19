@@ -17,5 +17,11 @@ module.exports = {
   safelist: [
     "bg-green-500",
     "bg-yellow-500",
+    "bg-black",
+    "hover:bg-black",
+    "bg-white",
+    "hover:bg-white",
+    "bg-gray-100",
+    "hover:bg-gray-100",
   ]
 }

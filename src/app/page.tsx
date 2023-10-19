@@ -5,12 +5,13 @@ import SectionItem from '../components/SectionItem';
 import LanguageSkill from '../components/LanguageSkill';
 import { Input, Textarea } from '@nextui-org/input';
 import { Button, Card, CardBody } from '@nextui-org/react';
+import Experience from '../components/Experience';
 
 const Main: NextPage = () => {
     return (
-        <div className="container px-2">
+        <div className="container mx-auto px-2">
             <article className="flex flex-col w-full mt-5 sm:flex-row sm:mt-4 sm:gap-5 sm:px-4 sm:py-2">
-                <header className="w-full flex flex-col md:max-w-sm sm:max-w-xs">
+                <header className="w-full md:max-w-sm sm:max-w-xs max-h-[calc(100vh-6rem)] sm:sticky sm:top-0 pt-5">
                     <article className="flex items-center flex-col gap-2 sm:gap-5 sm:flex-row sm:m-auto">
                         <div className="max-w-[150px] sm:max-w-[100px]  border-2 border-primary rounded-full">
                             <Image
@@ -66,6 +67,7 @@ const Main: NextPage = () => {
                         <LanguageSkill language="Spanish" level="native" />
                         <LanguageSkill language="English" level="fluid" />
                     </SectionItem>
+
                     <SectionItem
                         sectionTitle="Contact"
                         sectionClassName="mt-5"
@@ -88,10 +90,8 @@ const Main: NextPage = () => {
                         </Button>
                     </SectionItem>
                 </header>
-                <main>
-                    <section>
-                        <h3>Experience</h3>
-                    </section>
+                <main className="w-full min-h-[calc(100vh-5rem)] relative z-[999] px-5">
+                    <Experience />
                     <section>
                         <h3>Projects</h3>
                     </section>

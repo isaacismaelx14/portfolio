@@ -17,6 +17,7 @@
         "@nextui-org/react": "^2.1.13",
         "@types/nodemailer": "^6.4.11",
         "@types/react-google-recaptcha": "^2.1.6",
+        "atropos": "^2.0.2",
         "dotenv": "^16.3.1",
         "framer-motion": "^10.16.4",
         "next": "^13.5.5",
