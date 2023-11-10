@@ -48,6 +48,10 @@
                 justify-content: center;
                 width: 100%;
             }
+
+            &__text {
+                margin-bottom: remCalc(10px);
+            }
         }
     }
 
