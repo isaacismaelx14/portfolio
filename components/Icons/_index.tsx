@@ -23,6 +23,7 @@ import Go from "./Go.icon";
 import CSharp from "./CSharp.icon";
 import Aws from "./Aws.icon";
 import CPlus from "./CPlus";
+import NestJs from "./NestJs.Icon";
 
 const Icons = {
     HTML,
@@ -50,6 +51,7 @@ const Icons = {
     CSharp,
     Aws,
     CPlus,
+    NestJs
 };
 
 export default Icons;
