@@ -1,5 +1,6 @@
 import './main.css';
 import { Providers } from './providers';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata = {
     title: 'Isaac Martinez | Portfolio',
@@ -18,6 +19,7 @@ export default function RootLayout({
         <html lang="en" className="dark">
             <body className="dark:bg-dark dark:text-gray-50">
                 <Providers>{children}</Providers>
+                <SpeedInsights />
             </body>
         </html>
     );

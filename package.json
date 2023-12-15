@@ -19,6 +19,7 @@
         "@types/nodemailer": "^6.4.14",
         "@types/react-google-recaptcha": "^2.1.8",
         "@vercel/postgres": "^0.5.1",
+        "@vercel/speed-insights": "^1.0.2",
         "atropos": "^2.0.2",
         "dotenv": "^16.3.1",
         "framer-motion": "^10.16.16",
