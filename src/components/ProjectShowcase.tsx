@@ -6,6 +6,7 @@ import {
     PopoverTrigger,
     Tooltip,
 } from '@nextui-org/react';
+import { useState } from 'react';
 
 export type ProjectImage = {
     id: number;
@@ -102,7 +103,6 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
                             </div>
                         )
                     }
-                    project={project}
                 >
                     <Image
                         src={project.url}
@@ -131,26 +131,31 @@ export default ProjectShowcase;
 const CustomAction: React.FC<{
     children: React.ReactNode;
     content: React.ReactNode;
-    project: ProjectImage;
-}> = ({ children, content, project }) => {
+}> = ({ children, content }) => {
+    const [ttOpen, setTTOpen] = useState(false);
+
     return (
-        <>
-            <div className="hidden lg:block">
-                <Tooltip
-                    placement="right-start"
-                    closeDelay={100}
-                    content={content}
-                    isDisabled={!content}
-                >
-                    {children}
-                </Tooltip>
-            </div>
-            <div className="lg:hidden">
-                <Popover placement="right">
-                    <PopoverTrigger>{children}</PopoverTrigger>
-                    <PopoverContent hidden={!content}>{content}</PopoverContent>
-                </Popover>
-            </div>
-        </>
+        <Tooltip
+            placement="right-start"
+            closeDelay={100}
+            content={content}
+            isDisabled={!content}
+            isOpen={ttOpen}
+        >
+            <section
+                onMouseEnter={() => {
+                    setTTOpen(true);
+                }}
+                onMouseLeave={() => {
+                    setTTOpen(false);
+                }}
+                onClick={() => {
+                    setTTOpen(true);
+                    console.log('clicked');
+                }}
+            >
+                {children}
+            </section>
+        </Tooltip>
     );
 };
