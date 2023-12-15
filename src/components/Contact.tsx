@@ -8,7 +8,7 @@ import Atropos from 'atropos/react';
 
 const Contact = () => {
     return (
-        <article className="relative my-40">
+        <article className="relative my-40" id="contact-me">
             <BackgroundSphere
                 width={'8/12'}
                 height={330}

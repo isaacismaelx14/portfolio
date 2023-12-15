@@ -25,7 +25,7 @@ const Main: NextPage = () => {
                 <Sidebar />
 
                 <main className="w-full min-h-[calc(100vh-5rem)] relative lg:px-5 mt-10 lg:mt-6">
-                    <Spacer y={20} className="lg:hidden" />
+                    <Spacer y={1} className="lg:hidden" />
                     <Experience />
                     <Spacer y={20} />
                     <Projects />
