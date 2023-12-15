@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import 'atropos/css';
+import { Button, Tooltip } from '@nextui-org/react';
 
 export type ProjectImage = {
     id: number;
@@ -7,6 +7,15 @@ export type ProjectImage = {
     url: string;
     className?: string;
     hoverBackground?: boolean | string;
+    content?: {
+        title: string;
+        description: string | React.ReactNode;
+        thumbnail?: string;
+        callToAction?: {
+            text: string;
+            url: string;
+        };
+    };
 };
 
 type ProjectShowcaseProps = {
@@ -45,13 +54,62 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
                 className="z-10 hover:z-30"
                 data-atropos-offset={randomOffset.toString()}
             >
-                <Image
-                    src={project.url}
-                    alt={project.alt}
-                    width={200}
-                    height={100}
-                    className={className}
-                />
+                <Tooltip
+                    placement="right-start"
+                    delay={800}
+                    closeDelay={100}
+                    content={
+                        project.content && (
+                            <div className="px-1 py-2 max-w-[300px]">
+                                <div className="text-medium font-bold">
+                                    {project.content?.title}
+                                </div>
+                                {project.content?.thumbnail && (
+                                    <div className="w-full p-2 my-2">
+                                        <Image
+                                            src={project.content?.thumbnail}
+                                            alt={project.alt}
+                                            title={project.alt}
+                                            width={500}
+                                            height={500}
+                                            className=""
+                                            objectFit="fill"
+                                        />
+                                    </div>
+                                )}
+                                {typeof project.content?.description ===
+                                'string' ? (
+                                    <p className="text-small">
+                                        {project.content?.description}
+                                    </p>
+                                ) : (
+                                    project.content?.description
+                                )}
+                                {project.content?.callToAction && (
+                                    <Button
+                                        href={project.content.callToAction.url}
+                                        className="mt-2 w-full"
+                                        as={'a'}
+                                        target="_blank"
+                                        color="primary"
+                                        variant="ghost"
+                                    >
+                                        {project.content.callToAction.text}
+                                    </Button>
+                                )}
+                            </div>
+                        )
+                    }
+                    isDisabled={!project.content}
+                >
+                    <Image
+                        src={project.url}
+                        alt={project.alt}
+                        width={200}
+                        height={100}
+                        className={className}
+                    />
+                </Tooltip>
             </div>
         );
     });

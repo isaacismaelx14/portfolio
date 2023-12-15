@@ -4,7 +4,7 @@ import Icons from '../components/Icons';
 import SectionItem from '../components/SectionItem';
 import LanguageSkill from '../components/LanguageSkill';
 import { Input, Textarea } from '@nextui-org/input';
-import { Button, Card, CardBody } from '@nextui-org/react';
+import { Button } from '@nextui-org/react';
 import Experience from '../components/Experience';
 
 const Main: NextPage = () => {

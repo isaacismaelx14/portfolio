@@ -7,6 +7,16 @@ const images: ProjectImage[] = [
         alt: 'Back In Stock Wizards',
         url: '/img/bis.png',
         hoverBackground: true,
+        content: {
+            title: 'Back In Stock Wizards',
+            thumbnail: 'https://i.imgur.com/QLB8LCT.png',
+            description:
+                'Back In Stock Wizards is a BigCommerce app that allows customers to sign up for email notifications when a product is out of stock. I was the lead developer on this project, and I was responsible for the entire development of the app.',
+            callToAction: {
+                text: 'Visit Website',
+                url: 'https://www.bigcommerce.com/apps/back-in-stock-wizard/',
+            },
+        },
     },
     {
         id: 2,
@@ -14,12 +24,32 @@ const images: ProjectImage[] = [
         url: '/img/magnet-jewerly.png',
         className: 'p-2',
         hoverBackground: true,
+        content: {
+            title: 'Magnet Jewelry',
+            thumbnail: 'https://i.imgur.com/RK5eaxH.png',
+            description:
+                'Magnet Jewelry is a BigCommerce store that sells magnetic jewelry. I was the lead developer on this project, and I was responsible for some of the customizations on the site.',
+            callToAction: {
+                text: 'Visit Website',
+                url: 'https://www.magnetjewelrystore.com/',
+            },
+        },
     },
     {
         id: 3,
         alt: 'Big Skinny',
         url: '/img/big-skinny.jpg',
         hoverBackground: true,
+        content: {
+            title: 'Big Skinny',
+            thumbnail: 'https://i.imgur.com/W85oDJg.png',
+            description:
+                'Big Skinny is a BigCommerce store that sells wallets. I was part of the team that worked on this project, and I was responsible for some of the customizations on the site.',
+            callToAction: {
+                text: 'Visit Website',
+                url: 'https://www.bigskinny.net/',
+            },
+        },
     },
     {
         id: 4,
@@ -27,6 +57,16 @@ const images: ProjectImage[] = [
         url: '/img/the-motor-bookstore.png',
         className: 'p-2',
         hoverBackground: true,
+        content: {
+            title: 'The Motor Bookstore',
+            thumbnail: 'https://i.imgur.com/81egm2f.png',
+            description:
+                'The Motor Bookstore is a BigCommerce store that sells automotive repair manuals. I was part of the team that worked on this project, and I was responsible for some of the customizations on the site especially the custom product pages, home hero, and footer.',
+            callToAction: {
+                text: 'Visit Website',
+                url: 'https://www.themotorbookstore.com/',
+            },
+        },
     },
     {
         id: 5,
@@ -34,6 +74,16 @@ const images: ProjectImage[] = [
         url: '/img/hq4.png',
         className: 'p-2',
         hoverBackground: true,
+        content: {
+            title: 'HQ4Sports',
+            thumbnail: 'https://i.imgur.com/5oOOMkr.png',
+            description:
+                'HQ4Sports is a BigCommerce store that sells sporting goods. I was part of the team that worked on this project, and I was responsible for some adjustments on the site, especially the header, navigation, and product pages.',
+            callToAction: {
+                text: 'Visit Website',
+                url: 'https://www.hq4sports.com/',
+            },
+        },
     },
     {
         id: 6,
@@ -41,6 +91,16 @@ const images: ProjectImage[] = [
         url: '/img/braun.png',
         className: 'p-2',
         hoverBackground: true,
+        content: {
+            title: 'Braun Shavers',
+            thumbnail: 'https://i.imgur.com/lxOf28W.png',
+            description:
+                'Braun Shavers is a BigCommerce store that sells electric shavers. This was one of the first projects I worked on, and I was responsible for some of the customizations on the site.',
+            callToAction: {
+                text: 'Visit Website',
+                url: 'https://shavers-and-replacement-parts.com/',
+            },
+        },
     },
     {
         id: 7,
@@ -48,6 +108,16 @@ const images: ProjectImage[] = [
         url: '/img/autopia.png',
         className: 'p-2',
         hoverBackground: true,
+        content: {
+            title: 'Palm Beach Autopia',
+            thumbnail: 'https://i.imgur.com/N7yQvMs.png',
+            description:
+                'Palm Beach Autopia is a BigCommerce store that sells automotive detailing products. I was part of the team that worked on this project, and I was responsible for some of the customizations on the site.',
+            callToAction: {
+                text: 'Visit Website',
+                url: 'https://www.autopia-carcare.com/',
+            },
+        },
     },
     {
         id: 8,
@@ -129,6 +199,11 @@ const Experience = () => {
                             alt: 'Your Store Wizards',
                             url: '/img/yourstorewizards.png',
                             hoverBackground: true,
+                            content: {
+                                title: 'Your Store Wizards',
+                                description:
+                                    'Your Store Wizards is a full service digital agency that specializes in eCommerce. I primarily work on the BigCommerce platform, creating custom solutions for clients and developing apps for the BigCommerce app store.',
+                            },
                         },
                     ]}
                     startDate="April 2022"

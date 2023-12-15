@@ -29,10 +29,12 @@ const EXItem: React.FC<EXItemProps> = ({
     const imgClassName = `rounded-xl w-full bg-white ${image.className || ''}`;
 
     return (
-        <article className="text-white relative px-5">
+        <article className="text-white relative">
             <Atropos
-                activeOffset={100}
+                activeOffset={-10}
                 shadow={false}
+                rotateXMax={5}
+                rotateYMax={5}
                 className="flex gap-w-full z-50 mx-auto"
             >
                 <div className="flex items-end justify-between w-full bg-gray-900 px-4 py-2 rounded-t-xl border-gray-800 border-5 border-b-0">
