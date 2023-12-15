@@ -37,7 +37,7 @@ const Skills = () => {
     return (
         <SectionItem
             sectionTitle="Skills"
-            className="grid gap-2 max-sm:grid-cols-6 sm:gap-0 sm:flex flex-wrap"
+            className="gap-[5px] grid grid-cols-[repeat(auto-fill,minmax(60px,1fr))]"
         >
             {iconList.map((icon) => (
                 <CustomAction
