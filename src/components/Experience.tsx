@@ -192,7 +192,7 @@ const Experience = () => {
                 <EXItem
                     company="Minnek Digital Agency"
                     endDate="Present"
-                    position="SE2 (MID) - Full Stack Developer"
+                    position="Team Lead - Full Stack Engineer [SE2]"
                     projects={[
                         {
                             id: 1,
@@ -216,7 +216,7 @@ const Experience = () => {
                 <EXItem
                     company="Your Store Wizards"
                     endDate="Present"
-                    position="Full Stack Developer"
+                    position="BigCommerce Engineer | Full Stack Engineer"
                     projects={images}
                     startDate="April 2022"
                     image={{

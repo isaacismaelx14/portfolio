@@ -23,7 +23,7 @@ const projectList = [
         ],
     },
     {
-        name: 'Cominnek ⚙️',
+        name: 'Cominnek',
         description:
             'With this tool, you will be able to create commits following the conventional commits standard. This project was made with Go.',
         image: 'https://i.imgur.com/nUSdflX.png',
@@ -39,7 +39,7 @@ const projectList = [
         ],
     },
     {
-        name: 'MedraMart ⚖️',
+        name: 'MedraMart',
         description:
             'This website is for a Lawyer and surveyor company where I implemented a contact and integration with google maps. This project was made with Next JS.',
         image: 'https://i.imgur.com/JyVlhco.png',
@@ -51,7 +51,7 @@ const projectList = [
         ],
     },
     {
-        name: 'Project Manager CLI ⚙️',
+        name: 'Project Manager CLI',
         description:
             'This a CLI with which you can create your react components with all the necessary files, such as style files, test files and some other configurations.',
         image: 'https://i.imgur.com/Rsa7het.png',
@@ -63,7 +63,7 @@ const projectList = [
         ],
     },
     {
-        name: 'Image Server 🖼',
+        name: 'Image Server',
         description:
             'This is a server that allows you to upload images, compress them and get them. This project was made with Node JS, Express.',
         image: 'https://i.imgur.com/nZgksmT.png',
@@ -123,7 +123,7 @@ const Projects = () => {
                                         <h4 className="text-xl font-bold">
                                             {project.name}
                                         </h4>
-                                        <p className="min-h-[100px]">
+                                        <p className="md:min-h-[110px] xl:min-h-[144px] 2xl:min-h-[105px]">
                                             {project.description}
                                         </p>
                                     </div>

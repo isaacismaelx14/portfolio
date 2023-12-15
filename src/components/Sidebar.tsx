@@ -2,9 +2,11 @@
 import NextImage from 'next/image';
 import SectionItem from '../components/SectionItem';
 import LanguageSkill from '../components/LanguageSkill';
-import { Image } from '@nextui-org/react';
+import { Image, Link } from '@nextui-org/react';
 import Contact from './Contact';
 import Skills from './Skills';
+import Icons from './Icons';
+import { LinkedInLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
 
 const Sidebar = () => {
     return (
@@ -26,11 +28,29 @@ const Sidebar = () => {
                         }}
                     />
                 </div>
-                <section className="flex flex-col items-center">
+                <section className="flex flex-col items-center sm:items-start">
                     <h2 className="text-xl font-bold text-primary">
                         Isaac Martinez
                     </h2>
-                    <p className="text-sm">Full Stack</p>
+                    <p className="text-sm">Full Stack Engineer</p>
+                    <div className="flex gap-2 mt-2">
+                        <Link
+                            href="https://www.linkedin.com/in/isaacismaelx14/"
+                            className="flex gap-1 text-gray-300"
+                            target="_blank"
+                        >
+                            <LinkedInLogoIcon aria-hidden />
+                            LinkedIn
+                        </Link>
+                        <Link
+                            href="https://github.com/isaacismaelx14"
+                            className="flex gap-1 text-gray-300"
+                            target="_blank"
+                        >
+                            <GitHubLogoIcon aria-hidden />
+                            GitHub
+                        </Link>
+                    </div>
                 </section>
             </article>
             <div className="my-5 bg-primary w-full h-[1px]" />
