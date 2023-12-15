@@ -7,7 +7,7 @@ import { LinkedInLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
 const SidebarMe = () => {
     return (
         <article className="flex items-center flex-col gap-2 sm:gap-5 sm:flex-row sm:m-auto">
-            <div className="max-w-[150px] sm:max-w-[100px]  border-2 border-primary rounded-full">
+            <div className="max-w-[150px] sm:max-w-[100px] border-3 border-purple-900  rounded-full">
                 <Image
                     isBlurred
                     priority

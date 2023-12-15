@@ -3,11 +3,17 @@ type Props = {
     height?: number | string;
     background?: string;
     opacity?: number;
+    className?: string;
 };
 
 const BackgroundSphere: React.FC<Props> = (props) => {
     return (
-        <div className="blur-3xl absolute w-full h-full" aria-hidden>
+        <div
+            className={`blur-3xl absolute w-full h-full ${
+                props.className ?? ''
+            }`}
+            aria-hidden
+        >
             <GenerateCircle {...props} />
         </div>
     );
