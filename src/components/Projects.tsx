@@ -96,6 +96,7 @@ const Projects = () => {
                             rotateXMax={10}
                             rotateYMax={10}
                             className="flex gap-w-full z-50 mx-auto"
+                            rotateTouch={false}
                         >
                             <section className="w-full group shadow-xl">
                                 <Image

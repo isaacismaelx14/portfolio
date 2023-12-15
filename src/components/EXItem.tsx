@@ -36,6 +36,7 @@ const EXItem: React.FC<EXItemProps> = ({
                 rotateXMax={5}
                 rotateYMax={5}
                 className="flex gap-w-full z-50 mx-auto"
+                rotateTouch={false}
             >
                 <div className="flex items-end justify-between w-full bg-gray-900 px-4 py-2 rounded-t-xl border-gray-800 border-5 border-b-0">
                     <div className="flex content-center gap-2">

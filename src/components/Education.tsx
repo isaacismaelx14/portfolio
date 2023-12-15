@@ -74,6 +74,7 @@ const Education = () => {
                             rotateXMax={10}
                             rotateYMax={10}
                             className="flex gap-w-full z-50 mx-auto"
+                            rotateTouch={false}
                         >
                             <section className="flex flex-col gap-1 border-l-3 border-gray-700 pl-4 min-h-[80px]">
                                 <h4 className="text-xl font-bold">
