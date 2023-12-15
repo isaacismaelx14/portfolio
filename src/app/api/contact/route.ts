@@ -5,11 +5,12 @@ export async function POST(request: NextRequest) {
         const Mailer = (await import('../../../config/Mailer')).default;
         const res = await request.json();
 
-        const { body, subject } = res;
+        const { body, subject, reply } = res;
         await Mailer.sendMail({
             from: 'Portfolio Contact <portfolio@example.net>',
             to: 'isaacismaelx14@gmail.com',
             subject,
+            replyTo: reply,
             text: body,
         });
 

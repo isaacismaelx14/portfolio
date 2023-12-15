@@ -47,7 +47,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
         const hoverBackground = !!colorHoverBackground
             ? `hover:${colorHoverBackground}`
             : '';
-        const className = `gray-scale-hover rounded-xl w-full max-w-[100px] sm:max-w-[170px]  ${project.className} hover:scale-110 ${hoverBackground} `;
+        const className = `gray-scale-hover rounded-xl w-full max-w-[100px] sm:max-w-[170px] ${project.className} hover:scale-110 ${hoverBackground} `;
 
         return (
             <div
@@ -119,7 +119,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
     });
 
     return (
-        <div className="py-3 px-10 pb-10 z-20 w-full bg-zinc-700 rounded-b-xl border-5 border-gray-800 border-t-0">
+        <div className="py-3 px-10 pb-10 z-20 w-full bg-zinc-700 bg-opacity-60 backdrop-blur-md rounded-b-xl border-5 border-gray-800 border-t-0">
             <h4 className="text-lg font-bold mb-2">Projects I worked on</h4>
             <div className="relative w-full flex flex-wrap gap-2 pt-2 z-50">
                 {projectImages}

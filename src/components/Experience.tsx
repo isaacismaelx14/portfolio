@@ -1,5 +1,8 @@
 import { ProjectImage } from './ProjectShowcase';
 import EXItem from './EXItem';
+import BackgroundSphere from './BackgroundSphere';
+import SectionHeading from './SectionHeading';
+import { DesktopIcon } from '@radix-ui/react-icons';
 
 const images: ProjectImage[] = [
     {
@@ -186,8 +189,25 @@ const images: ProjectImage[] = [
 
 const Experience = () => {
     return (
-        <article className="w-full">
-            <h3 className="text-3xl font-bold m-auto mb-4">Experience</h3>
+        <article className="w-full relative">
+            {/* This is a hack to fix the background sphere */}
+            <span className="h-[830px] bg-purple-900 hidden" />
+            <BackgroundSphere
+                width={'8/12'}
+                height={830}
+                background="purple-900"
+                opacity={30}
+            />
+            <SectionHeading
+                className="mb-[46px] mt-5"
+                chip={{
+                    text: 'Engineering Excellence',
+                    icon: <DesktopIcon />,
+                    variant: 'flat',
+                }}
+                title="Professional Journey"
+                description="Building Solutions, Leading Teams"
+            />
             <div className="grid gap-4">
                 <EXItem
                     company="Minnek Digital Agency"

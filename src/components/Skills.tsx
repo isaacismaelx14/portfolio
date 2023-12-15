@@ -1,4 +1,5 @@
-'use strict';
+'use client';
+import Atropos from 'atropos/react';
 import Icons from '../components/Icons';
 import { CustomAction } from './ProjectShowcase';
 import SectionItem from './SectionItem';
@@ -48,7 +49,14 @@ const Skills = () => {
                     }
                     placement="top"
                 >
-                    {renderIcons(icon.name)}
+                    <Atropos
+                        shadow={false}
+                        className="flex gap-w-full w-full z-50 mx-auto"
+                        rotateTouch={false}
+                        highlight={false}
+                    >
+                        {renderIcons(icon.name)}
+                    </Atropos>
                 </CustomAction>
             ))}
         </SectionItem>

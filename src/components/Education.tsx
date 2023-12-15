@@ -1,6 +1,10 @@
 'use client';
 import Atropos from 'atropos/react';
 import { useMemo } from 'react';
+import SectionHeading from './SectionHeading';
+import { BookmarkFilledIcon } from '@radix-ui/react-icons';
+import { Card, CardBody } from '@nextui-org/react';
+import BackgroundSphere from './BackgroundSphere';
 
 type EducationItem = {
     degree: string;
@@ -63,43 +67,65 @@ const Education = () => {
     );
 
     return (
-        <div>
-            <h3 className="text-3xl font-bold m-auto mt-6 mb-4">Education</h3>
-            <ul className="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {sortedEducation.map((item) => (
-                    <li key={item.institution}>
-                        <Atropos
-                            activeOffset={-10}
-                            shadow={false}
-                            rotateXMax={10}
-                            rotateYMax={10}
-                            className="flex gap-w-full z-50 mx-auto"
-                            rotateTouch={false}
-                        >
-                            <section className="flex flex-col gap-1 border-l-3 border-gray-700 pl-4 min-h-[80px]">
-                                <h4 className="text-xl font-bold">
-                                    {item.degree}
-                                </h4>
-                                <div>
-                                    <p>{item.institution}</p>
-                                    {item.startYear && item.startYear && (
-                                        <p>
-                                            {item.startYear === null
-                                                ? 'No information available'
-                                                : item.startYear}{' '}
-                                            -{' '}
-                                            {item.endYear === null
-                                                ? 'Present'
-                                                : item.endYear}
-                                        </p>
-                                    )}
-                                </div>
-                            </section>
-                        </Atropos>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <article className="relative">
+            {/* This is a hack to fix the background sphere */}
+            <span className="h-[330px] bg-purple-900 opacity-20 hidden" />
+            <BackgroundSphere
+                width={'2/5'}
+                height={330}
+                background="purple-900"
+                opacity={20}
+            />
+            <SectionHeading
+                className="mb-10 mt-28"
+                chip={{
+                    text: 'Lifelong Learner',
+                    icon: <BookmarkFilledIcon />,
+                    variant: 'flat',
+                }}
+                title="My Educational Pathway"
+                description="A Continuous Quest for Knowledge and Skill"
+            />
+            <Card className="py-4 px-2" isBlurred>
+                <CardBody
+                    as={'ul'}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 "
+                >
+                    {sortedEducation.map((item) => (
+                        <li key={item.institution}>
+                            <Atropos
+                                activeOffset={-10}
+                                shadow={false}
+                                rotateXMax={10}
+                                rotateYMax={10}
+                                className="flex gap-w-full z-50 mx-auto"
+                                rotateTouch={false}
+                            >
+                                <section className="flex flex-col gap-1 border-l-3 border-gray-700 pl-4 min-h-[80px]">
+                                    <h4 className="text-xl font-bold">
+                                        {item.degree}
+                                    </h4>
+                                    <div>
+                                        <p>{item.institution}</p>
+                                        {item.startYear && item.startYear && (
+                                            <p>
+                                                {item.startYear === null
+                                                    ? 'No information available'
+                                                    : item.startYear}{' '}
+                                                -{' '}
+                                                {item.endYear === null
+                                                    ? 'Present'
+                                                    : item.endYear}
+                                            </p>
+                                        )}
+                                    </div>
+                                </section>
+                            </Atropos>
+                        </li>
+                    ))}
+                </CardBody>
+            </Card>
+        </article>
     );
 };
 

@@ -1,30 +1,50 @@
-import { Input, Textarea } from '@nextui-org/input';
-import { Button } from '@nextui-org/react';
-import SectionItem from './SectionItem';
+'use client';
+import { Card, CardBody } from '@nextui-org/react';
+import ContactForm from './ContactForm';
+import SectionHeading from './SectionHeading';
+import { StarFilledIcon } from '@radix-ui/react-icons';
+import BackgroundSphere from './BackgroundSphere';
+import Atropos from 'atropos/react';
 
-const Contact: React.FC<{
-    className?: string;
-}> = ({ className }) => {
+const Contact = () => {
     return (
-        <div className={className}>
-            <SectionItem
-                sectionTitle="Contact"
-                sectionClassName="mt-5 max-lg:!text-3xl"
-                className="px-1 flex-col gap-2 flex"
-            >
-                <Input
-                    size="sm"
-                    variant="bordered"
-                    type="email"
-                    label="Email"
+        <article className="relative my-40">
+            <BackgroundSphere
+                width={'8/12'}
+                height={330}
+                background="purple-950"
+                opacity={30}
+            />
+            <section>
+                <SectionHeading
+                    chip={{
+                        text: 'Open Dialogue',
+                        icon: <StarFilledIcon />,
+                        variant: 'flat',
+                    }}
+                    title="Get In Touch"
+                    description="Your Thoughts, Our Next Big Idea"
                 />
-                <Textarea size="sm" variant="bordered" label="Message" />
-
-                <Button size="sm" variant="ghost" color="primary">
-                    Send
-                </Button>
-            </SectionItem>
-        </div>
+                <Atropos
+                    activeOffset={-10}
+                    shadow={false}
+                    rotateXMax={10}
+                    rotateYMax={10}
+                    className="flex gap-w-full w-full z-50 mx-auto"
+                    rotateTouch={false}
+                    highlight={false}
+                >
+                    <Card
+                        className="py-4 px-2 mb-20 max-w-2xl m-auto"
+                        isBlurred
+                    >
+                        <CardBody>
+                            <ContactForm />
+                        </CardBody>
+                    </Card>
+                </Atropos>
+            </section>
+        </article>
     );
 };
 
