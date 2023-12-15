@@ -12,6 +12,7 @@ const Sidebar = () => {
                 <div className="max-w-[150px] sm:max-w-[100px]  border-2 border-primary rounded-full">
                     <Image
                         isBlurred
+                        priority
                         as={NextImage}
                         src="/img/isaac.jpg"
                         alt="Isaac Martinez profile picture"
@@ -32,7 +33,10 @@ const Sidebar = () => {
                 </section>
             </article>
             <div className="my-5 bg-primary w-full h-[1px]" />
-            <SectionItem sectionTitle="Skills" className="flex flex-wrap">
+            <SectionItem
+                sectionTitle="Skills"
+                className="grid gap-2 max-sm:grid-cols-6 sm:gap-0 sm:flex flex-wrap"
+            >
                 <Icons.HTML className="svg-icon" />
                 <Icons.CSS className="svg-icon" />
                 <Icons.JavaScript className="svg-icon" />
