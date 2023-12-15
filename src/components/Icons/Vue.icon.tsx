@@ -15,10 +15,12 @@ const VueIcon = (props: SVGProps<SVGSVGElement>) => (
             <path
                 d="M61.997 45.3931L84.999 45.4021L100.035 70.3601L115.018 45.4041L138 45.3981L100.15 111.053L61.997 45.3931Z"
                 fill="#35495E"
+                data-atropos-offset={'8'}
             />
             <path
                 d="M36.91 45.569L61.977 45.397L100.127 111.056L137.98 45.401L163.09 45.427L100.124 153.487L36.91 45.569Z"
                 fill="#41B883"
+                data-atropos-offset={'-4'}
             />
         </g>
         <defs>
