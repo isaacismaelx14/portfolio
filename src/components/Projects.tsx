@@ -1,7 +1,7 @@
 'use client';
-import { Button } from '@nextui-org/react';
+import { Button, Image } from '@nextui-org/react';
 import Atropos from 'atropos/react';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import Link from 'next/link';
 import { useMemo } from 'react';
 
@@ -62,55 +62,68 @@ const projectList = [
             },
         ],
     },
-    // {
-    //     name: 'Image Server 🖼',
-    //     description:
-    //         'This is a server that allows you to upload images, compress them and get them. This project was made with Node JS, Express.',
-    //     image: 'https://i.imgur.com/nZgksmT.png',
-    //     urls: [
-    //         {
-    //             url: 'https://github.com/isaacismaelx14/image-server',
-    //             label: 'View Code',
-    //         },
-    //     ],
-    // },
+    {
+        name: 'Image Server 🖼',
+        description:
+            'This is a server that allows you to upload images, compress them and get them. This project was made with Node JS, Express.',
+        image: 'https://i.imgur.com/nZgksmT.png',
+        urls: [
+            {
+                url: 'https://github.com/isaacismaelx14/image-server',
+                label: 'View Code',
+            },
+        ],
+    },
 ];
 
 const Projects = () => {
+    const maxProjects = 6;
     const projects = useMemo(() => projectList, []);
-    const displayProjects = useMemo(() => projects.slice(0, 4), [projects]);
+    const displayProjects = useMemo(
+        () => projects.slice(0, maxProjects),
+        [projects]
+    );
 
     return (
         <article className="w-full">
             <h3 className="text-3xl font-bold m-auto mt-6 mb-4">Projects</h3>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                 {displayProjects.map((project) => (
                     <Atropos
                         key={project.name}
                         activeOffset={-10}
                         shadow={false}
-                        rotateXMax={5}
-                        rotateYMax={5}
+                        rotateXMax={10}
+                        rotateYMax={10}
                         className="flex gap-w-full z-50 mx-auto"
                     >
-                        <section className="w-full rounded-xl group shadow-xl">
+                        <section className="w-full group shadow-xl">
                             <Image
                                 src={project.image}
+                                isZoomed
+                                isBlurred
                                 width={1920}
                                 height={1080}
                                 alt={project.name}
-                                className="rounded-t-xl grouped-gray-scale-hover"
+                                as={NextImage}
+                                className="h-[160px] w-full object-cover"
+                                classNames={{
+                                    img: ' grouped-gray-scale-hover rounded-t-xl !rounded-none',
+                                    zoomedWrapper: '!rounded-t-xl rounded-none',
+                                }}
                                 priority={project === projects[0]}
-                                data-atropos-offset={
-                                    Math.floor(Math.random() * 5) - 2
-                                }
+                                data-atropos-offset={Math.floor(
+                                    Math.random() * 5
+                                )}
                             />
                             <div className="grid gap-4 p-4 bg-gray-800 rounded-b-xl">
                                 <div>
                                     <h4 className="text-xl font-bold">
                                         {project.name}
                                     </h4>
-                                    <p>{project.description}</p>
+                                    <p className="min-h-[100px]">
+                                        {project.description}
+                                    </p>
                                 </div>
                                 {project.urls && project.urls.length > 0 && (
                                     <div className="flex gap-2">
@@ -137,7 +150,7 @@ const Projects = () => {
                     </Atropos>
                 ))}
             </div>
-            {projects.length > 4 && (
+            {projects.length > maxProjects && (
                 <Button
                     color="primary"
                     as={Link}
