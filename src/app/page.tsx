@@ -4,6 +4,7 @@ import Experience from '../components/Experience';
 import Projects from '../components/Projects';
 import Sidebar from '../components/Sidebar';
 import Contact from '../components/Contact';
+import Education from '../components/Education';
 
 const Main: NextPage = () => {
     return (
@@ -13,10 +14,8 @@ const Main: NextPage = () => {
                 <main className="w-full min-h-[calc(100vh-5rem)] relative z-[999] lg:px-5 mt-10 lg:mt-6">
                     <Experience />
                     <Projects />
-                    <section>
-                        <h3>Education</h3>
-                    </section>
-                    <Contact className="lg:hidden mb-14" />
+                    <Education />
+                    <Contact className="lg:hidden mt-6 mb-10 border-t-5 border-primary" />
                 </main>
             </article>
         </div>

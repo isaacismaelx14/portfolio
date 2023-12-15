@@ -9,7 +9,7 @@ const Contact: React.FC<{
         <div className={className}>
             <SectionItem
                 sectionTitle="Contact"
-                sectionClassName="mt-5"
+                sectionClassName="mt-5 max-lg:!text-3xl"
                 className="px-1 flex-col gap-2 flex"
             >
                 <Input
