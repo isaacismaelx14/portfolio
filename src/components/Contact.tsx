@@ -26,10 +26,10 @@ const Contact = () => {
                     description="Your Thoughts, Our Next Big Idea"
                 />
                 <Atropos
-                    activeOffset={-10}
+                    activeOffset={-5}
                     shadow={false}
-                    rotateXMax={10}
-                    rotateYMax={10}
+                    rotateXMax={5}
+                    rotateYMax={5}
                     className="flex gap-w-full w-full z-50 mx-auto"
                     rotateTouch={false}
                     highlight={false}
