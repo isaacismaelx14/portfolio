@@ -1,5 +1,5 @@
 import NextImage from 'next/image';
-import { Button, Tooltip, Image } from '@nextui-org/react';
+import { Button, Tooltip, Image, TooltipProps } from '@nextui-org/react';
 import { useState } from 'react';
 
 export type ProjectImage = {
@@ -130,15 +130,17 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
 
 export default ProjectShowcase;
 
-const CustomAction: React.FC<{
-    children: React.ReactNode;
-    content: React.ReactNode;
-}> = ({ children, content }) => {
+export const CustomAction: React.FC<
+    {
+        children: React.ReactNode;
+        content: React.ReactNode;
+    } & TooltipProps
+> = ({ children, content, ...props }) => {
     const [ttOpen, setTTOpen] = useState(false);
 
     return (
         <Tooltip
-            placement="right-start"
+            placement="bottom"
             closeDelay={100}
             content={
                 <div
@@ -154,6 +156,7 @@ const CustomAction: React.FC<{
             }
             isDisabled={!content}
             isOpen={ttOpen}
+            {...props}
         >
             <section
                 onMouseEnter={() => {

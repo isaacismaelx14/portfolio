@@ -1,9 +1,10 @@
+'use client';
 import NextImage from 'next/image';
-import Icons from '../components/Icons';
 import SectionItem from '../components/SectionItem';
 import LanguageSkill from '../components/LanguageSkill';
 import { Image } from '@nextui-org/react';
 import Contact from './Contact';
+import Skills from './Skills';
 
 const Sidebar = () => {
     return (
@@ -33,32 +34,7 @@ const Sidebar = () => {
                 </section>
             </article>
             <div className="my-5 bg-primary w-full h-[1px]" />
-            <SectionItem
-                sectionTitle="Skills"
-                className="grid gap-2 max-sm:grid-cols-6 sm:gap-0 sm:flex flex-wrap"
-            >
-                <Icons.HTML className="svg-icon" />
-                <Icons.CSS className="svg-icon" />
-                <Icons.JavaScript className="svg-icon" />
-                <Icons.Typescript className="svg-icon" />
-                <Icons.React className="svg-icon" />
-                <Icons.Vue className="svg-icon" />
-                <Icons.Nextjs className="svg-icon" />
-                <Icons.NestJS className="svg-icon" />
-                <Icons.Express className="svg-icon" />
-                <Icons.NodeJs className="svg-icon" />
-                <Icons.Go className="svg-icon" />
-                <Icons.Python className="svg-icon" />
-                <Icons.CPlus className="svg-icon" />
-                <Icons.CSharp className="svg-icon" />
-                <Icons.Electron className="svg-icon" />
-                <Icons.Git className="svg-icon" />
-                <Icons.Mysql className="svg-icon" />
-                <Icons.Aws className="svg-icon" />
-                <Icons.Linux className="svg-icon" />
-                <Icons.Windows className="svg-icon" />
-                <Icons.Terminal className="svg-icon" />
-            </SectionItem>
+            <Skills />
 
             <SectionItem
                 sectionTitle="Languages"
