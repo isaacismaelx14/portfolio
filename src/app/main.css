@@ -10,8 +10,11 @@
     .gray-scale-hover {
         @apply grayscale hover:grayscale-0 transition-all duration-500;
     }
-}
 
+    .grouped-gray-scale-hover {
+        @apply grayscale group-hover:grayscale-0 transition-all duration-500;
+    }
+}
 
 :root {
   --nextui-background: transparent;

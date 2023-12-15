@@ -187,8 +187,8 @@ const images: ProjectImage[] = [
 const Experience = () => {
     return (
         <article className="w-full">
-            <h3 className="text-2xl font-bold">Experience</h3>
-            <div className="grid gap-4 my-2">
+            <h3 className="text-3xl font-bold m-auto mb-4">Experience</h3>
+            <div className="grid gap-4">
                 <EXItem
                     company="Minnek Digital Agency"
                     endDate="Present"

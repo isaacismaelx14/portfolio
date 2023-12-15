@@ -6,6 +6,7 @@ import LanguageSkill from '../components/LanguageSkill';
 import { Input, Textarea } from '@nextui-org/input';
 import { Button } from '@nextui-org/react';
 import Experience from '../components/Experience';
+import Projects from '../components/Projects';
 
 const Main: NextPage = () => {
     return (
@@ -92,9 +93,7 @@ const Main: NextPage = () => {
                 </header>
                 <main className="w-full min-h-[calc(100vh-5rem)] relative z-[999] px-5">
                     <Experience />
-                    <section>
-                        <h3>Projects</h3>
-                    </section>
+                    <Projects />
                     <section>
                         <h3>Education</h3>
                     </section>
