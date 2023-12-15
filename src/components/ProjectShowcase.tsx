@@ -1,5 +1,11 @@
 import Image from 'next/image';
-import { Button, Tooltip } from '@nextui-org/react';
+import {
+    Button,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+    Tooltip,
+} from '@nextui-org/react';
 
 export type ProjectImage = {
     id: number;
@@ -54,10 +60,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
                 className="z-10 hover:z-30"
                 data-atropos-offset={randomOffset.toString()}
             >
-                <Tooltip
-                    placement="right-start"
-                    delay={800}
-                    closeDelay={100}
+                <CustomAction
                     content={
                         project.content && (
                             <div className="px-1 py-2 max-w-[300px]">
@@ -73,7 +76,6 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
                                             width={500}
                                             height={500}
                                             className=""
-                                            objectFit="fill"
                                         />
                                     </div>
                                 )}
@@ -100,7 +102,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
                             </div>
                         )
                     }
-                    isDisabled={!project.content}
+                    project={project}
                 >
                     <Image
                         src={project.url}
@@ -109,7 +111,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
                         height={100}
                         className={className}
                     />
-                </Tooltip>
+                </CustomAction>
             </div>
         );
     });
@@ -125,3 +127,30 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
 };
 
 export default ProjectShowcase;
+
+const CustomAction: React.FC<{
+    children: React.ReactNode;
+    content: React.ReactNode;
+    project: ProjectImage;
+}> = ({ children, content, project }) => {
+    return (
+        <>
+            <div className="hidden lg:block">
+                <Tooltip
+                    placement="right-start"
+                    closeDelay={100}
+                    content={content}
+                    isDisabled={!content}
+                >
+                    {children}
+                </Tooltip>
+            </div>
+            <div className="lg:hidden">
+                <Popover placement="right">
+                    <PopoverTrigger>{children}</PopoverTrigger>
+                    <PopoverContent hidden={!content}>{content}</PopoverContent>
+                </Popover>
+            </div>
+        </>
+    );
+};

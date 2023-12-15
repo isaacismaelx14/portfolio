@@ -18,7 +18,6 @@ const Sidebar = () => {
                         width={500}
                         height={500}
                         className="rounded-full grayscale hover:grayscale-0 transition-all duration-500 ease-in-out"
-                        objectFit="fill"
                     />
                 </div>
                 <section className="flex flex-col items-center">
