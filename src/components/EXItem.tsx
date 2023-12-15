@@ -1,8 +1,9 @@
 'use client';
 import 'atropos/css';
 import Atropos from 'atropos/react';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import ProjectShowcase, { ProjectImage } from './ProjectShowcase';
+import { Image } from '@nextui-org/react';
 
 type EXItemProps = {
     company: string;
@@ -42,9 +43,11 @@ const EXItem: React.FC<EXItemProps> = ({
                     <div className="flex content-center gap-2">
                         <div className="max-w-[40px] grid place-content-center">
                             <Image
+                                isBlurred
+                                as={NextImage}
                                 src={image.url}
                                 alt={image.alt}
-                                width={50}
+                                width={70}
                                 height={50}
                                 className={imgClassName}
                             />

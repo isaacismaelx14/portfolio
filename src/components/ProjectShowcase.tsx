@@ -1,11 +1,5 @@
-import Image from 'next/image';
-import {
-    Button,
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-    Tooltip,
-} from '@nextui-org/react';
+import NextImage from 'next/image';
+import { Button, Tooltip, Image } from '@nextui-org/react';
 import { useState } from 'react';
 
 export type ProjectImage = {
@@ -71,6 +65,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
                                 {project.content?.thumbnail && (
                                     <div className="w-full p-2 my-2">
                                         <Image
+                                            as={NextImage}
                                             src={project.content?.thumbnail}
                                             alt={project.alt}
                                             title={project.alt}
@@ -105,11 +100,18 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ Projects }) => {
                     }
                 >
                     <Image
+                        isBlurred
+                        as={NextImage}
                         src={project.url}
                         alt={project.alt}
                         width={200}
                         height={100}
                         className={className}
+                        classNames={{
+                            wrapper: 'group',
+                            blurredImg:
+                                'grayscale-[70%] hover:grayscale-0 transition-all duration-500',
+                        }}
                     />
                 </CustomAction>
             </div>
@@ -138,7 +140,18 @@ const CustomAction: React.FC<{
         <Tooltip
             placement="right-start"
             closeDelay={100}
-            content={content}
+            content={
+                <div
+                    onMouseEnter={() => {
+                        setTTOpen(true);
+                    }}
+                    onMouseLeave={() => {
+                        setTTOpen(false);
+                    }}
+                >
+                    {content}
+                </div>
+            }
             isDisabled={!content}
             isOpen={ttOpen}
         >

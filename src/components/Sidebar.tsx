@@ -1,9 +1,8 @@
-import Image from 'next/image';
+import NextImage from 'next/image';
 import Icons from '../components/Icons';
 import SectionItem from '../components/SectionItem';
 import LanguageSkill from '../components/LanguageSkill';
-import { Input, Textarea } from '@nextui-org/input';
-import { Button } from '@nextui-org/react';
+import { Image } from '@nextui-org/react';
 import Contact from './Contact';
 
 const Sidebar = () => {
@@ -12,12 +11,17 @@ const Sidebar = () => {
             <article className="flex items-center flex-col gap-2 sm:gap-5 sm:flex-row sm:m-auto">
                 <div className="max-w-[150px] sm:max-w-[100px]  border-2 border-primary rounded-full">
                     <Image
+                        isBlurred
+                        as={NextImage}
                         src="/img/isaac.jpg"
                         alt="Isaac Martinez profile picture"
                         title="Isaac Martinez"
                         width={500}
                         height={500}
                         className="rounded-full grayscale hover:grayscale-0 transition-all duration-500 ease-in-out"
+                        classNames={{
+                            blurredImg: 'rounded-full',
+                        }}
                     />
                 </div>
                 <section className="flex flex-col items-center">
