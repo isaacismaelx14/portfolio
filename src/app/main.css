@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .svg-icon {
+        @apply w-[60px] grayscale hover:grayscale-0 transition-all duration-500 p-1;
+    }
+
+    .gray-scale-hover {
+        @apply grayscale hover:grayscale-0 transition-all duration-500;
+    }
+
+    .grouped-gray-scale-hover {
+        @apply grayscale group-hover:grayscale-0 transition-all duration-500;
+    }
+}
+
+:root {
+  --nextui-background: transparent;
+}
+/* scroll behavior */
+html, body {
+  scroll-behavior: smooth;
+}

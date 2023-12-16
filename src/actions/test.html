@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+        }
+
+        .email-header {
+            background-color: #1570f0;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 20px 20px 0px 0;
+        }
+
+        .email-body {
+            padding: 20px;
+            color: #fff;
+            background-color: #2f3541;
+        }
+
+        .email-footer {
+            background-color: #1c222d;
+            color: #eeee;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            border-radius: 0px 0px 20px 20px;
+        }
+
+        a {
+            color: #1a82e2;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="email-container" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <!-- Header -->
+        <tr>
+            <td class="email-header">
+                <h1>Contact Confirmation</h1>
+            </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+            <td class="email-body">
+                <p>Hello <span style="color: #b666f4; font-weight: bold;">${body.name.toString()}</span>,</p>
+                <p>It's great to hear from you! Your message is in good hands and I'm looking forward to diving into it.
+                    Expect a response promptly, as your ideas and inquiries are always a priority. </p>
+                <p>Best Regards,</p>
+                <p><strong>Isaac Martinez</strong><br>
+                    <span style="font-size: 12px;">Software Engineer, Crafting Tomorrow's Solutions</span>
+                </p>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td class="email-footer">
+                <p>Stay Connected</p>
+                <p><a href="https://www.linkedin.com/in/isaacismaelx14/" target="_blank">LinkedIn</a> | <a
+                        href="https://www.isaacmartinez.dev/" target="_blank">Portfolio</a></p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
