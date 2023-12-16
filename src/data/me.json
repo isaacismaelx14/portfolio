@@ -47,6 +47,9 @@
             "title": "Node.Js"
         },
         {
+            "name": "NestJs"
+        }, 
+        {
             "name": "Go",
             "title": "Go Lang"
         },
