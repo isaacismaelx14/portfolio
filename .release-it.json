@@ -8,16 +8,13 @@
     "npm": false,
     "plugins": {
         "@release-it/conventional-changelog": {
-            "preset": "angular",
+            "name": "angular",
             "infile": "CHANGELOG.md"
         },
         "@release-it/bumper": {
             "out": {
                 "file": "config.json",
-                "path": [
-                    "name",
-                    "version"
-                ]
+                "path": ["name", "version"]
             }
         }
     },
