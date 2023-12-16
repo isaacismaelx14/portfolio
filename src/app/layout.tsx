@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import './main.css';
 import { Providers } from './providers';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
     title: 'Isaac Martinez - Full Stack Engineer | Portfolio',
@@ -51,6 +52,7 @@ export default function RootLayout({
             <body className="dark:bg-dark dark:text-gray-50">
                 <Providers>{children}</Providers>
                 <SpeedInsights />
+                <Analytics />
             </body>
         </html>
     );
