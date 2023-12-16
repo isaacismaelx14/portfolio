@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         url: 'https://www.isaacmartinez.dev/',
         images: [
             {
-                url: 'https://www.isaacmartinez.dev/og-image.png',
+                url: 'https://www.isaacmartinez.dev/og.png',
                 width: 1200,
                 height: 630,
                 alt: 'Isaac Martinez - Full Stack Engineer | Portfolio',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
             "Embark on a journey through Isaac Martinez's professional landscape, featuring a robust portfolio of technological solutions and creative developments.",
         images: [
             {
-                url: 'https://www.isaacmartinez.dev/og-image.png',
+                url: 'https://www.isaacmartinez.dev/og.png',
                 width: 1200,
                 height: 630,
                 alt: 'Isaac Martinez - Full Stack Engineer | Portfolio',
