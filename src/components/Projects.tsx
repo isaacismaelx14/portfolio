@@ -8,6 +8,18 @@ import { GearIcon } from '@radix-ui/react-icons';
 
 const projectList = [
     {
+        name: 'DevsCut',
+        description:
+            'A cutting-edge analytics platform. DepsCut is designed to simplify and enhance digital interactions through link shortening and email tracking capabilities.',
+        image: 'https://i.imgur.com/0L6h4wD.png',
+        urls: [
+            {
+                url: 'https://devscut.com/',
+                label: 'View Project',
+            },
+        ],
+    },
+    {
         name: 'Project Templify',
         description:
             "CLI that would allow me to create any structure and be easy to configure. That's how Project Templify was born.",
