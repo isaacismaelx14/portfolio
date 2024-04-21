@@ -9,7 +9,6 @@ export const metadata: Metadata = {
     description:
         'Discover the innovative projects and professional journey of Isaac Martinez, a seasoned Full Stack Engineer with a passion for technology and creative problem-solving.',
     robots: 'index, follow',
-    viewport: 'width=device-width, initial-scale=1',
     openGraph: {
         title: 'Isaac Martinez - Full Stack Engineer | Portfolio',
         type: 'website',
