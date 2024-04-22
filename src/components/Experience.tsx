@@ -210,8 +210,19 @@ const Experience = () => {
             />
             <div className="grid gap-4">
                 <EXItem
-                    company="Minnek Digital Agency"
+                    company="VPM Solutions"
+                    position="Backend Engineer"
+                    startDate="Apr 2024"
                     endDate="Present"
+                    image={{
+                        alt: 'VPM Solutions Logo',
+                        url: '/img/vpm.jpg',
+                        className: 'p-2',
+                    }}
+                />
+                <EXItem
+                    company="Minnek Digital Agency"
+                    endDate="Apr 2024"
                     position="Team Lead - Full Stack Engineer [SE2]"
                     projects={[
                         {
@@ -226,7 +237,7 @@ const Experience = () => {
                             },
                         },
                     ]}
-                    startDate="April 2022"
+                    startDate="Apr 2022"
                     image={{
                         alt: 'Minnek Digital Agency Logo',
                         url: '/img/minnek-logo.svg',
@@ -235,10 +246,10 @@ const Experience = () => {
                 />
                 <EXItem
                     company="Your Store Wizards"
-                    endDate="Present"
+                    endDate="Jul 2023"
                     position="BigCommerce Engineer | Full Stack Engineer"
                     projects={images}
-                    startDate="April 2022"
+                    startDate="Apr 2022"
                     image={{
                         alt: 'Your Store Wizards',
                         url: '/img/wizards-logo.png',

@@ -16,7 +16,7 @@ type EXItemProps = {
     position: string;
     startDate: string;
     endDate: string;
-    projects: Array<ProjectImage>;
+    projects?: Array<ProjectImage>;
 };
 
 const EXItem: React.FC<EXItemProps> = ({
@@ -39,7 +39,11 @@ const EXItem: React.FC<EXItemProps> = ({
                 className="flex gap-w-full z-50 mx-auto"
                 rotateTouch={false}
             >
-                <div className="flex items-end justify-between w-full bg-gray-900 bg-opacity-75 backdrop-blur-sm px-4 py-2 rounded-t-xl border-gray-800 border-5 border-b-0">
+                <div
+                    className={`flex items-end justify-between w-full bg-gray-900 bg-opacity-75 backdrop-blur-sm px-4 py-2  border-gray-800 border-5 ${
+                        !!projects ? 'border-b-0 rounded-t-xl' : 'rounded-xl'
+                    }`}
+                >
                     <div className="flex content-center gap-2">
                         <div className="max-w-[40px] grid place-content-center">
                             <Image
@@ -62,7 +66,7 @@ const EXItem: React.FC<EXItemProps> = ({
                     </p>
                 </div>
                 <div className="w-full pb-2">
-                    <ProjectShowcase Projects={projects} />
+                    {!!projects && <ProjectShowcase Projects={projects} />}
                 </div>
             </Atropos>
         </article>
