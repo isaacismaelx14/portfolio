@@ -1,0 +1,19 @@
+---
+interface Props {
+    class?: string;
+    maxWidth?: string;
+    id?: string;
+}
+
+const { class: className, maxWidth = "7xl", id } = Astro.props;
+---
+
+<section
+    id={id}
+    class:list={[
+        `py-20 mx-auto px-4 sm:px-6 lg:px-8 max-w-${maxWidth}`,
+        className,
+    ]}
+>
+    <slot />
+</section>

@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import TimelineItem from "../components/TimelineItem.astro";
 import SkillCard from "../components/SkillCard.astro";
+import Section from "../components/Section.astro";
+import PageHeader from "../components/PageHeader.astro";
 
 const experience = [
     {
@@ -108,37 +110,29 @@ const languages = ["Spanish (Native)", "English (Fluent)"];
 ---
 
 <Layout title="About | Isaac Martinez">
-    <section class="py-20 max-w-4xl mx-auto">
-        <h1
-            class="text-4xl font-bold text-gray-900 dark:text-white mb-8 flex items-center justify-between"
-        >
-            About Me
-            <div
-                class="hidden sm:flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-md"
-                style="view-transition-name: run-btn;"
+    <Section maxWidth="4xl">
+        <PageHeader title="About Me" badgeText="Running..." badgeColor="blue">
+            <svg
+                slot="icon"
+                class="animate-spin h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
             >
-                <svg
-                    class="animate-spin h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <circle
-                        class="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        stroke-width="4"></circle>
-                    <path
-                        class="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                </svg>
-                <span class="font-semibold text-xs">Running...</span>
-            </div>
-        </h1>
+                <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"></circle>
+                <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+            </svg>
+        </PageHeader>
 
         <div class="prose prose-lg text-gray-500 dark:text-gray-400 mb-16">
             <blockquote
@@ -191,5 +185,5 @@ const languages = ["Spanish (Native)", "English (Fluent)"];
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {languages.map((language) => <SkillCard name={language} />)}
         </div>
-    </section>
+    </Section>
 </Layout>

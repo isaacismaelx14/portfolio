@@ -1,41 +1,39 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import Section from "../components/Section.astro";
+import PageHeader from "../components/PageHeader.astro";
 import { projects } from "../data/projects";
 ---
 
 <Layout title="Projects | Isaac Martinez">
-    <section class="py-20 max-w-7xl mx-auto">
-        <h1
-            class="text-4xl font-bold text-gray-900 dark:text-white mb-8 flex items-center justify-between"
+    <Section>
+        <PageHeader
+            title="Projects"
+            badgeText="Compiling..."
+            badgeColor="yellow"
         >
-            Projects
-            <div
-                class="hidden sm:flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 px-3 py-1.5 rounded-md"
-                style="view-transition-name: run-btn;"
+            <svg
+                slot="icon"
+                class="animate-spin h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
             >
-                <svg
-                    class="animate-spin h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <circle
-                        class="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        stroke-width="4"></circle>
-                    <path
-                        class="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                </svg>
-                <span class="font-semibold text-xs">Compiling...</span>
-            </div>
-        </h1>
+                <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"></circle>
+                <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+            </svg>
+        </PageHeader>
         <p class="text-xl text-gray-500 dark:text-gray-400 mb-12 max-w-3xl">
             A collection of projects I've worked on, ranging from web
             applications to command-line tools.
@@ -44,5 +42,5 @@ import { projects } from "../data/projects";
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => <ProjectCard {...project} />)}
         </div>
-    </section>
+    </Section>
 </Layout>
