@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/projects";
+---
+
+<Layout title="Projects | Isaac Martinez">
+    <section class="py-20">
+        <div class="max-w-3xl mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Projects</h1>
+            <p class="text-xl text-gray-500">
+                A collection of projects I've worked on, ranging from web
+                applications to command-line tools.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project) => <ProjectCard {...project} />)}
+        </div>
+    </section>
+</Layout>

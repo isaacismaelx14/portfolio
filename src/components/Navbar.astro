@@ -1,0 +1,35 @@
+---
+const links = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Contact', href: '/contact' },
+];
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-gray-50/80 backdrop-blur-md border-b border-gray-200/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex-shrink-0 flex items-center">
+        <a href="/" class="text-xl font-bold tracking-tight text-gray-900 hover:text-gray-700 transition-colors">
+          Portfolio.
+        </a>
+      </div>
+      <div class="hidden sm:flex sm:space-x-8">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors relative group"
+          >
+            {link.name}
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 transition-all group-hover:w-full"></span>
+          </a>
+        ))}
+      </div>
+      <!-- Mobile menu button placeholder (can be implemented with a simple script if needed) -->
+      <div class="flex items-center sm:hidden">
+        <a href="/contact" class="text-sm font-medium text-gray-900">Menu</a>
+      </div>
+    </div>
+  </div>
+</nav>

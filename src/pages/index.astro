@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/projects";
+
+const featuredProjects = projects.filter((project) => project.featured);
+---
+
+<Layout title="Portfolio | Home">
+	<Hero
+		name="Isaac Martinez"
+		role="Software Architecture [AI Focused]"
+		description="I build scalable backend systems, AI-driven solutions, and robust web applications. With over 9 years of experience, I specialize in Node.js, TypeScript, and AWS architecture."
+	/>
+
+	<section class="py-20">
+		<div class="flex justify-between items-end mb-12">
+			<h2 class="text-3xl font-bold text-gray-900">Featured Projects</h2>
+			<a
+				href="/projects"
+				class="text-gray-600 hover:text-gray-900 font-medium flex items-center gap-1 group"
+			>
+				View all
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-4 w-4 transition-transform group-hover:translate-x-1"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+				</svg>
+			</a>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			{featuredProjects.map((project) => <ProjectCard {...project} />)}
+		</div>
+	</section>
+</Layout>
