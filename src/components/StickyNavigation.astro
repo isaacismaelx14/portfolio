@@ -1,70 +1,133 @@
 ---
 const { pathname } = Astro.url;
 
+// Hide on home page
+if (pathname === "/") {
+    return null;
+}
+
 const routes = [
     {
         path: "/",
         label: "Home",
         next: "/about",
-        nextLabel: "Initialize Profile",
+        nextLabel: "./init_profile.sh",
+        color: "blue", // Should not be used since hidden on home
     },
     {
         path: "/about",
         label: "About",
         next: "/projects",
-        nextLabel: "Compile Projects",
+        nextLabel: "./compile_projects.sh",
+        color: "blue",
     },
     {
         path: "/projects",
         label: "Projects",
         next: "/contact",
-        nextLabel: "Execute Contact",
+        nextLabel: "./execute_contact.sh",
+        color: "yellow",
     },
     {
         path: "/contact",
         label: "Contact",
         next: "/",
-        nextLabel: "Reboot System",
+        nextLabel: "./system_reboot.sh",
+        color: "green",
     },
 ];
 
 const currentRoute = routes.find((r) => r.path === pathname) || routes[0];
+
+const colorClasses = {
+    blue: {
+        text: "text-blue-400",
+        hoverShadow: "hover:shadow-blue-900/20",
+        hoverBorder: "hover:border-blue-500/50",
+        dot: "bg-blue-500",
+        icon: "text-blue-500",
+    },
+    yellow: {
+        text: "text-yellow-400",
+        hoverShadow: "hover:shadow-yellow-900/20",
+        hoverBorder: "hover:border-yellow-500/50",
+        dot: "bg-yellow-500",
+        icon: "text-yellow-500",
+    },
+    green: {
+        text: "text-green-400",
+        hoverShadow: "hover:shadow-green-900/20",
+        hoverBorder: "hover:border-green-500/50",
+        dot: "bg-green-500",
+        icon: "text-green-500",
+    },
+};
+
+const theme =
+    colorClasses[currentRoute.color as keyof typeof colorClasses] ||
+    colorClasses.blue;
 ---
 
-<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+<div class="fixed bottom-8 right-8 z-50">
     <a
         href={currentRoute.next}
-        class="group flex items-center gap-3 bg-gray-900 text-white px-5 py-3 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-gray-800"
+        class={`group flex items-center bg-gray-900 text-white rounded-full shadow-2xl transition-all duration-500 border border-gray-800 overflow-hidden ${theme.hoverShadow} ${theme.hoverBorder}`}
         style="view-transition-name: nav-pill;"
+        id="sticky-nav-link"
+        data-label={currentRoute.nextLabel}
     >
-        <div class="flex flex-col items-start">
+        <div
+            class="max-w-0 group-hover:max-w-[200px] transition-[max-width] duration-500 ease-in-out overflow-hidden whitespace-nowrap"
+        >
             <span
-                class="text-[10px] text-gray-400 font-mono uppercase tracking-wider"
-                >Next Step</span
+                id="sticky-nav-text"
+                class={`pl-5 py-3 block font-mono text-sm font-bold tracking-tight ${theme.text}`}
             >
-            <span
-                class="text-sm font-bold font-mono text-green-400 group-hover:text-green-300 transition-colors"
-            >
-                {currentRoute.nextLabel}
+                {/* Text injected by JS */}
             </span>
         </div>
 
         <div
-            class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center group-hover:bg-gray-700 transition-colors"
+            class="w-12 h-12 flex items-center justify-center bg-gray-800 group-hover:bg-gray-900 transition-colors relative"
         >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4 text-gray-300 group-hover:text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-            </svg>
+            <span class={`font-mono text-xl font-bold ${theme.icon}`}>>_</span>
+
+            <!-- Status dot (no animation) -->
+            <span
+                class={`absolute top-3 right-3 w-1.5 h-1.5 rounded-full ${theme.dot}`}
+            ></span>
         </div>
     </a>
 </div>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const navLink = document.getElementById("sticky-nav-link");
+        const navText = document.getElementById("sticky-nav-text");
+        let hasTyped = false;
+
+        if (navLink && navText) {
+            const label = navLink.dataset.label || "";
+
+            // Clear text initially to ensure typing effect works
+            navText.textContent = "";
+
+            navLink.addEventListener("mouseenter", () => {
+                if (!hasTyped) {
+                    hasTyped = true;
+                    navText.textContent = "";
+                    let i = 0;
+                    const typeWriter = () => {
+                        if (i < label.length) {
+                            navText.textContent += label.charAt(i);
+                            i++;
+                            setTimeout(typeWriter, 30); // Typing speed
+                        }
+                    };
+                    typeWriter();
+                }
+            });
+        }
+    });
+</script>
+```
