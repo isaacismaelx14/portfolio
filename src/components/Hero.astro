@@ -99,95 +99,111 @@ const { name, role, description } = Astro.props;
               <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
               <div class="w-3 h-3 rounded-full bg-green-400"></div>
             </div>
-            <div class="text-xs text-gray-500 dark:text-gray-400 font-mono">
-              neural_core.module.ts
+            <div class="flex items-center gap-3">
+              <div class="relative group/theme">
+                <button
+                  id="theme-selector-btn"
+                  class="flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                >
+                  <span id="current-theme-name">Default</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-3 w-3"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+                <div
+                  class="absolute right-0 top-full mt-1 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 py-1 hidden group-hover/theme:block z-10"
+                >
+                  <button
+                    class="theme-option w-full text-left px-3 py-1.5 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    data-theme="default">Default</button
+                  >
+                  <button
+                    class="theme-option w-full text-left px-3 py-1.5 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    data-theme="ocean">Ocean</button
+                  >
+                  <button
+                    class="theme-option w-full text-left px-3 py-1.5 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    data-theme="forest">Forest</button
+                  >
+                  <button
+                    class="theme-option w-full text-left px-3 py-1.5 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    data-theme="sunset">Sunset</button
+                  >
+                  <button
+                    class="theme-option w-full text-left px-3 py-1.5 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    data-theme="matrix">Matrix</button
+                  >
+                </div>
+              </div>
+              <div class="text-xs text-gray-500 dark:text-gray-400 font-mono">
+                neural_core.module.ts
+              </div>
             </div>
             <div class="w-12"></div>
           </div>
 
           <!-- Code Content -->
           <div
-            class="p-6 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed border-b border-gray-100 dark:border-gray-800"
+            id="code-window"
+            class="p-6 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed border-b border-gray-100 dark:border-gray-800 transition-colors duration-300"
           >
-            <div class="mb-4 text-gray-400">
-              <span class="text-purple-600 dark:text-purple-400">import</span>
-              <span class="text-gray-900 dark:text-gray-100">{"{"}</span>
-              <span class="text-yellow-600 dark:text-yellow-400">Module</span>
-              <span class="text-gray-900 dark:text-gray-100">{"}"}</span>
-              <span class="text-purple-600 dark:text-purple-400">from</span>
-              <span class="text-green-600 dark:text-green-400"
-                >"@nestjs/common"</span
-              >;<br />
-              <span class="text-purple-600 dark:text-purple-400">import</span>
-              <span class="text-gray-900 dark:text-gray-100">{"{"}</span>
-              <span class="text-yellow-600 dark:text-yellow-400">AiService</span
-              >
-              <span class="text-gray-900 dark:text-gray-100">{"}"}</span>
-              <span class="text-purple-600 dark:text-purple-400">from</span>
-              <span class="text-green-600 dark:text-green-400"
-                >"./ai.service"</span
-              >;
+            <div class="mb-4 syntax-comment">
+              <span class="syntax-keyword">import</span>
+              <span class="syntax-punctuation">{"{"}</span>
+              <span class="syntax-class">Module</span>
+              <span class="syntax-punctuation">{"}"}</span>
+              <span class="syntax-keyword">from</span>
+              <span class="syntax-string">"@nestjs/common"</span>;<br />
+              <span class="syntax-keyword">import</span>
+              <span class="syntax-punctuation">{"{"}</span>
+              <span class="syntax-class">AiService</span>
+              <span class="syntax-punctuation">{"}"}</span>
+              <span class="syntax-keyword">from</span>
+              <span class="syntax-string">"./ai.service"</span>;
             </div>
 
-            <div class="text-gray-900 dark:text-gray-100">
-              <span class="text-yellow-600 dark:text-yellow-400">@Module</span
-              >({"{"}
+            <div class="syntax-text">
+              <span class="syntax-decorator">@Module</span><span
+                class="syntax-punctuation">({"{"}</span
+              >
             </div>
             <div class="pl-4">
-              <span class="text-gray-900 dark:text-gray-100">providers: [</span>
+              <span class="syntax-property">providers: [</span>
             </div>
             <div class="pl-8">
-              <span class="text-yellow-600 dark:text-yellow-400">AiService</span
-              >,
+              <span class="syntax-class">AiService</span>,
             </div>
             <div class="pl-8">
-              <span class="text-gray-900 dark:text-gray-100">{"{"}</span>
+              <span class="syntax-punctuation">{"{"}</span>
             </div>
             <div class="pl-12">
-              <span class="text-gray-900 dark:text-gray-100">provide:</span>
-              <span class="text-green-600 dark:text-green-400">"Engineer"</span
-              >,
+              <span class="syntax-property">provide:</span>
+              <span class="syntax-string">"Engineer"</span>,
             </div>
             <div class="pl-12">
-              <span class="text-gray-900 dark:text-gray-100">useValue:</span>
-              <span class="text-green-600 dark:text-green-400">"{name}"</span>,
+              <span class="syntax-property">useValue:</span>
+              <span class="syntax-string">"{name}"</span>,
             </div>
             <div class="pl-8">
-              <span class="text-gray-900 dark:text-gray-100">{"}"},</span>
+              <span class="syntax-punctuation">{"}"},</span>
             </div>
             <div class="pl-4">
-              <span class="text-gray-900 dark:text-gray-100">],</span>
+              <span class="syntax-punctuation">],</span>
             </div>
-            <div class="text-gray-900 dark:text-gray-100">{"}"})</div>
-            <div class="text-gray-900 dark:text-gray-100">
-              <span class="text-purple-600 dark:text-purple-400"
-                >export class</span
-              >
-              <span class="text-yellow-600 dark:text-yellow-400"
-                >NeuralCoreModule</span
-              >
-              <span class="text-gray-900 dark:text-gray-100">{"{}"}</span>
+            <div class="syntax-punctuation">{"}"})</div>
+            <div class="syntax-text">
+              <span class="syntax-keyword">export class</span>
+              <span class="syntax-class">NeuralCoreModule</span>
+              <span class="syntax-punctuation">{"{}"}</span>
             </div>
-
-            <div class="mt-4 pt-4 border-t border-gray-50 dark:border-gray-800">
-              <span class="text-purple-600 dark:text-purple-400">await</span>
-              <span class="text-purple-600 dark:text-purple-400">new</span>
-              <span class="text-yellow-600 dark:text-yellow-400">AiService</span
-              >().<span class="text-blue-600 dark:text-blue-400"
-                >initialize</span
-              >({"{"}
-            </div>
-            <div class="pl-4">
-              <span class="text-gray-900 dark:text-gray-100">scalable:</span>
-              <span class="text-blue-600 dark:text-blue-400">true</span>,
-            </div>
-            <div class="pl-4">
-              <span class="text-gray-900 dark:text-gray-100">target:</span>
-              <span class="text-green-600 dark:text-green-400"
-                >"Global Impact"</span
-              >,
-            </div>
-            <div class="text-gray-900 dark:text-gray-100">{"}"});</div>
           </div>
 
           <!-- Terminal / Action Area -->
@@ -227,6 +243,50 @@ const { name, role, description } = Astro.props;
 <script>
   import { navigate } from "astro:transitions/client";
 
+  // Code Theme Logic
+  function initCodeTheme() {
+    const codeWindow = document.getElementById("code-window");
+    const themeNameDisplay = document.getElementById("current-theme-name");
+    const themeOptions = document.querySelectorAll(".theme-option");
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem("editor-theme") || "default";
+    applyTheme(savedTheme);
+
+    themeOptions.forEach((option) => {
+      option.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // Prevent navigation from parent anchor
+        const theme = (e.target as HTMLElement).dataset.theme || "default";
+        applyTheme(theme);
+        localStorage.setItem("editor-theme", theme);
+      });
+    });
+
+    function applyTheme(theme) {
+      if (!codeWindow) return;
+
+      // Remove all theme classes
+      codeWindow.classList.remove(
+        "theme-default",
+        "theme-ocean",
+        "theme-forest",
+        "theme-sunset",
+        "theme-matrix",
+      );
+
+      // Add selected theme class
+      codeWindow.classList.add(`theme-${theme}`);
+
+      // Update display name
+      if (themeNameDisplay) {
+        themeNameDisplay.textContent =
+          theme.charAt(0).toUpperCase() + theme.slice(1);
+      }
+    }
+  }
+
+  // Run Logic
   const runBtn = document.getElementById("run-btn");
 
   if (runBtn) {
@@ -264,6 +324,10 @@ const { name, role, description } = Astro.props;
       navigate("/about");
     });
   }
+
+  // Init on load
+  initCodeTheme();
+  document.addEventListener("astro:page-load", initCodeTheme);
 </script>
 
 <!-- Status Bar -->
@@ -281,6 +345,131 @@ const { name, role, description } = Astro.props;
 </div>
 
 <style>
+  /* Syntax Highlighting Themes */
+  /* Default (Light/Dark adaptive) */
+  .theme-default {
+    --bg: #ffffff;
+    --text: #111827;
+    --keyword: #9333ea; /* purple-600 */
+    --string: #16a34a; /* green-600 */
+    --class: #ca8a04; /* yellow-600 */
+    --function: #2563eb; /* blue-600 */
+    --property: #111827; /* gray-900 */
+    --punctuation: #111827; /* gray-900 */
+    --comment: #9ca3af; /* gray-400 */
+    --boolean: #2563eb; /* blue-600 */
+    --decorator: #ca8a04; /* yellow-600 */
+  }
+  :global(.dark) .theme-default {
+    --bg: #111827;
+    --text: #f3f4f6;
+    --keyword: #c084fc; /* purple-400 */
+    --string: #4ade80; /* green-400 */
+    --class: #facc15; /* yellow-400 */
+    --function: #60a5fa; /* blue-400 */
+    --property: #f3f4f6; /* gray-100 */
+    --punctuation: #f3f4f6; /* gray-100 */
+    --comment: #9ca3af; /* gray-400 */
+    --boolean: #60a5fa; /* blue-400 */
+    --decorator: #facc15; /* yellow-400 */
+  }
+
+  /* Ocean Theme */
+  .theme-ocean {
+    --bg: #0f172a; /* slate-900 */
+    --text: #e2e8f0; /* slate-200 */
+    --keyword: #818cf8; /* indigo-400 */
+    --string: #2dd4bf; /* teal-400 */
+    --class: #38bdf8; /* sky-400 */
+    --function: #60a5fa; /* blue-400 */
+    --property: #94a3b8; /* slate-400 */
+    --punctuation: #64748b; /* slate-500 */
+    --comment: #475569; /* slate-600 */
+    --boolean: #f472b6; /* pink-400 */
+    --decorator: #a78bfa; /* violet-400 */
+  }
+
+  /* Forest Theme */
+  .theme-forest {
+    --bg: #052e16; /* green-950 */
+    --text: #dcfce7; /* green-100 */
+    --keyword: #4ade80; /* green-400 */
+    --string: #facc15; /* yellow-400 */
+    --class: #a3e635; /* lime-400 */
+    --function: #22d3ee; /* cyan-400 */
+    --property: #86efac; /* green-300 */
+    --punctuation: #4ade80; /* green-400 */
+    --comment: #166534; /* green-800 */
+    --boolean: #fb923c; /* orange-400 */
+    --decorator: #facc15; /* yellow-400 */
+  }
+
+  /* Sunset Theme */
+  .theme-sunset {
+    --bg: #450a0a; /* red-950 */
+    --text: #fecaca; /* red-200 */
+    --keyword: #f87171; /* red-400 */
+    --string: #fbbf24; /* amber-400 */
+    --class: #fb923c; /* orange-400 */
+    --function: #f472b6; /* pink-400 */
+    --property: #fca5a5; /* red-300 */
+    --punctuation: #f87171; /* red-400 */
+    --comment: #991b1b; /* red-800 */
+    --boolean: #c084fc; /* purple-400 */
+    --decorator: #fbbf24; /* amber-400 */
+  }
+
+  /* Matrix Theme */
+  .theme-matrix {
+    --bg: #000000;
+    --text: #00ff00;
+    --keyword: #008f11;
+    --string: #00ff00;
+    --class: #00ff00;
+    --function: #00ff00;
+    --property: #00ff00;
+    --punctuation: #008f11;
+    --comment: #003b00;
+    --boolean: #00ff00;
+    --decorator: #00ff00;
+  }
+
+  /* Apply Variables */
+  #code-window {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+  .syntax-keyword {
+    color: var(--keyword);
+  }
+  .syntax-string {
+    color: var(--string);
+  }
+  .syntax-class {
+    color: var(--class);
+  }
+  .syntax-function {
+    color: var(--function);
+  }
+  .syntax-property {
+    color: var(--property);
+  }
+  .syntax-punctuation {
+    color: var(--punctuation);
+  }
+  .syntax-comment {
+    color: var(--comment);
+  }
+  .syntax-boolean {
+    color: var(--boolean);
+  }
+  .syntax-decorator {
+    color: var(--decorator);
+  }
+  .syntax-text {
+    color: var(--text);
+  }
+
   @keyframes bounce-slow {
     0%,
     100% {
