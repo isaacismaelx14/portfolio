@@ -26,9 +26,21 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<ViewTransitions />
+		<script is:inline>
+			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+			if (
+				localStorage.getItem("color-theme") === "dark" ||
+				(!("color-theme" in localStorage) &&
+					window.matchMedia("(prefers-color-scheme: dark)").matches)
+			) {
+				document.documentElement.classList.add("dark");
+			} else {
+				document.documentElement.classList.remove("dark");
+			}
+		</script>
 	</head>
 	<body
-		class="bg-gray-50 text-gray-900 antialiased flex flex-col min-h-screen"
+		class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50 antialiased flex flex-col min-h-screen transition-colors duration-300"
 	>
 		<Navbar />
 		<main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
@@ -38,4 +50,3 @@ const { title } = Astro.props;
 		<Footer />
 	</body>
 </html>
-```

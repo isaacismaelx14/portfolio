@@ -11,10 +11,12 @@ const featuredProjects = projects.filter((project) => project.featured);
 	<Hero name="Isaac Martinez" role="Software Architect" description="" />
 
 	<!-- Social Proof -->
-	<section class="py-6 border-b border-gray-100 bg-gray-50/50">
+	<section
+		class="py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50"
+	>
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 			<p
-				class="text-sm font-medium text-gray-500 uppercase tracking-widest"
+				class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-widest"
 			>
 				Trusted by global teams and startups across the U.S., Europe,
 				and LATAM
@@ -26,10 +28,10 @@ const featuredProjects = projects.filter((project) => project.featured);
 	<section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 			<div
-				class="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+				class="p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
 			>
 				<div
-					class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4 text-blue-600"
+					class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-4 text-blue-600 dark:text-blue-400"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -46,16 +48,18 @@ const featuredProjects = projects.filter((project) => project.featured);
 						></path>
 					</svg>
 				</div>
-				<h3 class="font-bold text-gray-900 mb-2">Architecture</h3>
-				<p class="text-sm text-gray-600">
+				<h3 class="font-bold text-gray-900 dark:text-white mb-2">
+					Architecture
+				</h3>
+				<p class="text-sm text-gray-600 dark:text-gray-400">
 					Scalable systems, microservices, event-driven patterns
 				</p>
 			</div>
 			<div
-				class="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+				class="p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
 			>
 				<div
-					class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4 text-green-600"
+					class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-4 text-green-600 dark:text-green-400"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -72,16 +76,18 @@ const featuredProjects = projects.filter((project) => project.featured);
 						></path>
 					</svg>
 				</div>
-				<h3 class="font-bold text-gray-900 mb-2">Backend</h3>
-				<p class="text-sm text-gray-600">
+				<h3 class="font-bold text-gray-900 dark:text-white mb-2">
+					Backend
+				</h3>
+				<p class="text-sm text-gray-600 dark:text-gray-400">
 					Node.js, TypeScript, NestJS, gRPC, PostgreSQL
 				</p>
 			</div>
 			<div
-				class="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+				class="p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
 			>
 				<div
-					class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4 text-purple-600"
+					class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-4 text-purple-600 dark:text-purple-400"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -97,16 +103,18 @@ const featuredProjects = projects.filter((project) => project.featured);
 							d="M13 10V3L4 14h7v7l9-11h-7z"></path>
 					</svg>
 				</div>
-				<h3 class="font-bold text-gray-900 mb-2">AI / ML</h3>
-				<p class="text-sm text-gray-600">
+				<h3 class="font-bold text-gray-900 dark:text-white mb-2">
+					AI / ML
+				</h3>
+				<p class="text-sm text-gray-600 dark:text-gray-400">
 					LLM integration, AI agents, RAG, embeddings
 				</p>
 			</div>
 			<div
-				class="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+				class="p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
 			>
 				<div
-					class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4 text-orange-600"
+					class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center mb-4 text-orange-600 dark:text-orange-400"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -123,27 +131,33 @@ const featuredProjects = projects.filter((project) => project.featured);
 						></path>
 					</svg>
 				</div>
-				<h3 class="font-bold text-gray-900 mb-2">Cloud</h3>
-				<p class="text-sm text-gray-600">
+				<h3 class="font-bold text-gray-900 dark:text-white mb-2">
+					Cloud
+				</h3>
+				<p class="text-sm text-gray-600 dark:text-gray-400">
 					AWS, Docker, Kubernetes, Cloud-native arch
 				</p>
 			</div>
 		</div>
 	</section>
 
-	<section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+	<section
+		class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900"
+	>
 		<div class="flex justify-between items-end mb-12">
 			<div>
-				<h2 class="text-3xl font-bold text-gray-900 mb-2">
+				<h2
+					class="text-3xl font-bold text-gray-900 dark:text-white mb-2"
+				>
 					Featured Projects
 				</h2>
-				<p class="text-gray-500">
+				<p class="text-gray-500 dark:text-gray-400">
 					Selected works showcasing architecture & engineering.
 				</p>
 			</div>
 			<a
 				href="/projects"
-				class="text-gray-600 hover:text-gray-900 font-medium flex items-center gap-1 group"
+				class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white font-medium flex items-center gap-1 group"
 			>
 				View all
 				<svg
@@ -168,12 +182,14 @@ const featuredProjects = projects.filter((project) => project.featured);
 	</section>
 
 	<!-- Personal Bio -->
-	<section class="py-20 bg-gray-50 border-t border-gray-100">
+	<section
+		class="py-20 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800"
+	>
 		<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-			<h2 class="text-2xl font-bold text-gray-900 mb-6">
+			<h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
 				Beyond the Code
 			</h2>
-			<p class="text-lg text-gray-600 leading-relaxed">
+			<p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
 				I’m a Dominican full-stack engineer who enjoys building things -
 				from APIs and backend systems to clean UI experiences. I love
 				solving problems, optimizing performance, and experimenting with
