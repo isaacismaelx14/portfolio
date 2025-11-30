@@ -1,0 +1,70 @@
+---
+const { pathname } = Astro.url;
+
+const routes = [
+    {
+        path: "/",
+        label: "Home",
+        next: "/about",
+        nextLabel: "Initialize Profile",
+    },
+    {
+        path: "/about",
+        label: "About",
+        next: "/projects",
+        nextLabel: "Compile Projects",
+    },
+    {
+        path: "/projects",
+        label: "Projects",
+        next: "/contact",
+        nextLabel: "Execute Contact",
+    },
+    {
+        path: "/contact",
+        label: "Contact",
+        next: "/",
+        nextLabel: "Reboot System",
+    },
+];
+
+const currentRoute = routes.find((r) => r.path === pathname) || routes[0];
+---
+
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+    <a
+        href={currentRoute.next}
+        class="group flex items-center gap-3 bg-gray-900 text-white px-5 py-3 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-gray-800"
+        style="view-transition-name: nav-pill;"
+    >
+        <div class="flex flex-col items-start">
+            <span
+                class="text-[10px] text-gray-400 font-mono uppercase tracking-wider"
+                >Next Step</span
+            >
+            <span
+                class="text-sm font-bold font-mono text-green-400 group-hover:text-green-300 transition-colors"
+            >
+                {currentRoute.nextLabel}
+            </span>
+        </div>
+
+        <div
+            class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center group-hover:bg-gray-700 transition-colors"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 text-gray-300 group-hover:text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+        </div>
+    </a>
+</div>

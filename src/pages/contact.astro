@@ -4,7 +4,62 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Contact | Portfolio">
     <section class="py-20 max-w-2xl mx-auto">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">Get in Touch</h1>
+        <div class="mb-8">
+            <h1
+                class="text-4xl font-bold text-gray-900 mb-4 flex items-center justify-between"
+            >
+                Get in Touch
+                <div
+                    class="hidden sm:flex items-center gap-2 bg-green-100 text-green-700 px-3 py-1.5 rounded-md"
+                    style="view-transition-name: run-btn;"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="font-semibold text-xs"
+                        >Execution Successful</span
+                    >
+                </div>
+            </h1>
+
+            <!-- Terminal Logs -->
+            <div
+                class="bg-gray-900 rounded-lg p-4 font-mono text-xs text-gray-300 shadow-lg mb-8"
+            >
+                <div class="flex gap-1.5 mb-3">
+                    <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                </div>
+                <div class="space-y-1">
+                    <p>
+                        <span class="text-green-400">➜</span>
+                        <span class="text-blue-400">~</span> initializing contact_protocol...
+                    </p>
+                    <p>
+                        <span class="text-green-400">✔</span> dependencies loaded
+                    </p>
+                    <p>
+                        <span class="text-green-400">✔</span> secure channel established
+                    </p>
+                    <p>
+                        <span class="text-green-400">✔</span> ready for transmission
+                    </p>
+                    <p class="text-gray-500 mt-2">
+                        // Waiting for user input...
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <p class="text-xl text-gray-500 mb-8">
             Have a project in mind or just want to say hi? Fill out the form
             below or reach out directly.

@@ -10,25 +10,56 @@ interface Props {
 const { title, description, tags, link, image } = Astro.props;
 ---
 
-<a href={link} class="group block h-full bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 overflow-hidden">
-  {image && (
-    <div class="aspect-video w-full overflow-hidden bg-gray-100">
-      <img src={image} alt={title} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+<a
+  href={link}
+  class="group block h-full bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden flex flex-col"
+>
+  <!-- Window Header -->
+  <div
+    class="bg-gray-50 px-3 py-2 border-b border-gray-100 flex items-center gap-1.5"
+  >
+    <div
+      class="w-2.5 h-2.5 rounded-full bg-red-400 group-hover:bg-red-500 transition-colors"
+    >
     </div>
-  )}
-  <div class="p-6">
-    <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+    <div
+      class="w-2.5 h-2.5 rounded-full bg-yellow-400 group-hover:bg-yellow-500 transition-colors"
+    >
+    </div>
+    <div
+      class="w-2.5 h-2.5 rounded-full bg-green-400 group-hover:bg-green-500 transition-colors"
+    >
+    </div>
+  </div>
+
+  {
+    image && (
+      <div class="aspect-video w-full overflow-hidden bg-gray-100 border-b border-gray-100">
+        <img
+          src={image}
+          alt={title}
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+    )
+  }
+  <div class="p-6 flex-grow flex flex-col">
+    <h3
+      class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors"
+    >
       {title}
     </h3>
-    <p class="text-gray-500 mb-4 line-clamp-3">
+    <p class="text-gray-500 mb-4 line-clamp-3 flex-grow">
       {description}
     </p>
-    <div class="flex flex-wrap gap-2 mt-auto">
-      {tags.map((tag) => (
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-          {tag}
-        </span>
-      ))}
+    <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-50">
+      {
+        tags.map((tag) => (
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 font-mono">
+            {tag}
+          </span>
+        ))
+      }
     </div>
   </div>
 </a>
