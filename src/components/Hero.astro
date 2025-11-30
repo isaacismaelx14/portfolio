@@ -83,43 +83,43 @@ const { name, role, description } = Astro.props;
       </div>
 
       <!-- The Card -->
-      <a
-        href="/about"
-        class="relative group cursor-pointer transform hover:-translate-y-2 transition-all duration-300"
+      <div
+        class="relative bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 max-w-lg overflow-hidden transition-shadow duration-300 hover:shadow-3xl"
       >
+        <!-- Window Header -->
         <div
-          class="relative bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 max-w-lg overflow-hidden group-hover:shadow-3xl transition-shadow duration-300"
+          class="bg-gray-100 dark:bg-gray-800 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between"
         >
-          <!-- Window Header -->
-          <div
-            class="bg-gray-100 dark:bg-gray-800 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between"
-          >
-            <div class="flex gap-2">
-              <div class="w-3 h-3 rounded-full bg-red-400"></div>
-              <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-              <div class="w-3 h-3 rounded-full bg-green-400"></div>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="relative group/theme">
-                <button
-                  id="theme-selector-btn"
-                  class="flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+          <div class="flex gap-2">
+            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="relative group/theme">
+              <button
+                id="theme-selector-btn"
+                class="flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                <span id="current-theme-name">Default</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3 w-3"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
                 >
-                  <span id="current-theme-name">Default</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-3 w-3"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                </button>
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+              <!-- Dropdown with padding bridge -->
+              <div
+                class="absolute right-0 top-full pt-2 w-32 hidden group-hover/theme:block z-10"
+              >
                 <div
-                  class="absolute right-0 top-full mt-1 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 py-1 hidden group-hover/theme:block z-10"
+                  class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 py-1"
                 >
                   <button
                     class="theme-option w-full text-left px-3 py-1.5 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -143,99 +143,99 @@ const { name, role, description } = Astro.props;
                   >
                 </div>
               </div>
-              <div class="text-xs text-gray-500 dark:text-gray-400 font-mono">
-                neural_core.module.ts
-              </div>
             </div>
-            <div class="w-12"></div>
-          </div>
-
-          <!-- Code Content -->
-          <div
-            id="code-window"
-            class="p-6 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed border-b border-gray-100 dark:border-gray-800 transition-colors duration-300"
-          >
-            <div class="mb-4 syntax-comment">
-              <span class="syntax-keyword">import</span>
-              <span class="syntax-punctuation">{"{"}</span>
-              <span class="syntax-class">Module</span>
-              <span class="syntax-punctuation">{"}"}</span>
-              <span class="syntax-keyword">from</span>
-              <span class="syntax-string">"@nestjs/common"</span>;<br />
-              <span class="syntax-keyword">import</span>
-              <span class="syntax-punctuation">{"{"}</span>
-              <span class="syntax-class">AiService</span>
-              <span class="syntax-punctuation">{"}"}</span>
-              <span class="syntax-keyword">from</span>
-              <span class="syntax-string">"./ai.service"</span>;
-            </div>
-
-            <div class="syntax-text">
-              <span class="syntax-decorator">@Module</span><span
-                class="syntax-punctuation">({"{"}</span
-              >
-            </div>
-            <div class="pl-4">
-              <span class="syntax-property">providers: [</span>
-            </div>
-            <div class="pl-8">
-              <span class="syntax-class">AiService</span>,
-            </div>
-            <div class="pl-8">
-              <span class="syntax-punctuation">{"{"}</span>
-            </div>
-            <div class="pl-12">
-              <span class="syntax-property">provide:</span>
-              <span class="syntax-string">"Engineer"</span>,
-            </div>
-            <div class="pl-12">
-              <span class="syntax-property">useValue:</span>
-              <span class="syntax-string">"{name}"</span>,
-            </div>
-            <div class="pl-8">
-              <span class="syntax-punctuation">{"}"},</span>
-            </div>
-            <div class="pl-4">
-              <span class="syntax-punctuation">],</span>
-            </div>
-            <div class="syntax-punctuation">{"}"})</div>
-            <div class="syntax-text">
-              <span class="syntax-keyword">export class</span>
-              <span class="syntax-class">NeuralCoreModule</span>
-              <span class="syntax-punctuation">{"{}"}</span>
+            <div class="text-xs text-gray-500 dark:text-gray-400 font-mono">
+              neural_core.module.ts
             </div>
           </div>
+          <div class="w-12"></div>
+        </div>
 
-          <!-- Terminal / Action Area -->
-          <div
-            class="bg-gray-50 dark:bg-gray-800 px-4 py-3 flex justify-between items-center"
-          >
-            <div class="text-xs text-gray-400 font-mono flex gap-2">
-              <span>TERMINAL</span>
-              <span class="text-gray-300 dark:text-gray-600">|</span>
-              <span>OUTPUT</span>
-            </div>
-            <button
-              id="run-btn"
-              class="flex items-center gap-2 bg-green-100 dark:bg-green-900/30 hover:bg-green-200 dark:hover:bg-green-900/50 text-green-700 dark:text-green-400 px-4 py-1.5 rounded-md transition-all hover:scale-105 active:scale-95"
-              style="view-transition-name: run-btn;"
+        <!-- Code Content -->
+        <div
+          id="code-window"
+          class="p-6 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed border-b border-gray-100 dark:border-gray-800 transition-colors duration-300"
+        >
+          <div class="mb-4 syntax-comment">
+            <span class="syntax-keyword">import</span>
+            <span class="syntax-punctuation">{"{"}</span>
+            <span class="syntax-class">Module</span>
+            <span class="syntax-punctuation">{"}"}</span>
+            <span class="syntax-keyword">from</span>
+            <span class="syntax-string">"@nestjs/common"</span>;<br />
+            <span class="syntax-keyword">import</span>
+            <span class="syntax-punctuation">{"{"}</span>
+            <span class="syntax-class">AiService</span>
+            <span class="syntax-punctuation">{"}"}</span>
+            <span class="syntax-keyword">from</span>
+            <span class="syntax-string">"./ai.service"</span>;
+          </div>
+
+          <div class="syntax-text">
+            <span class="syntax-decorator">@Module</span><span
+              class="syntax-punctuation">({"{"}</span
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span class="font-semibold text-xs">Run</span>
-            </button>
+          </div>
+          <div class="pl-4">
+            <span class="syntax-property">providers: [</span>
+          </div>
+          <div class="pl-8">
+            <span class="syntax-class">AiService</span>,
+          </div>
+          <div class="pl-8">
+            <span class="syntax-punctuation">{"{"}</span>
+          </div>
+          <div class="pl-12">
+            <span class="syntax-property">provide:</span>
+            <span class="syntax-string">"Engineer"</span>,
+          </div>
+          <div class="pl-12">
+            <span class="syntax-property">useValue:</span>
+            <span class="syntax-string">"{name}"</span>,
+          </div>
+          <div class="pl-8">
+            <span class="syntax-punctuation">{"}"},</span>
+          </div>
+          <div class="pl-4">
+            <span class="syntax-punctuation">],</span>
+          </div>
+          <div class="syntax-punctuation">{"}"})</div>
+          <div class="syntax-text">
+            <span class="syntax-keyword">export class</span>
+            <span class="syntax-class">NeuralCoreModule</span>
+            <span class="syntax-punctuation">{"{}"}</span>
           </div>
         </div>
-      </a>
+
+        <!-- Terminal / Action Area -->
+        <div
+          class="bg-gray-50 dark:bg-gray-800 px-4 py-3 flex justify-between items-center"
+        >
+          <div class="text-xs text-gray-400 font-mono flex gap-2">
+            <span>TERMINAL</span>
+            <span class="text-gray-300 dark:text-gray-600">|</span>
+            <span>OUTPUT</span>
+          </div>
+          <button
+            id="run-btn"
+            class="flex items-center gap-2 bg-green-100 dark:bg-green-900/30 hover:bg-green-200 dark:hover:bg-green-900/50 text-green-700 dark:text-green-400 px-4 py-1.5 rounded-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            style="view-transition-name: run-btn;"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-semibold text-xs">Run</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -263,7 +263,7 @@ const { name, role, description } = Astro.props;
       });
     });
 
-    function applyTheme(theme) {
+    function applyTheme(theme: string) {
       if (!codeWindow) return;
 
       // Remove all theme classes
@@ -287,47 +287,57 @@ const { name, role, description } = Astro.props;
   }
 
   // Run Logic
-  const runBtn = document.getElementById("run-btn");
+  function initRunButton() {
+    const runBtn = document.getElementById("run-btn");
 
-  if (runBtn) {
-    runBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    if (runBtn) {
+      // Clone the button to remove existing event listeners (prevent duplicates)
+      const newBtn = runBtn.cloneNode(true) as HTMLElement;
+      runBtn.parentNode?.replaceChild(newBtn, runBtn);
 
-      // Change state to "Running"
-      runBtn.innerHTML = `
+      newBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Change state to "Running"
+        newBtn.innerHTML = `
         <svg class="animate-spin h-4 w-4 text-blue-700 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
         <span class="font-semibold text-xs text-blue-700 dark:text-blue-400">Running...</span>
       `;
-      runBtn.classList.remove(
-        "bg-green-100",
-        "text-green-700",
-        "hover:bg-green-200",
-        "dark:bg-green-900/30",
-        "dark:text-green-400",
-        "dark:hover:bg-green-900/50",
-      );
-      runBtn.classList.add(
-        "bg-blue-100",
-        "text-blue-700",
-        "dark:bg-blue-900/30",
-        "dark:text-blue-400",
-      );
+        newBtn.classList.remove(
+          "bg-green-100",
+          "text-green-700",
+          "hover:bg-green-200",
+          "dark:bg-green-900/30",
+          "dark:text-green-400",
+          "dark:hover:bg-green-900/50",
+        );
+        newBtn.classList.add(
+          "bg-blue-100",
+          "text-blue-700",
+          "dark:bg-blue-900/30",
+          "dark:text-blue-400",
+        );
 
-      // Wait a bit to show animation
-      await new Promise((resolve) => setTimeout(resolve, 800));
+        // Wait a bit to show animation
+        await new Promise((resolve) => setTimeout(resolve, 800));
 
-      // Navigate
-      navigate("/about");
-    });
+        // Navigate
+        navigate("/about");
+      });
+    }
   }
 
   // Init on load
   initCodeTheme();
-  document.addEventListener("astro:page-load", initCodeTheme);
+  initRunButton();
+  document.addEventListener("astro:page-load", () => {
+    initCodeTheme();
+    initRunButton();
+  });
 </script>
 
 <!-- Status Bar -->
