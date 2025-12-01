@@ -1,7 +1,8 @@
 ---
-import { languages, getLangFromUrl } from "../i18n/utils";
+import { languages, getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const currentPath = Astro.url.pathname;
 
 function getLocalizedPath(targetLang: string) {
@@ -81,7 +82,7 @@ const flags = {
             <p
                 class="text-xs font-mono font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider"
             >
-                System Settings
+                {t("settings.title")}
             </p>
         </div>
 
@@ -91,7 +92,7 @@ const flags = {
                 <p
                     class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide"
                 >
-                    Appearance
+                    {t("settings.appearance")}
                 </p>
                 <div class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
                     <button
@@ -112,7 +113,7 @@ const flags = {
                                 d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
                             ></path>
                         </svg>
-                        Light
+                        {t("settings.light")}
                     </button>
                     <button
                         type="button"
@@ -132,7 +133,7 @@ const flags = {
                                 d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
                             ></path>
                         </svg>
-                        Dark
+                        {t("settings.dark")}
                     </button>
                 </div>
             </div>
@@ -144,7 +145,7 @@ const flags = {
                 <p
                     class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide"
                 >
-                    Language
+                    {t("settings.language")}
                 </p>
                 <div class="space-y-1">
                     {
@@ -185,8 +186,51 @@ const flags = {
                     <span
                         class="w-2 h-2 rounded-full bg-green-500 animate-pulse"
                     ></span>
-                    System Online
+                    {t("settings.systemOnline")}
                 </span>
+            </div>
+        </div>
+    </div>
+    <!-- Onboarding Tooltip -->
+    <div
+        id="settings-tooltip"
+        class="absolute top-full right-0 mt-4 w-64 p-4 bg-gray-900 text-white text-xs rounded-lg shadow-xl border border-gray-700 transform transition-all duration-500 opacity-0 translate-y-2 pointer-events-none z-50 hidden"
+    >
+        <div
+            class="absolute -top-2 right-3 w-4 h-4 bg-gray-900 border-t border-l border-gray-700 transform rotate-45"
+        >
+        </div>
+        <div class="relative z-10">
+            <div class="flex justify-between items-start mb-2">
+                <span class="font-mono text-blue-400 font-bold"
+                    >> {t("settings.tooltip.title")}</span
+                >
+                <button
+                    id="close-tooltip"
+                    class="text-gray-500 hover:text-white transition-colors"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-gray-300 mb-2">
+                {t("settings.tooltip.desc")}
+            </p>
+            <div
+                class="flex items-center gap-2 text-gray-500 text-[10px] font-mono"
+            >
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"
+                ></span>
+                <span>{t("settings.tooltip.status")}</span>
             </div>
         </div>
     </div>
@@ -198,6 +242,10 @@ const flags = {
         const dropdown = document.getElementById("settings-menu-dropdown");
         const container = document.getElementById("settings-menu-container");
         const themeBtns = document.querySelectorAll(".theme-select-btn");
+
+        // Tooltip Elements
+        const tooltip = document.getElementById("settings-tooltip");
+        const closeBtn = document.getElementById("close-tooltip");
 
         // Theme Logic
         function getTheme() {
@@ -264,6 +312,46 @@ const flags = {
             });
         });
 
+        // Tooltip Logic
+        const dismissTooltip = () => {
+            if (tooltip) {
+                localStorage.setItem("settings-tooltip-seen", "true");
+                tooltip.classList.add(
+                    "opacity-0",
+                    "translate-y-2",
+                    "pointer-events-none",
+                );
+                setTimeout(() => {
+                    tooltip.classList.add("hidden");
+                }, 500);
+            }
+        };
+
+        if (tooltip && closeBtn) {
+            const hasSeenTooltip = localStorage.getItem(
+                "settings-tooltip-seen",
+            );
+
+            if (!hasSeenTooltip) {
+                // Show tooltip after a short delay
+                setTimeout(() => {
+                    tooltip.classList.remove("hidden");
+                    requestAnimationFrame(() => {
+                        tooltip.classList.remove(
+                            "opacity-0",
+                            "translate-y-2",
+                            "pointer-events-none",
+                        );
+                    });
+                }, 1500);
+            }
+
+            closeBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dismissTooltip();
+            });
+        }
+
         // Dropdown Logic
         if (button && dropdown && container) {
             let isOpen = false;
@@ -291,6 +379,8 @@ const flags = {
             button.addEventListener("click", (e) => {
                 e.stopPropagation();
                 toggleMenu();
+                // Always try to dismiss tooltip when opening menu
+                dismissTooltip();
             });
 
             document.addEventListener("click", (event) => {
