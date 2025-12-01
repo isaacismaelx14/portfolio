@@ -1,53 +1,14 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ProjectCard from "../../components/ProjectCard.astro";
-import Section from "../../components/Section.astro";
-import PageHeader from "../../components/PageHeader.astro";
-import { projects } from "../../data/projects";
-import { getLangFromUrl, useTranslations, languages } from "../../i18n/utils";
+import ProjectsPage from "../../components/pages/ProjectsPage.astro";
+import { languages, getLangFromUrl } from "../../i18n/utils";
 
 export function getStaticPaths() {
     return Object.keys(languages).map((lang) => ({ params: { lang } }));
 }
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+
+export const prerender = true;
 ---
 
-<Layout title={`Portfolio | ${t("nav.projects")}`}>
-    <Section>
-        <PageHeader
-            title={t("projects.title")}
-            badgeText={t("projects.badge")}
-            badgeColor="yellow"
-        >
-            <svg
-                slot="icon"
-                class="animate-spin h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-            >
-                <circle
-                    class="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    stroke-width="4"></circle>
-                <path
-                    class="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-            </svg>
-        </PageHeader>
-        <p class="text-xl text-gray-500 dark:text-gray-400 mb-12 max-w-3xl">
-            {t("projects.desc")}
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => <ProjectCard {...project} />)}
-        </div>
-    </Section>
-</Layout>
+<ProjectsPage lang={lang} />
