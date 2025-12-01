@@ -98,7 +98,23 @@ const lang = getLangFromUrl(Astro.url);
 			applyTheme();
 
 			// Apply on view transitions navigation
+			// Apply on view transitions navigation
 			document.addEventListener("astro:after-swap", applyTheme);
+
+			// Language Persistence
+			(function () {
+				const preferredLang = localStorage.getItem("preferred-lang");
+				const currentPath = window.location.pathname;
+
+				// Only redirect if on root path and preference is NOT english (default)
+				if (
+					currentPath === "/" &&
+					preferredLang &&
+					preferredLang !== "en"
+				) {
+					window.location.href = `/${preferredLang}`;
+				}
+			})();
 		</script>
 	</head>
 	<body

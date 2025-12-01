@@ -1,21 +1,18 @@
 ---
-import ThemeToggle from "./ThemeToggle.astro";
-import LanguagePicker from "./LanguagePicker.astro";
-import {
-  getLangFromUrl,
-  useTranslations,
-  useTranslatedPath,
-} from "../i18n/utils";
+import SettingsDropdown from "./SettingsDropdown.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+import I18nLink from "./I18nLink.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
+// translatePath is no longer needed here as I18nLink handles it
 
 const links = [
-  { name: t("nav.home"), href: translatePath("/") },
-  { name: t("nav.about"), href: translatePath("/about") },
-  { name: t("nav.projects"), href: translatePath("/projects") },
-  { name: t("nav.contact"), href: translatePath("/contact") },
+  { name: t("nav.home"), href: "/" },
+  { name: t("nav.about"), href: "/about" },
+  { name: t("nav.projects"), href: "/projects" },
+  { name: t("nav.contact"), href: "/contact" },
 ];
 ---
 
@@ -25,35 +22,34 @@ const links = [
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       <div class="flex-shrink-0 flex items-center">
-        <a
-          href={translatePath("/")}
+        <I18nLink
+          href="/"
           class="text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
         >
           Dev.
-        </a>
+        </I18nLink>
       </div>
       <div class="hidden sm:flex sm:space-x-8 items-center">
         {
           links.map((link) => (
-            <a
+            <I18nLink
               href={link.href}
               class="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors relative group"
             >
               {link.name}
               <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 dark:bg-white transition-all group-hover:w-full" />
-            </a>
+            </I18nLink>
           ))
         }
-        <LanguagePicker />
-        <ThemeToggle />
+        <SettingsDropdown />
       </div>
       <!-- Mobile menu button placeholder (can be implemented with a simple script if needed) -->
       <div class="flex items-center sm:hidden space-x-4">
-        <LanguagePicker />
-        <ThemeToggle />
-        <a
+        <SettingsDropdown />
+        <I18nLink
           href="/contact"
-          class="text-sm font-medium text-gray-900 dark:text-white">Menu</a
+          class="text-sm font-medium text-gray-900 dark:text-white"
+          >Menu</I18nLink
         >
       </div>
     </div>
