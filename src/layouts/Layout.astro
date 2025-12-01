@@ -6,15 +6,18 @@ import Footer from "../components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
 import StickyNavigation from "../components/StickyNavigation.astro";
 
+import { getLangFromUrl } from "../i18n/utils";
+
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />

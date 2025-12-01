@@ -1,8 +1,18 @@
 ---
+import { getLangFromUrl, useTranslatedPath } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
 const { pathname } = Astro.url;
 
-// Hide on home page
-if (pathname === "/") {
+// Normalize pathname to remove lang prefix for matching
+const currentPath = pathname.replace(new RegExp(`^/${lang}`), "") || "/";
+
+// Hide on home page (check both root and localized home)
+if (
+    currentPath === "/" &&
+    (pathname === "/" || pathname === `/${lang}` || pathname === `/${lang}/`)
+) {
     return null;
 }
 
@@ -10,34 +20,34 @@ const routes = [
     {
         path: "/",
         label: "Home",
-        next: "/about",
+        next: translatePath("/about"),
         nextLabel: "./init_profile.sh",
         color: "blue", // Should not be used since hidden on home
     },
     {
         path: "/about",
         label: "About",
-        next: "/projects",
+        next: translatePath("/projects"),
         nextLabel: "./compile_projects.sh",
         color: "blue",
     },
     {
         path: "/projects",
         label: "Projects",
-        next: "/contact",
+        next: translatePath("/contact"),
         nextLabel: "./execute_contact.sh",
         color: "yellow",
     },
     {
         path: "/contact",
         label: "Contact",
-        next: "/",
+        next: translatePath("/"),
         nextLabel: "./system_reboot.sh",
         color: "green",
     },
 ];
 
-const currentRoute = routes.find((r) => r.path === pathname) || routes[0];
+const currentRoute = routes.find((r) => r.path === currentPath) || routes[0];
 
 const colorClasses = {
     blue: {

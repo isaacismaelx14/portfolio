@@ -5,12 +5,16 @@ import ProjectCard from "../components/ProjectCard.astro";
 import Section from "../components/Section.astro";
 import FeatureCard from "../components/FeatureCard.astro";
 import { projects } from "../data/projects";
+import { useTranslations } from "../i18n/utils";
+
+const lang = "en";
+const t = useTranslations(lang);
 
 const featuredProjects = projects.filter((project) => project.featured);
 ---
 
-<Layout title="Portfolio | Home">
-	<Hero name="Isaac Martinez" role="Software Architect" description="" />
+<Layout title={`Portfolio | ${t("nav.home")}`}>
+	<Hero name="Isaac Martinez" role={t("home.role")} description="" />
 
 	<!-- Social Proof -->
 	<Section
@@ -20,8 +24,7 @@ const featuredProjects = projects.filter((project) => project.featured);
 			<p
 				class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-widest"
 			>
-				Trusted by global teams and startups across the U.S., Europe,
-				and LATAM
+				{t("home.trustedBy")}
 			</p>
 		</div>
 	</Section>
@@ -30,8 +33,8 @@ const featuredProjects = projects.filter((project) => project.featured);
 	<Section>
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 			<FeatureCard
-				title="Architecture"
-				description="Scalable systems, microservices, event-driven patterns"
+				title={t("home.features.architecture.title")}
+				description={t("home.features.architecture.desc")}
 				iconBgColor="bg-blue-100 dark:bg-blue-900/30"
 				iconColor="text-blue-600 dark:text-blue-400"
 			>
@@ -52,8 +55,8 @@ const featuredProjects = projects.filter((project) => project.featured);
 				</svg>
 			</FeatureCard>
 			<FeatureCard
-				title="Backend"
-				description="Node.js, TypeScript, NestJS, gRPC, PostgreSQL"
+				title={t("home.features.backend.title")}
+				description={t("home.features.backend.desc")}
 				iconBgColor="bg-green-100 dark:bg-green-900/30"
 				iconColor="text-green-600 dark:text-green-400"
 			>
@@ -74,8 +77,8 @@ const featuredProjects = projects.filter((project) => project.featured);
 				</svg>
 			</FeatureCard>
 			<FeatureCard
-				title="AI / ML"
-				description="LLM integration, AI agents, RAG, embeddings"
+				title={t("home.features.ai.title")}
+				description={t("home.features.ai.desc")}
 				iconBgColor="bg-purple-100 dark:bg-purple-900/30"
 				iconColor="text-purple-600 dark:text-purple-400"
 			>
@@ -95,8 +98,8 @@ const featuredProjects = projects.filter((project) => project.featured);
 				</svg>
 			</FeatureCard>
 			<FeatureCard
-				title="Cloud"
-				description="AWS, Docker, Kubernetes, Cloud-native arch"
+				title={t("home.features.cloud.title")}
+				description={t("home.features.cloud.desc")}
 				iconBgColor="bg-orange-100 dark:bg-orange-900/30"
 				iconColor="text-orange-600 dark:text-orange-400"
 			>
@@ -125,17 +128,17 @@ const featuredProjects = projects.filter((project) => project.featured);
 				<h2
 					class="text-3xl font-bold text-gray-900 dark:text-white mb-2"
 				>
-					Featured Projects
+					{t("home.featuredProjects")}
 				</h2>
 				<p class="text-gray-500 dark:text-gray-400">
-					Selected works showcasing architecture & engineering.
+					{t("home.featuredProjectsDesc")}
 				</p>
 			</div>
 			<a
-				href="/projects"
+				href={`/projects`}
 				class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white font-medium flex items-center gap-1 group"
 			>
-				View all
+				{t("home.viewAll")}
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-4 w-4 transition-transform group-hover:translate-x-1"
@@ -163,14 +166,10 @@ const featuredProjects = projects.filter((project) => project.featured);
 	>
 		<div class="max-w-3xl mx-auto text-center">
 			<h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-				Beyond the Code
+				{t("home.beyondCode")}
 			</h2>
 			<p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-				I’m a Dominican full-stack engineer who enjoys building things -
-				from APIs and backend systems to clean UI experiences. I love
-				solving problems, optimizing performance, and experimenting with
-				new technology. When I step away from the keyboard, I’m probably
-				playing tennis or listening music.
+				{t("home.beyondCodeDesc")}
 			</p>
 		</div>
 	</Section>

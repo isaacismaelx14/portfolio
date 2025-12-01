@@ -1,0 +1,91 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About",
+        "projects": "Projects",
+        "contact": "Contact"
+    },
+    "home": {
+        "role": "Software Architect",
+        "trustedBy": "Trusted by global teams and startups across the U.S., Europe, and LATAM",
+        "featuredProjects": "Featured Projects",
+        "featuredProjectsDesc": "Selected works showcasing architecture & engineering.",
+        "viewAll": "View all",
+        "beyondCode": "Beyond the Code",
+        "beyondCodeDesc": "I’m a Dominican full-stack engineer who enjoys building things - from APIs and backend systems to clean UI experiences. I love solving problems, optimizing performance, and experimenting with new technology. When I step away from the keyboard, I’m probably playing tennis or listening music.",
+        "features": {
+            "architecture": {
+                "title": "Architecture",
+                "desc": "Scalable systems, microservices, event-driven patterns"
+            },
+            "backend": {
+                "title": "Backend",
+                "desc": "Node.js, TypeScript, NestJS, gRPC, PostgreSQL"
+            },
+            "ai": {
+                "title": "AI / ML",
+                "desc": "LLM integration, AI agents, RAG, embeddings"
+            },
+            "cloud": {
+                "title": "Cloud",
+                "desc": "AWS, Docker, Kubernetes, Cloud-native arch"
+            }
+        }
+    },
+    "hero": {
+        "available": "Available for new projects",
+        "greeting": "Hi, I'm",
+        "title": "Building Scalable Software <br class=\"hidden sm:block\" /> & AI-Driven Products.",
+        "subtitle": "Full-Stack Engineer · Backend, Frontend & AI Systems",
+        "description": "I engineer reliable, scalable systems and modern frontends using Node.js, TypeScript, and React. I love solving complex problems to build software that feels fast, stable, and intuitive.",
+        "buttons": {
+            "explore": "Explore My Work",
+            "contact": "Let's Work Together",
+            "run": "Run",
+            "running": "Running..."
+        }
+    },
+    "about": {
+        "title": "About Me",
+        "badge": "Running...",
+        "quote": "A dreamer trapped in a finite body, with infinite ideas.",
+        "p1": "I'm Isaac Martinez, a Software Architect and Full Stack Developer based in Santiago, Dominican Republic. I have a strong focus on AI-driven solutions and scalable backend architectures.",
+        "p2": "With over 9 years of experience in Node.js and a deep understanding of cloud technologies like AWS, I build systems that are not only performant but also secure and reliable. I'm passionate about leveraging technology to solve complex business problems.",
+        "p3": "When I'm not coding, I enjoy playing dominoes, photography, and exploring the latest advancements in AI.",
+        "experience": "Experience",
+        "education": "Education",
+        "skills": "Skills",
+        "languages": "Languages"
+    },
+    "projects": {
+        "title": "Projects",
+        "badge": "Compiling...",
+        "desc": "A collection of projects I've worked on, ranging from web applications to command-line tools."
+    },
+    "contact": {
+        "title": "Get in Touch",
+        "badge": "Execution Successful",
+        "desc": "Have a project in mind or just want to say hi? Fill out the form below or reach out directly.",
+        "logs": {
+            "init": "initializing contact_protocol...",
+            "deps": "dependencies loaded",
+            "secure": "secure channel established",
+            "ready": "ready for transmission",
+            "waiting": "// Waiting for user input..."
+        },
+        "form": {
+            "name": "Name",
+            "namePlaceholder": "Your Name",
+            "email": "Email",
+            "emailPlaceholder": "you@example.com",
+            "message": "Message",
+            "messagePlaceholder": "How can I help you?",
+            "submit": "Send Message",
+            "success": "Thank you for your message! I'll get back to you soon."
+        },
+        "info": {
+            "email": "Email",
+            "phone": "Phone"
+        }
+    }
+}
