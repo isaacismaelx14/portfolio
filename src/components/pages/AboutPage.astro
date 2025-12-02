@@ -150,7 +150,10 @@ const pageDescription = lang === "es"
     <Section maxWidth="6xl" first>
         <!-- Header with Terminal Style -->
         <div class="mb-8 sm:mb-12">
-            <div class="flex items-center gap-3 mb-4">
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+                    {t("about.title")}
+                </h1>
                 <div 
                     class="flex items-center gap-2 px-3 py-1.5 rounded-md bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
                     style="view-transition-name: run-btn;"
@@ -162,9 +165,6 @@ const pageDescription = lang === "es"
                     <span class="font-semibold text-xs">{t("about.badge")}</span>
                 </div>
             </div>
-            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                {t("about.title")}
-            </h1>
         </div>
 
         <!-- Bio Terminal Window -->
