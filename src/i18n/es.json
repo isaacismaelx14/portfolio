@@ -89,16 +89,16 @@
         }
     },
     "settings": {
-        "title": "Configuración del Sistema",
-        "appearance": "Apariencia",
-        "language": "Idioma",
-        "light": "Claro",
-        "dark": "Oscuro",
-        "systemOnline": "Sistema en Línea",
+        "title": "System Settings",
+        "appearance": "Appearance",
+        "language": "Language",
+        "light": "Light",
+        "dark": "Dark",
+        "systemOnline": "SYSTEM ONLINE",
         "tooltip": {
-            "title": "NUEVA_FUNCIONALIDAD_DETECTADA",
-            "desc": "¡Personaliza tu experiencia! Cambia temas e idiomas desde este nuevo panel de control.",
-            "status": "Sistema listo"
+            "title": "NEW_FEATURE_DETECTED",
+            "desc": "Customize your experience! Switch themes and languages from this new control panel.",
+            "status": "System ready"
         }
     }
 }

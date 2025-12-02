@@ -94,7 +94,7 @@
         "language": "Language",
         "light": "Light",
         "dark": "Dark",
-        "systemOnline": "System Online",
+        "systemOnline": "SYSTEM ONLINE",
         "tooltip": {
             "title": "NEW_FEATURE_DETECTED",
             "desc": "Customize your experience! Switch themes and languages from this new control panel.",
