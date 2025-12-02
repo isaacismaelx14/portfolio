@@ -1,11 +1,16 @@
 {
+  "version": {
+    "isPreRelease": false,
+    "preReleaseId": null
+  },
   "git": {
     "commit": true,
-    "commitMessage": "chore: release v${version}",
+    "commitMessage": "chore(release): v${version}",
     "tag": true,
     "tagName": "v${version}",
     "push": true,
-    "requireUpstream": false
+    "requireUpstream": false,
+    "requireCleanWorkingDir": false
   },
   "github": {
     "release": true,
@@ -16,8 +21,12 @@
   },
   "plugins": {
     "@release-it/conventional-changelog": {
-      "preset": "angular",
-      "infile": "CHANGELOG.md"
+      "preset": {
+        "name": "angular"
+      },
+      "infile": "CHANGELOG.md",
+      "header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n",
+      "ignoreRecommendedBump": false
     }
   },
   "hooks": {
