@@ -4,7 +4,7 @@ interface Props {
 }
 
 const { path = "" } = Astro.props;
-const fallbackPath = `/en${path ? "/" + path : ""}`;
+const targetPath = path ? `/${path}` : "";
 ---
 
 <!doctype html>
@@ -12,24 +12,24 @@ const fallbackPath = `/en${path ? "/" + path : ""}`;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Redirecting...</title>
+        <title>Isaac Martinez</title>
         <meta name="robots" content="noindex" />
-        <script define:vars={{ path }}>
-            try {
-                const saved = localStorage.getItem("preferred-lang");
-                const browser = navigator.language.split("-")[0];
-                const lang = saved || (browser === "es" ? "es" : "en");
-                const target = `/${lang}${path ? "/" + path : ""}`;
-                window.location.href = target;
-            } catch (e) {
-                // Fallback handled by noscript
-            }
+        <style>
+            html, body { margin: 0; padding: 0; background: #fff; }
+            @media (prefers-color-scheme: dark) { html, body { background: #111827; } }
+        </style>
+        <script is:inline define:vars={{ targetPath }}>
+            (function() {
+                var saved = null;
+                try { saved = localStorage.getItem("preferred-lang"); } catch(e) {}
+                var browser = (navigator.language || "en").split("-")[0];
+                var lang = saved || (browser === "es" ? "es" : "en");
+                window.location.replace("/" + lang + targetPath);
+            })();
         </script>
         <noscript>
-            <meta http-equiv="refresh" content={`0;url=${fallbackPath}`} />
+            <meta http-equiv="refresh" content={`0;url=/en${targetPath}`} />
         </noscript>
     </head>
-    <body>
-        <p>Redirecting...</p>
-    </body>
+    <body></body>
 </html>
