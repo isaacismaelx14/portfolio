@@ -1,8 +1,5 @@
 ---
-const cookieLang = Astro.cookies.get("preferred-lang")?.value;
-const acceptLang = Astro.request.headers.get("accept-language") || "";
-const browserLang = acceptLang.split(",")[0]?.split("-")[0] || "en";
-const lang = cookieLang || (browserLang === "es" ? "es" : "en");
-
-return Astro.redirect(`/${lang}/contact`, 302);
+export const prerender = true;
 ---
+
+<meta http-equiv="refresh" content="0;url=/en/contact" />
