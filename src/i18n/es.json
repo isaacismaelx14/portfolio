@@ -135,7 +135,20 @@
             "english": { "name": "Inglés", "level": "Fluido" }
         },
         "downloadResume": "Descargar CV",
-        "downloadingResume": "Generando PDF..."
+        "downloadingResume": "Generando PDF...",
+        "terminal": {
+            "init": "Inicializando generador de CV...",
+            "loading": "Cargando datos del perfil...",
+            "parsing": "Procesando experiencia y habilidades...",
+            "rendering": "Renderizando diseño PDF...",
+            "optimizing": "Optimizando para impresión...",
+            "generating": "Generando documento PDF...",
+            "complete": "¡CV generado exitosamente!",
+            "downloading": "Descargando: Isaac_Martinez_Resume.pdf",
+            "close": "Presiona cualquier tecla o clic afuera para cerrar",
+            "error": "Error al generar PDF. Intenta de nuevo.",
+            "progress": "Progreso"
+        }
     },
     "projects": {
         "title": "Proyectos",

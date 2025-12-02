@@ -135,7 +135,20 @@
             "english": { "name": "English", "level": "Fluent" }
         },
         "downloadResume": "Download Resume",
-        "downloadingResume": "Generating PDF..."
+        "downloadingResume": "Generating PDF...",
+        "terminal": {
+            "init": "Initializing resume generator...",
+            "loading": "Loading profile data...",
+            "parsing": "Parsing experience & skills...",
+            "rendering": "Rendering PDF layout...",
+            "optimizing": "Optimizing for print...",
+            "generating": "Generating PDF document...",
+            "complete": "Resume generated successfully!",
+            "downloading": "Downloading: Isaac_Martinez_Resume.pdf",
+            "close": "Press any key or click outside to close",
+            "error": "Error generating PDF. Please try again.",
+            "progress": "Progress"
+        }
     },
     "projects": {
         "title": "Projects",
