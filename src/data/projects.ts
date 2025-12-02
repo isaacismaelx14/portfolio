@@ -25,7 +25,7 @@ export const projects: Project[] = [
         },
         tags: ['Analytics', 'Serverless', 'AWS'],
         link: 'https://devscut.com/',
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2370&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop',
         featured: true
     },
     {
@@ -40,7 +40,7 @@ export const projects: Project[] = [
         },
         tags: ['Astro', 'Agency', 'Platform'],
         link: 'https://zitdevs.com/en/',
-        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2370&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop',
         featured: true
     },
     {
@@ -55,7 +55,7 @@ export const projects: Project[] = [
         },
         tags: ['Next.js', 'SaaS', 'Marketing'],
         link: 'https://www.unprimer.com/',
-        image: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=2370&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=800&auto=format&fit=crop',
         featured: true
     },
     {
@@ -70,7 +70,7 @@ export const projects: Project[] = [
         },
         tags: ['CLI', 'Node.js', 'Architecture'],
         link: 'https://www.npmjs.com/package/project-templify',
-        image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2388&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=800&auto=format&fit=crop',
         featured: false
     },
     {
@@ -85,7 +85,7 @@ export const projects: Project[] = [
         },
         tags: ['Go', 'Git', 'CLI'],
         link: 'https://github.com/Minnek-Digital-Studio/cominnek',
-        image: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2374&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=800&auto=format&fit=crop',
         featured: false
     },
     {
@@ -100,7 +100,7 @@ export const projects: Project[] = [
         },
         tags: ['Next.js', 'React', 'Google Maps'],
         link: '#',
-        image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2373&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop',
         featured: false
     },
     {
@@ -115,7 +115,7 @@ export const projects: Project[] = [
         },
         tags: ['React', 'CLI', 'Automation'],
         link: 'https://github.com/isaacismaelx14/Project-Manager-CLI',
-        image: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2370&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=800&auto=format&fit=crop',
         featured: false
     },
     {
@@ -130,7 +130,7 @@ export const projects: Project[] = [
         },
         tags: ['Node.js', 'Express', 'Sharp'],
         link: 'https://github.com/isaacismaelx14/image-server',
-        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2370&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop',
         featured: false
     }
 ];

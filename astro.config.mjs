@@ -11,7 +11,10 @@ export default defineConfig({
   output: 'static',
   adapter: vercel(),
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ['html2canvas-pro', 'jspdf']
+    }
   },
 
   integrations: [sitemap()],

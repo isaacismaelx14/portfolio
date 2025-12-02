@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
 import StickyNavigation from "../components/StickyNavigation.astro";
+import Terminal from "../components/easter-egg/Terminal.astro";
 
 import { getLangFromUrl } from "../i18n/utils";
 
@@ -19,17 +20,20 @@ interface Props {
 	fullWidth?: boolean;
 }
 
-const { 
-	title, 
+const {
+	title,
 	description = "Isaac Martinez - Software Architect with 9+ years of experience in Node.js, TypeScript, AWS, and AI. Building scalable backend systems and high-performance applications.",
 	image = "/og-image.jpg",
 	type = "website",
 	noindex = false,
-	fullWidth = false
+	fullWidth = false,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+const canonicalURL = new URL(
+	Astro.url.pathname,
+	Astro.site || Astro.url.origin,
+);
 const imageURL = new URL(image, Astro.url.origin);
 ---
 
@@ -46,7 +50,10 @@ const imageURL = new URL(image, Astro.url.origin);
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
 		<meta name="author" content="Isaac Martinez" />
-		<meta name="keywords" content="Software Architect, Full Stack Developer, Node.js, TypeScript, React, AWS, Backend Development, AI Integration, Web Development" />
+		<meta
+			name="keywords"
+			content="Software Architect, Full Stack Developer, Node.js, TypeScript, React, AWS, Backend Development, AI Integration, Web Development"
+		/>
 		{noindex && <meta name="robots" content="noindex, nofollow" />}
 
 		<!-- Open Graph / Facebook -->
@@ -57,7 +64,10 @@ const imageURL = new URL(image, Astro.url.origin);
 		<meta property="og:image" content={imageURL} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"} />
+		<meta
+			property="og:locale"
+			content={lang === "es" ? "es_ES" : "en_US"}
+		/>
 		<meta property="og:site_name" content="Isaac Martinez - Portfolio" />
 
 		<!-- Twitter -->
@@ -72,9 +82,30 @@ const imageURL = new URL(image, Astro.url.origin);
 		<link rel="canonical" href={canonicalURL} />
 
 		<!-- Alternate Languages -->
-		<link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname.replace(/^\/es/, ''), Astro.url.origin)} />
-		<link rel="alternate" hreflang="es" href={new URL(`/es${Astro.url.pathname.replace(/^\/es/, '')}`, Astro.url.origin)} />
-		<link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname.replace(/^\/es/, ''), Astro.url.origin)} />
+		<link
+			rel="alternate"
+			hreflang="en"
+			href={new URL(
+				Astro.url.pathname.replace(/^\/es/, ""),
+				Astro.url.origin,
+			)}
+		/>
+		<link
+			rel="alternate"
+			hreflang="es"
+			href={new URL(
+				`/es${Astro.url.pathname.replace(/^\/es/, "")}`,
+				Astro.url.origin,
+			)}
+		/>
+		<link
+			rel="alternate"
+			hreflang="x-default"
+			href={new URL(
+				Astro.url.pathname.replace(/^\/es/, ""),
+				Astro.url.origin,
+			)}
+		/>
 
 		<!-- Sitemap -->
 		<link rel="sitemap" href="/sitemap-index.xml" />
@@ -155,18 +186,21 @@ const imageURL = new URL(image, Astro.url.origin);
 		class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50 antialiased flex flex-col min-h-screen transition-colors duration-300"
 	>
 		<Navbar />
-		{fullWidth ? (
-			<main class="flex-grow w-full">
-				<slot />
-			</main>
-		) : (
-			<Container class="flex-grow">
-				<main>
+		{
+			fullWidth ? (
+				<main class="flex-grow w-full">
 					<slot />
 				</main>
-			</Container>
-		)}
+			) : (
+				<Container class="flex-grow">
+					<main>
+						<slot />
+					</main>
+				</Container>
+			)
+		}
 		<StickyNavigation />
 		<Footer />
+		<Terminal />
 	</body>
 </html>

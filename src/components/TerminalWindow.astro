@@ -1,5 +1,6 @@
 ---
 import TerminalHeader from "./TerminalHeader.astro";
+import TerminalIcon from "./icons/TerminalIcon.astro";
 
 interface Props {
     filename?: string;
@@ -8,31 +9,36 @@ interface Props {
     class?: string;
 }
 
-const { 
-    filename = "isaac.sh", 
+const {
+    filename = "isaac.sh",
     showIcon = false,
     minHeight,
-    class: className = "" 
+    class: className = "",
 } = Astro.props;
 ---
 
-<div class:list={[
-    "bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden",
-    className
-]}>
-    <div class="bg-gray-100 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+<div
+    class:list={[
+        "bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden",
+        className,
+    ]}
+>
+    <div
+        class="bg-gray-100 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between"
+    >
         <TerminalHeader />
-        <div class="text-xs text-gray-500 dark:text-gray-400 font-mono flex items-center gap-2">
-            {showIcon && (
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 9 5.293 6.707a1 1 0 010-1.414zM9 10a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd" />
-                </svg>
-            )}
+        <div
+            class="text-xs text-gray-500 dark:text-gray-400 font-mono flex items-center gap-2"
+        >
+            {showIcon && <TerminalIcon class="h-3 w-3" />}
             {filename}
         </div>
         <div class="w-12"></div>
     </div>
-    <div class="bg-white dark:bg-gray-800" style={minHeight ? `min-height: ${minHeight}` : undefined}>
+    <div
+        class="bg-white dark:bg-gray-800"
+        style={minHeight ? `min-height: ${minHeight}` : undefined}
+    >
         <slot />
     </div>
 </div>
