@@ -96,8 +96,8 @@
         "dark": "Dark",
         "systemOnline": "SYSTEM ONLINE",
         "tooltip": {
-            "title": "NEW_FEATURE_DETECTED",
-            "desc": "Customize your experience! Switch themes and languages from this new control panel.",
+            "title": "NUEVA_FUNCIÓN",
+            "desc": "¡Personaliza tu experiencia! Cambia entre temas e idiomas desde este panel de control.",
             "status": "System ready"
         }
     }
