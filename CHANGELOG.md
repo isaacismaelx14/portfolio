@@ -1,5 +1,12 @@
 # Changelog
 
+# [2.1.0](/compare/v2.0.1...v2.1.0) (2025-12-02)
+
+
+### Features
+
+* Update changelog 96d7f83
+
 # 2.1.0 (2025-12-02)
 
 
