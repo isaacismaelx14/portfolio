@@ -98,8 +98,27 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
                     </button>
-                    <!-- Maximize Button (Visual only) -->
-                    <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                    <!-- Maximize Button -->
+                    <button
+                        id="term-maximize"
+                        class="w-3 h-3 rounded-full bg-[#27c93f] flex items-center justify-center hover:bg-[#27c93f]/80 transition-colors group-hover:opacity-100"
+                        aria-label="Maximize"
+                    >
+                        <svg
+                            class="w-2 h-2 text-black opacity-0 hover:opacity-100 transition-opacity"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="4"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <polyline points="9 21 3 21 3 15"></polyline>
+                            <line x1="21" y1="3" x2="14" y2="10"></line>
+                            <line x1="3" y1="21" x2="10" y2="14"></line>
+                        </svg>
+                    </button>
                 </div>
                 <div
                     class="text-[#666] text-xs absolute left-1/2 transform -translate-x-1/2"
@@ -156,10 +175,12 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
         private canvas: HTMLCanvasElement | null = null;
         private closeBtn: HTMLElement | null = null;
         private minimizeBtn: HTMLElement | null = null;
+        private maximizeBtn: HTMLElement | null = null;
 
         // State
         private isOpen = false;
         private isMinimized = false;
+        private isMaximized = false;
         private history: string[] = [];
         private historyIndex = -1;
         private matrixInterval: any = null;
@@ -190,6 +211,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
             this.canvas = this.querySelector("#matrix-canvas");
             this.closeBtn = this.querySelector("#term-close");
             this.minimizeBtn = this.querySelector("#term-minimize");
+            this.maximizeBtn = this.querySelector("#term-maximize");
 
             // Load Data
             try {
@@ -210,6 +232,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
             this.openTerminal = this.openTerminal.bind(this);
             this.closeTerminal = this.closeTerminal.bind(this);
             this.minimizeTerminal = this.minimizeTerminal.bind(this);
+            this.maximizeTerminal = this.maximizeTerminal.bind(this);
             this.focusInput = this.focusInput.bind(this);
 
             // Add listeners
@@ -220,6 +243,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
             this.content?.addEventListener("click", this.focusInput);
             this.closeBtn?.addEventListener("click", this.closeTerminal);
             this.minimizeBtn?.addEventListener("click", this.minimizeTerminal);
+            this.maximizeBtn?.addEventListener("click", this.maximizeTerminal);
             this.minimizedTab?.addEventListener("click", this.openTerminal);
         }
 
@@ -235,6 +259,10 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                 "click",
                 this.minimizeTerminal,
             );
+            this.maximizeBtn?.removeEventListener(
+                "click",
+                this.maximizeTerminal,
+            );
             this.minimizedTab?.removeEventListener("click", this.openTerminal);
 
             this.stopMatrix();
@@ -244,6 +272,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
             const state = {
                 isOpen: this.isOpen,
                 isMinimized: this.isMinimized,
+                isMaximized: this.isMaximized,
             };
             sessionStorage.setItem(
                 this.STORAGE_KEY_STATE,
@@ -290,9 +319,11 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                     this.STORAGE_KEY_STATE,
                 );
                 if (savedState) {
-                    const { isOpen, isMinimized } = JSON.parse(savedState);
+                    const { isOpen, isMinimized, isMaximized } =
+                        JSON.parse(savedState);
                     this.isOpen = isOpen;
                     this.isMinimized = isMinimized;
+                    this.isMaximized = isMaximized || false;
 
                     if (this.isOpen) {
                         if (this.isMinimized) {
@@ -324,6 +355,20 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                                 "opacity-100",
                                 "translate-y-0",
                             );
+
+                            // Apply maximized state if needed
+                            if (this.isMaximized) {
+                                this.windowEl?.classList.remove(
+                                    "max-w-4xl",
+                                    "h-[80vh]",
+                                    "rounded-lg",
+                                );
+                                this.windowEl?.classList.add(
+                                    "h-full",
+                                    "rounded-none",
+                                );
+                            }
+
                             document.body.style.overflow = "hidden";
                             setTimeout(() => this.input?.focus(), 50);
                         }
@@ -332,6 +377,42 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
             } catch (e) {
                 console.error("Error restoring terminal state", e);
             }
+        }
+
+        // ... handleKeydown ...
+
+        // ... handleInputKeydown ...
+
+        // ... focusInput ...
+
+        // ... openTerminal ...
+
+        // ... closeTerminal ...
+
+        // ... minimizeTerminal ...
+
+        private maximizeTerminal() {
+            if (!this.windowEl) return;
+
+            this.isMaximized = !this.isMaximized;
+
+            if (this.isMaximized) {
+                this.windowEl.classList.remove(
+                    "max-w-4xl",
+                    "h-[80vh]",
+                    "rounded-lg",
+                );
+                this.windowEl.classList.add("h-full", "rounded-none");
+            } else {
+                this.windowEl.classList.add(
+                    "max-w-4xl",
+                    "h-[80vh]",
+                    "rounded-lg",
+                );
+                this.windowEl.classList.remove("h-full", "rounded-none");
+            }
+
+            this.saveState();
         }
 
         private handleKeydown(e: KeyboardEvent) {
