@@ -1,5 +1,13 @@
 ---
-import LanguageRedirect from "../components/LanguageRedirect.astro";
----
+// Try to get language preference from cookie
+const cookieLang = Astro.cookies.get("preferred-lang")?.value;
 
-<LanguageRedirect />
+// Get browser language from Accept-Language header
+const acceptLang = Astro.request.headers.get("accept-language") || "";
+const browserLang = acceptLang.split(",")[0]?.split("-")[0] || "en";
+
+// Determine target language
+const lang = cookieLang || (browserLang === "es" ? "es" : "en");
+
+return Astro.redirect(`/${lang}`, 302);
+---

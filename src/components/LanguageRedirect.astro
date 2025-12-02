@@ -17,5 +17,10 @@ const browserLang = acceptLang.split(",")[0]?.split("-")[0] || "en";
 const lang = cookieLang || (browserLang === "es" ? "es" : "en");
 
 // Server-side redirect (instant, no flash)
-return Astro.redirect(`/${lang}${targetPath}`, 302);
+const redirectUrl = `/${lang}${targetPath}`;
 ---
+
+<meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
+<script define:vars={{ redirectUrl }}>
+    window.location.replace(redirectUrl);
+</script>
