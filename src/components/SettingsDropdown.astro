@@ -1,41 +1,9 @@
 ---
-import { languages, getLangFromUrl, useTranslations } from "../i18n/utils";
+import SettingsPanel from "./SettingsPanel.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const currentPath = Astro.url.pathname;
-
-function getLocalizedPath(targetLang: string) {
-    const hasLangPrefix = Object.keys(languages).some((l) =>
-        currentPath.startsWith(`/${l}`),
-    );
-
-    // Remove existing language prefix if present
-    let cleanPath = currentPath;
-    if (hasLangPrefix) {
-        const parts = currentPath.split("/");
-        // parts[0] is empty, parts[1] is lang
-        cleanPath = "/" + parts.slice(2).join("/");
-    } else if (currentPath === "/") {
-        cleanPath = "/";
-    }
-
-    // Ensure cleanPath starts with /
-    if (!cleanPath.startsWith("/")) {
-        cleanPath = "/" + cleanPath;
-    }
-
-    if (targetLang === "en") {
-        return cleanPath === "" ? "/" : cleanPath;
-    }
-
-    return `/${targetLang}${cleanPath === "/" ? "" : cleanPath}`;
-}
-
-const flags = {
-    en: "🇺🇸",
-    es: "🇩🇴",
-};
 ---
 
 <div class="relative inline-block text-left" id="settings-menu-container">
@@ -76,121 +44,9 @@ const flags = {
         tabindex="-1"
         id="settings-menu-dropdown"
     >
-        <div
-            class="px-4 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 rounded-t-xl"
-        >
-            <p
-                class="text-xs font-mono font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider"
-            >
-                {t("settings.title")}
-            </p>
-        </div>
-
-        <div class="p-2 space-y-1">
-            <!-- Theme Section -->
-            <div class="px-2 py-2">
-                <p
-                    class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide"
-                >
-                    {t("settings.appearance")}
-                </p>
-                <div class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
-                    <button
-                        type="button"
-                        class="theme-select-btn flex-1 flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all"
-                        data-theme="light"
-                    >
-                        <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                            ></path>
-                        </svg>
-                        {t("settings.light")}
-                    </button>
-                    <button
-                        type="button"
-                        class="theme-select-btn flex-1 flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all"
-                        data-theme="dark"
-                    >
-                        <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                            ></path>
-                        </svg>
-                        {t("settings.dark")}
-                    </button>
-                </div>
-            </div>
-
-            <div class="h-px bg-gray-200 dark:bg-gray-800 mx-2 my-1"></div>
-
-            <!-- Language Section -->
-            <div class="px-2 py-2">
-                <p
-                    class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide"
-                >
-                    {t("settings.language")}
-                </p>
-                <div class="space-y-1">
-                    {
-                        Object.entries(languages).map(([label, name]) => (
-                            <a
-                                href={getLocalizedPath(label)}
-                                class={`flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                                    lang === label
-                                        ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
-                                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-                                }`}
-                                onclick={`localStorage.setItem('preferred-lang', '${label}')`}
-                            >
-                                <span class="flex items-center gap-2">
-                                    <span class="text-lg">
-                                        {flags[label as keyof typeof flags]}
-                                    </span>
-                                    <span>{name}</span>
-                                </span>
-                                {lang === label && (
-                                    <div class="w-2 h-2 rounded-full bg-blue-500" />
-                                )}
-                            </a>
-                        ))
-                    }
-                </div>
-            </div>
-        </div>
-
-        <div
-            class="px-4 py-2 bg-gray-50 dark:bg-gray-800/50 rounded-b-xl border-t border-gray-200 dark:border-gray-800"
-        >
-            <div
-                class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 font-mono"
-            >
-                <span>v1.0.0</span>
-                <span class="flex items-center gap-1">
-                    <span
-                        class="w-2 h-2 rounded-full bg-green-500 animate-pulse"
-                    ></span>
-                    {t("settings.systemOnline")}
-                </span>
-            </div>
-        </div>
+        <SettingsPanel variant="desktop" />
     </div>
+
     <!-- Onboarding Tooltip -->
     <div
         id="settings-tooltip"
@@ -198,13 +54,10 @@ const flags = {
     >
         <div
             class="absolute -top-2 right-3 w-4 h-4 bg-gray-900 border-t border-l border-gray-700 transform rotate-45"
-        >
-        </div>
+        ></div>
         <div class="relative z-10">
             <div class="flex justify-between items-start mb-2">
-                <span class="font-mono text-blue-400 font-bold"
-                    >> {t("settings.tooltip.title")}</span
-                >
+                <span class="font-mono text-blue-400 font-bold">> {t("settings.tooltip.title")}</span>
                 <button
                     id="close-tooltip"
                     class="text-gray-500 hover:text-white transition-colors"
@@ -225,11 +78,8 @@ const flags = {
             <p class="text-gray-300 mb-2">
                 {t("settings.tooltip.desc")}
             </p>
-            <div
-                class="flex items-center gap-2 text-gray-500 text-[10px] font-mono"
-            >
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"
-                ></span>
+            <div class="flex items-center gap-2 text-gray-500 text-[10px] font-mono">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                 <span>{t("settings.tooltip.status")}</span>
             </div>
         </div>
@@ -237,118 +87,31 @@ const flags = {
 </div>
 
 <script>
+    import { initThemeButtons, dismissTooltip, showTooltip, updateThemeButtons, getTheme } from "../scripts/theme";
+
     function initSettingsDropdown() {
         const button = document.getElementById("settings-menu-button");
         const dropdown = document.getElementById("settings-menu-dropdown");
         const container = document.getElementById("settings-menu-container");
-        const themeBtns = document.querySelectorAll(".theme-select-btn");
-
-        // Tooltip Elements
-        const tooltip = document.getElementById("settings-tooltip");
         const closeBtn = document.getElementById("close-tooltip");
 
-        // Theme Logic
-        function getTheme() {
-            if (localStorage.getItem("color-theme")) {
-                return localStorage.getItem("color-theme");
-            }
-            if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                return "dark";
-            }
-            return "light";
+        // Initialize theme buttons
+        initThemeButtons(".theme-select-btn");
+        
+        // Sync mobile theme buttons if they exist
+        const allThemeBtns = document.querySelectorAll('.theme-select-btn, .mobile-theme-select-btn');
+        updateThemeButtons(allThemeBtns, getTheme());
+
+        // Show tooltip for first-time visitors (desktop only)
+        const isDesktop = window.innerWidth >= 640;
+        if (isDesktop) {
+            showTooltip("settings-tooltip", "settings-tooltip-seen");
         }
 
-        function setTheme(theme) {
-            localStorage.setItem("color-theme", theme);
-            if (theme === "dark") {
-                document.documentElement.classList.add("dark");
-            } else {
-                document.documentElement.classList.remove("dark");
-            }
-            updateThemeUI(theme);
-        }
-
-        function updateThemeUI(theme) {
-            themeBtns.forEach((btn) => {
-                const btnTheme = btn.getAttribute("data-theme");
-                if (btnTheme === theme) {
-                    btn.classList.add(
-                        "bg-white",
-                        "dark:bg-gray-700",
-                        "shadow-sm",
-                        "text-gray-900",
-                        "dark:text-white",
-                    );
-                    btn.classList.remove(
-                        "text-gray-500",
-                        "dark:text-gray-400",
-                        "hover:text-gray-700",
-                    );
-                } else {
-                    btn.classList.remove(
-                        "bg-white",
-                        "dark:bg-gray-700",
-                        "shadow-sm",
-                        "text-gray-900",
-                        "dark:text-white",
-                    );
-                    btn.classList.add(
-                        "text-gray-500",
-                        "dark:text-gray-400",
-                        "hover:text-gray-700",
-                    );
-                }
-            });
-        }
-
-        // Initialize Theme UI
-        updateThemeUI(getTheme());
-
-        themeBtns.forEach((btn) => {
-            btn.addEventListener("click", (e) => {
-                e.stopPropagation(); // Prevent closing dropdown
-                const theme = btn.getAttribute("data-theme");
-                if (theme) setTheme(theme);
-            });
-        });
-
-        // Tooltip Logic
-        const dismissTooltip = () => {
-            if (tooltip) {
-                localStorage.setItem("settings-tooltip-seen", "true");
-                tooltip.classList.add(
-                    "opacity-0",
-                    "translate-y-2",
-                    "pointer-events-none",
-                );
-                setTimeout(() => {
-                    tooltip.classList.add("hidden");
-                }, 500);
-            }
-        };
-
-        if (tooltip && closeBtn) {
-            const hasSeenTooltip = localStorage.getItem(
-                "settings-tooltip-seen",
-            );
-
-            if (!hasSeenTooltip) {
-                // Show tooltip after a short delay
-                setTimeout(() => {
-                    tooltip.classList.remove("hidden");
-                    requestAnimationFrame(() => {
-                        tooltip.classList.remove(
-                            "opacity-0",
-                            "translate-y-2",
-                            "pointer-events-none",
-                        );
-                    });
-                }, 1500);
-            }
-
+        if (closeBtn) {
             closeBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
-                dismissTooltip();
+                dismissTooltip("settings-tooltip", "settings-tooltip-seen");
             });
         }
 
@@ -360,27 +123,18 @@ const flags = {
                 isOpen = !isOpen;
                 button.setAttribute("aria-expanded", isOpen.toString());
                 if (isOpen) {
-                    dropdown.classList.remove(
-                        "opacity-0",
-                        "scale-95",
-                        "pointer-events-none",
-                    );
+                    dropdown.classList.remove("opacity-0", "scale-95", "pointer-events-none");
                     dropdown.classList.add("opacity-100", "scale-100");
                 } else {
                     dropdown.classList.remove("opacity-100", "scale-100");
-                    dropdown.classList.add(
-                        "opacity-0",
-                        "scale-95",
-                        "pointer-events-none",
-                    );
+                    dropdown.classList.add("opacity-0", "scale-95", "pointer-events-none");
                 }
             };
 
             button.addEventListener("click", (e) => {
                 e.stopPropagation();
                 toggleMenu();
-                // Always try to dismiss tooltip when opening menu
-                dismissTooltip();
+                dismissTooltip("settings-tooltip", "settings-tooltip-seen");
             });
 
             document.addEventListener("click", (event) => {
@@ -397,6 +151,5 @@ const flags = {
         }
     }
 
-    // Run on every page load
     document.addEventListener("astro:page-load", initSettingsDropdown);
 </script>

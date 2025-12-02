@@ -6,6 +6,11 @@ export const languages = {
     es: 'Español',
 };
 
+export const flags: Record<string, string> = {
+    en: '🇺🇸',
+    es: '🇩🇴',
+};
+
 export const defaultLang = 'en';
 
 const translations = {
@@ -35,4 +40,28 @@ export function useTranslatedPath(lang: keyof typeof translations) {
         const cleanPath = path.startsWith('/') ? path : `/${path}`;
         return `/${l}${cleanPath === '/' ? '' : cleanPath}`;
     }
+}
+
+export function getLocalizedPath(currentPath: string, targetLang: string): string {
+    const hasLangPrefix = Object.keys(languages).some((l) =>
+        currentPath.startsWith(`/${l}`)
+    );
+
+    let cleanPath = currentPath;
+    if (hasLangPrefix) {
+        const parts = currentPath.split('/');
+        cleanPath = '/' + parts.slice(2).join('/');
+    } else if (currentPath === '/') {
+        cleanPath = '/';
+    }
+
+    if (!cleanPath.startsWith('/')) {
+        cleanPath = '/' + cleanPath;
+    }
+
+    if (targetLang === 'en') {
+        return cleanPath === '' ? '/' : cleanPath;
+    }
+
+    return `/${targetLang}${cleanPath === '/' ? '' : cleanPath}`;
 }

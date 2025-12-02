@@ -1,42 +1,13 @@
 ---
 import SettingsDropdown from "./SettingsDropdown.astro";
+import SettingsPanel from "./SettingsPanel.astro";
 import MobileMenu from "./MobileMenu.astro";
 import NavLinks from "./NavLinks.astro";
 import I18nLink from "./I18nLink.astro";
-import { getLangFromUrl, useTranslations, languages } from "../i18n/utils";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const currentPath = Astro.url.pathname;
-
-function getLocalizedPath(targetLang: string) {
-    const hasLangPrefix = Object.keys(languages).some((l) =>
-        currentPath.startsWith(`/${l}`),
-    );
-
-    let cleanPath = currentPath;
-    if (hasLangPrefix) {
-        const parts = currentPath.split("/");
-        cleanPath = "/" + parts.slice(2).join("/");
-    } else if (currentPath === "/") {
-        cleanPath = "/";
-    }
-
-    if (!cleanPath.startsWith("/")) {
-        cleanPath = "/" + cleanPath;
-    }
-
-    if (targetLang === "en") {
-        return cleanPath === "" ? "/" : cleanPath;
-    }
-
-    return `/${targetLang}${cleanPath === "/" ? "" : cleanPath}`;
-}
-
-const flags = {
-    en: "🇺🇸",
-    es: "🇩🇴",
-};
 ---
 
 <nav
@@ -182,87 +153,17 @@ const flags = {
       </div>
     </div>
 
-    <!-- Content -->
-    <div class="p-4 space-y-4">
-      <!-- Theme Section -->
-      <div>
-        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide font-mono">
-          {t("settings.appearance")}
-        </p>
-        <div class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
-          <button
-            type="button"
-            class="mobile-theme-select-btn flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all"
-            data-theme="light"
-          >
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-            </svg>
-            {t("settings.light")}
-          </button>
-          <button
-            type="button"
-            class="mobile-theme-select-btn flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all"
-            data-theme="dark"
-          >
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-            </svg>
-            {t("settings.dark")}
-          </button>
-        </div>
-      </div>
-
-      <div class="h-px bg-gray-200 dark:bg-gray-700"></div>
-
-      <!-- Language Section -->
-      <div>
-        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide font-mono">
-          {t("settings.language")}
-        </p>
-        <div class="space-y-1">
-          {
-            Object.entries(languages).map(([label, name]) => (
-              <a
-                href={getLocalizedPath(label)}
-                class={`flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  lang === label
-                    ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-                }`}
-                onclick={`localStorage.setItem('preferred-lang', '${label}')`}
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-lg">{flags[label as keyof typeof flags]}</span>
-                  <span>{name}</span>
-                </span>
-                {lang === label && (
-                  <div class="w-2 h-2 rounded-full bg-blue-500" />
-                )}
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="px-4 py-2 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700">
-      <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
-        <span>v1.0.0</span>
-        <span class="flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          {t("settings.systemOnline")}
-        </span>
-      </div>
-    </div>
+    <!-- Content - Using shared SettingsPanel component -->
+    <SettingsPanel variant="mobile" showHeader={false} />
   </div>
 </div>
 
 <!-- Mobile menu rendered outside nav for proper stacking -->
 <MobileMenu />
 
-<script is:inline>
+<script>
+  import { initThemeButtons, dismissTooltip, showTooltip, updateThemeButtons, getTheme } from "../scripts/theme";
+
   function openMobileSettings() {
     const modal = document.getElementById("mobile-settings-modal");
     const backdrop = document.getElementById("mobile-settings-backdrop");
@@ -295,54 +196,40 @@ const flags = {
   }
 
   // Expose functions globally
-  window.openMobileSettings = openMobileSettings;
-  window.closeMobileSettings = closeMobileSettings;
+  (window as any).openMobileSettings = openMobileSettings;
+  (window as any).closeMobileSettings = closeMobileSettings;
 
-  document.addEventListener("astro:page-load", () => {
+  function initMobileNav() {
     const mobileMenuBtn = document.getElementById("mobile-menu-btn");
     const mobileSettingsBtn = document.getElementById("mobile-settings-btn");
     const closeMobileSettingsBtn = document.getElementById("close-mobile-settings-btn");
     const backdrop = document.getElementById("mobile-settings-backdrop");
-    const mobileThemeBtns = document.querySelectorAll(".mobile-theme-select-btn");
-    
-    // Mobile Tooltip
-    const mobileTooltip = document.getElementById("mobile-settings-tooltip");
     const closeMobileTooltipBtn = document.getElementById("close-mobile-tooltip");
 
-    const dismissMobileTooltip = () => {
-      if (mobileTooltip) {
-        localStorage.setItem("mobile-settings-tooltip-seen", "true");
-        mobileTooltip.classList.add("opacity-0", "translate-y-2", "pointer-events-none");
-        setTimeout(() => {
-          mobileTooltip.classList.add("hidden");
-        }, 500);
-      }
-    };
+    // Initialize mobile theme buttons using shared utility
+    initThemeButtons(".mobile-theme-select-btn");
+    
+    // Sync all theme buttons
+    const allThemeBtns = document.querySelectorAll('.theme-select-btn, .mobile-theme-select-btn');
+    updateThemeButtons(allThemeBtns, getTheme());
 
     // Show mobile tooltip for first-time visitors (only on mobile)
-    if (mobileTooltip && closeMobileTooltipBtn) {
-      const hasSeenMobileTooltip = localStorage.getItem("mobile-settings-tooltip-seen");
-      const isMobile = window.innerWidth < 640;
+    const isMobile = window.innerWidth < 640;
+    if (isMobile) {
+      showTooltip("mobile-settings-tooltip", "mobile-settings-tooltip-seen");
+    }
 
-      if (!hasSeenMobileTooltip && isMobile) {
-        setTimeout(() => {
-          mobileTooltip.classList.remove("hidden");
-          requestAnimationFrame(() => {
-            mobileTooltip.classList.remove("opacity-0", "translate-y-2", "pointer-events-none");
-          });
-        }, 1500);
-      }
-
+    if (closeMobileTooltipBtn) {
       closeMobileTooltipBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        dismissMobileTooltip();
+        dismissTooltip("mobile-settings-tooltip", "mobile-settings-tooltip-seen");
       });
     }
 
     if (mobileMenuBtn) {
       mobileMenuBtn.addEventListener("click", () => {
-        if (typeof window.openMobileMenu === "function") {
-          window.openMobileMenu();
+        if (typeof (window as any).openMobileMenu === "function") {
+          (window as any).openMobileMenu();
         }
       });
     }
@@ -350,7 +237,7 @@ const flags = {
     if (mobileSettingsBtn) {
       mobileSettingsBtn.addEventListener("click", () => {
         openMobileSettings();
-        dismissMobileTooltip();
+        dismissTooltip("mobile-settings-tooltip", "mobile-settings-tooltip-seen");
       });
     }
 
@@ -366,56 +253,13 @@ const flags = {
       });
     }
 
-    // Mobile theme switching
-    function getTheme() {
-      if (localStorage.getItem("color-theme")) {
-        return localStorage.getItem("color-theme");
-      }
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        return "dark";
-      }
-      return "light";
-    }
-
-    function setTheme(theme) {
-      localStorage.setItem("color-theme", theme);
-      if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-      updateMobileThemeUI(theme);
-    }
-
-    function updateMobileThemeUI(theme) {
-      mobileThemeBtns.forEach((btn) => {
-        const btnTheme = btn.getAttribute("data-theme");
-        if (btnTheme === theme) {
-          btn.classList.add("bg-white", "dark:bg-gray-700", "shadow-sm", "text-gray-900", "dark:text-white");
-          btn.classList.remove("text-gray-500", "dark:text-gray-400", "hover:text-gray-700");
-        } else {
-          btn.classList.remove("bg-white", "dark:bg-gray-700", "shadow-sm", "text-gray-900", "dark:text-white");
-          btn.classList.add("text-gray-500", "dark:text-gray-400", "hover:text-gray-700");
-        }
-      });
-    }
-
-    // Initialize mobile theme UI
-    updateMobileThemeUI(getTheme());
-
-    mobileThemeBtns.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const theme = btn.getAttribute("data-theme");
-        if (theme) setTheme(theme);
-      });
-    });
-
     // Handle escape key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         closeMobileSettings();
       }
     });
-  });
+  }
+
+  document.addEventListener("astro:page-load", initMobileNav);
 </script>

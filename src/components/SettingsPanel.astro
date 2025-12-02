@@ -1,0 +1,101 @@
+---
+import { languages, flags, getLangFromUrl, useTranslations, getLocalizedPath } from "../i18n/utils";
+
+interface Props {
+    variant?: "desktop" | "mobile";
+    showHeader?: boolean;
+    showFooter?: boolean;
+}
+
+const { variant = "desktop", showHeader = true, showFooter = true } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const currentPath = Astro.url.pathname;
+
+const isDesktop = variant === "desktop";
+const themeButtonClass = isDesktop ? "theme-select-btn" : "mobile-theme-select-btn";
+---
+
+{showHeader && (
+    <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 rounded-t-xl">
+        <p class="text-xs font-mono font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            {t("settings.title")}
+        </p>
+    </div>
+)}
+
+<div class={`p-${isDesktop ? '2' : '4'} space-y-${isDesktop ? '1' : '4'}`}>
+    <!-- Theme Section -->
+    <div class={isDesktop ? "px-2 py-2" : ""}>
+        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide font-mono">
+            {t("settings.appearance")}
+        </p>
+        <div class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+            <button
+                type="button"
+                class={`${themeButtonClass} flex-1 flex items-center justify-center gap-2 px-3 py-${isDesktop ? '1.5' : '2'} rounded-md text-sm font-medium transition-all`}
+                data-theme="light"
+            >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+                {t("settings.light")}
+            </button>
+            <button
+                type="button"
+                class={`${themeButtonClass} flex-1 flex items-center justify-center gap-2 px-3 py-${isDesktop ? '1.5' : '2'} rounded-md text-sm font-medium transition-all`}
+                data-theme="dark"
+            >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                </svg>
+                {t("settings.dark")}
+            </button>
+        </div>
+    </div>
+
+    <div class={`h-px bg-gray-200 dark:bg-gray-${isDesktop ? '800' : '700'} ${isDesktop ? 'mx-2 my-1' : ''}`}></div>
+
+    <!-- Language Section -->
+    <div class={isDesktop ? "px-2 py-2" : ""}>
+        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide font-mono">
+            {t("settings.language")}
+        </p>
+        <div class="space-y-1">
+            {
+                Object.entries(languages).map(([label, name]) => (
+                    <a
+                        href={getLocalizedPath(currentPath, label)}
+                        class={`flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                            lang === label
+                                ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
+                                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                        }`}
+                        onclick={`localStorage.setItem('preferred-lang', '${label}')`}
+                    >
+                        <span class="flex items-center gap-2">
+                            <span class="text-lg">{flags[label]}</span>
+                            <span>{name}</span>
+                        </span>
+                        {lang === label && (
+                            <div class="w-2 h-2 rounded-full bg-blue-500" />
+                        )}
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</div>
+
+{showFooter && (
+    <div class={`px-4 py-2 bg-${isDesktop ? 'gray-50' : 'gray-50'} dark:bg-gray-800/50 rounded-b-xl border-t border-gray-200 dark:border-gray-${isDesktop ? '800' : '700'}`}>
+        <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
+            <span>v1.0.0</span>
+            <span class="flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                {t("settings.systemOnline")}
+            </span>
+        </div>
+    </div>
+)}
