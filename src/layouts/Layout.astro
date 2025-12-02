@@ -1,6 +1,7 @@
 ---
 import "@fontsource/inter";
 import "../styles/global.css";
+import Container from "../components/Container.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
@@ -14,6 +15,8 @@ interface Props {
 	image?: string;
 	type?: "website" | "article" | "profile";
 	noindex?: boolean;
+	/** If true, the page handles its own container per section (e.g., HomePage) */
+	fullWidth?: boolean;
 }
 
 const { 
@@ -21,7 +24,8 @@ const {
 	description = "Isaac Martinez - Software Architect with 9+ years of experience in Node.js, TypeScript, AWS, and AI. Building scalable backend systems and high-performance applications.",
 	image = "/og-image.jpg",
 	type = "website",
-	noindex = false
+	noindex = false,
+	fullWidth = false
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -151,9 +155,17 @@ const imageURL = new URL(image, Astro.url.origin);
 		class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50 antialiased flex flex-col min-h-screen transition-colors duration-300"
 	>
 		<Navbar />
-		<main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
-			<slot />
-		</main>
+		{fullWidth ? (
+			<main class="flex-grow w-full">
+				<slot />
+			</main>
+		) : (
+			<Container class="flex-grow">
+				<main>
+					<slot />
+				</main>
+			</Container>
+		)}
 		<StickyNavigation />
 		<Footer />
 	</body>

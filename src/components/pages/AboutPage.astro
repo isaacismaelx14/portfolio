@@ -235,8 +235,17 @@ const pageDescription = getPageDescription("about", lang);
 </style>
 
 <script>
+    // Type declarations for TerminalModal
+    declare global {
+        interface Window {
+            TerminalModal?: {
+                runSequence: (generator: (onProgress?: (progress: number) => void) => Promise<unknown>) => void;
+            };
+        }
+    }
+
     // Lazy load PDF generation libraries and use terminal modal
-    async function generatePDFWithProgress(onProgress) {
+    async function generatePDFWithProgress(onProgress?: (progress: number) => void) {
         const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
             import('html2canvas-pro'),
             import('jspdf')
@@ -307,31 +316,40 @@ const pageDescription = getPageDescription("about", lang);
         }
     }
 
+    function triggerDownload() {
+        if (window.TerminalModal) {
+            window.TerminalModal.runSequence(generatePDFWithProgress);
+        } else {
+            generatePDFWithProgress()
+                .then(pdf => pdf?.save('Isaac_Martinez_Resume.pdf'))
+                .catch(console.error);
+        }
+    }
+
+    function checkAutoTrigger() {
+        const shouldDownload = sessionStorage.getItem("trigger-resume-download");
+        if (shouldDownload) {
+            sessionStorage.removeItem("trigger-resume-download");
+            setTimeout(triggerDownload, 500);
+        }
+    }
+
     function initDownloadButton() {
         const downloadBtn = document.getElementById('download-resume-btn');
         if (!downloadBtn) return;
 
-        // Remove old listeners by cloning
         const newBtn = downloadBtn.cloneNode(true);
         downloadBtn.parentNode?.replaceChild(newBtn, downloadBtn);
 
-        newBtn.addEventListener('click', async () => {
-            // Use the terminal modal
-            if (window.TerminalModal) {
-                window.TerminalModal.runSequence(generatePDFWithProgress);
-            } else {
-                // Fallback if modal not loaded
-                try {
-                    const pdf = await generatePDFWithProgress();
-                    pdf?.save('Isaac_Martinez_Resume.pdf');
-                } catch (error) {
-                    console.error('PDF generation failed:', error);
-                }
-            }
-        });
+        newBtn.addEventListener('click', triggerDownload);
     }
 
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', initDownloadButton);
-    document.addEventListener('astro:page-load', initDownloadButton);
+    document.addEventListener('DOMContentLoaded', () => {
+        initDownloadButton();
+        checkAutoTrigger();
+    });
+    document.addEventListener('astro:page-load', () => {
+        initDownloadButton();
+        checkAutoTrigger();
+    });
 </script>

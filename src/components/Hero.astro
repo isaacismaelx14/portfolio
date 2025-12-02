@@ -74,6 +74,43 @@ const translatePath = useTranslatedPath(lang);
           {t("hero.buttons.contact")}
         </a>
       </div>
+
+      <!-- Mobile Code Snippet -->
+      <div class="lg:hidden mt-8 w-full">
+        <div class="bg-gray-900 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl border border-gray-700">
+          <!-- Mini Header -->
+          <div class="bg-gray-800 dark:bg-gray-700 px-4 py-2 flex items-center justify-between">
+            <div class="flex gap-1.5">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+            </div>
+            <div class="text-[10px] text-gray-400 font-mono">app.module.ts</div>
+            <div class="w-8"></div>
+          </div>
+          <!-- Mini Code -->
+          <div class="p-4 font-mono text-xs leading-relaxed">
+            <div class="text-gray-500">// Building something amazing...</div>
+            <div class="mt-2">
+              <span class="text-purple-400">const</span>
+              <span class="text-blue-300"> developer</span>
+              <span class="text-gray-400"> = </span>
+              <span class="text-yellow-300">"Isaac Martinez"</span><span class="text-gray-400">;</span>
+            </div>
+            <div>
+              <span class="text-purple-400">const</span>
+              <span class="text-blue-300"> status</span>
+              <span class="text-gray-400"> = </span>
+              <span class="text-green-400">"Available for hire"</span><span class="text-gray-400">;</span>
+            </div>
+          </div>
+          <!-- Mini Status Bar -->
+          <div class="bg-blue-600 px-3 py-1 flex justify-between text-[9px] text-white font-mono">
+            <span>main* · TypeScript</span>
+            <span>UTF-8</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Right Column: Interactive Code Window -->
@@ -243,6 +280,20 @@ const translatePath = useTranslatedPath(lang);
             <span class="font-semibold text-xs">{t("hero.buttons.run")}</span>
           </button>
         </div>
+
+        <!-- Status Bar -->
+        <div
+          class="bg-blue-600 dark:bg-blue-700 px-4 py-1 flex justify-between text-[10px] text-white font-mono rounded-b-xl"
+        >
+          <div class="flex gap-4">
+            <span>main*</span>
+            <span>Ln 12, Col 45</span>
+          </div>
+          <div class="flex gap-4">
+            <span>UTF-8</span>
+            <span>TypeScript</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -350,20 +401,6 @@ const translatePath = useTranslatedPath(lang);
     initRunButton();
   });
 </script>
-
-<!-- Status Bar -->
-<div
-  class="bg-gray-50 dark:bg-gray-900 px-4 py-2 border-t border-gray-100 dark:border-gray-800 flex justify-between text-[10px] text-gray-500 dark:text-gray-400 font-mono"
->
-  <div class="flex gap-4">
-    <span>main*</span>
-    <span>Ln 12, Col 45</span>
-  </div>
-  <div class="flex gap-4">
-    <span>UTF-8</span>
-    <span>TypeScript</span>
-  </div>
-</div>
 
 <style>
   /* Syntax Highlighting Themes */

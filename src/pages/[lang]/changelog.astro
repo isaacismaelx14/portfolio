@@ -1,0 +1,162 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Container from "../../components/Container.astro";
+import { getChangelogData } from "../../data/changelog";
+import { getLangFromUrl, useTranslations, useTranslatedPath, languages } from "../../i18n/utils";
+import type { Lang } from "../../types";
+
+export function getStaticPaths() {
+    return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+const { version, entries } = getChangelogData();
+---
+
+<Layout title={`Changelog v${version} | Isaac Martinez`} description="Portfolio changelog and version history" noindex={true}>
+    <Container class="py-20 sm:py-24">
+        <!-- Header -->
+        <div class="mb-12">
+            <a 
+                href={translatePath("/")} 
+                class="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-6 transition-colors"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                {t("nav.home")}
+            </a>
+            
+            <div class="flex items-center gap-4 mb-4">
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+                    Changelog
+                </h1>
+                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-mono rounded-full">
+                    v{version}
+                </span>
+            </div>
+            
+            <p class="text-gray-600 dark:text-gray-400 max-w-2xl">
+                All notable changes to this portfolio are documented here. This project follows semantic versioning.
+            </p>
+        </div>
+
+        <!-- Current Version Highlight -->
+        <div class="mb-12 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-200 dark:border-blue-800">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+                <span class="text-sm font-mono text-gray-500 dark:text-gray-400">CURRENT VERSION</span>
+            </div>
+            <div class="flex items-baseline gap-4">
+                <span class="text-4xl font-bold text-gray-900 dark:text-white font-mono">v{version}</span>
+                <span class="text-gray-500 dark:text-gray-400">Astro + TailwindCSS Rebuild</span>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-gray-600 dark:text-gray-300">Astro 5</span>
+                <span class="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-gray-600 dark:text-gray-300">TailwindCSS 4</span>
+                <span class="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-gray-600 dark:text-gray-300">TypeScript</span>
+                <span class="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-gray-600 dark:text-gray-300">i18n</span>
+                <span class="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs font-medium text-gray-600 dark:text-gray-300">PDF Resume</span>
+            </div>
+        </div>
+
+        <!-- Version History -->
+        <div class="space-y-8">
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Version History</h2>
+            
+            {entries.length > 0 ? (
+                <div class="relative">
+                    <!-- Timeline line -->
+                    <div class="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+                    
+                    <div class="space-y-8">
+                        {entries.map((entry, index) => (
+                            <div class="relative pl-8">
+                                <!-- Timeline dot -->
+                                <div class={`absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 ${index === 0 ? 'bg-blue-500 border-blue-500' : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600'}`}></div>
+                                
+                                <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-bold font-mono text-gray-900 dark:text-white">v{entry.version}</span>
+                                        <span class="text-sm text-gray-500 dark:text-gray-400">{entry.date}</span>
+                                    </div>
+                                    
+                                    {entry.features.length > 0 && (
+                                        <div class="mb-4">
+                                            <h4 class="text-sm font-semibold text-green-600 dark:text-green-400 mb-2 flex items-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                </svg>
+                                                Features
+                                            </h4>
+                                            <ul class="space-y-1">
+                                                {entry.features.map(feature => (
+                                                    <li class="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2">
+                                                        <span class="text-green-500 mt-1">•</span>
+                                                        {feature}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                    
+                                    {entry.bugFixes.length > 0 && (
+                                        <div class="mb-4">
+                                            <h4 class="text-sm font-semibold text-orange-600 dark:text-orange-400 mb-2 flex items-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                                </svg>
+                                                Bug Fixes
+                                            </h4>
+                                            <ul class="space-y-1">
+                                                {entry.bugFixes.map(fix => (
+                                                    <li class="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2">
+                                                        <span class="text-orange-500 mt-1">•</span>
+                                                        {fix}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                    
+                                    {entry.breakingChanges.length > 0 && (
+                                        <div>
+                                            <h4 class="text-sm font-semibold text-red-600 dark:text-red-400 mb-2 flex items-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                                </svg>
+                                                Breaking Changes
+                                            </h4>
+                                            <ul class="space-y-1">
+                                                {entry.breakingChanges.map(change => (
+                                                    <li class="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2">
+                                                        <span class="text-red-500 mt-1">•</span>
+                                                        {change}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                <div class="text-center py-12 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                    <p class="text-gray-500 dark:text-gray-400">No changelog entries found.</p>
+                </div>
+            )}
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
+                Built with ❤️ using Astro, TailwindCSS, and TypeScript
+            </p>
+        </div>
+    </Container>
+</Layout>
