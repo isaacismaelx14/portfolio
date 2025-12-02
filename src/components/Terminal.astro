@@ -345,6 +345,21 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
         }
 
         private handleInputKeydown(e: KeyboardEvent) {
+            if (this.isGameActive) {
+                // Game Controls
+                if (e.key === "ArrowUp" && this.direction !== "DOWN")
+                    this.direction = "UP";
+                else if (e.key === "ArrowDown" && this.direction !== "UP")
+                    this.direction = "DOWN";
+                else if (e.key === "ArrowLeft" && this.direction !== "RIGHT")
+                    this.direction = "LEFT";
+                else if (e.key === "ArrowRight" && this.direction !== "LEFT")
+                    this.direction = "RIGHT";
+                else if (e.key === "Escape") this.stopGame();
+                e.preventDefault();
+                return;
+            }
+
             if (e.key === "Enter") {
                 if (this.input) {
                     this.handleCommand(this.input.value);
@@ -482,6 +497,8 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
   <span class="text-white">about</span>    <span>Display information about Isaac</span>
   <span class="text-white">projects</span> <span>List key projects</span>
   <span class="text-white">contact</span>  <span>Show contact information</span>
+  <span class="text-white">download</span> <span>Download Resume (PDF)</span>
+  <span class="text-white">game</span>     <span>Play Snake</span>
   <span class="text-white">clear</span>    <span>Clear the terminal screen</span>
   <span class="text-white">matrix</span>   <span>Toggle Matrix rain effect</span>
   <span class="text-white">exit</span>     <span>Close terminal mode</span>
@@ -555,6 +572,19 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                     this.closeTerminal();
                     result = "Closing session...";
                     break;
+                case "download":
+                    const link = document.createElement("a");
+                    link.href = "/resume.pdf";
+                    link.download = "resume.pdf";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    result =
+                        "Downloading resume... (Ensure resume.pdf exists in public folder)";
+                    break;
+                case "game":
+                    this.startGame();
+                    return; // Skip default output handling
                 case "matrix":
                     if (this.canvas?.classList.contains("hidden")) {
                         this.startMatrix();
@@ -580,6 +610,158 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
             this.saveState();
         }
 
+        // Snake Game Logic
+        private gameInterval: any = null;
+        private isGameActive = false;
+        private snake: { x: number; y: number }[] = [];
+        private food: { x: number; y: number } = { x: 0, y: 0 };
+        private direction: "UP" | "DOWN" | "LEFT" | "RIGHT" = "RIGHT";
+        private score = 0;
+        private gameWidth = 40;
+        private gameHeight = 20;
+
+        private startGame() {
+            if (this.isGameActive) return;
+            this.isGameActive = true;
+            this.score = 0;
+            this.snake = [
+                { x: 10, y: 10 },
+                { x: 9, y: 10 },
+                { x: 8, y: 10 },
+            ];
+            this.direction = "RIGHT";
+            this.spawnFood();
+
+            this.addToOutput(
+                "game",
+                "Starting Snake... Use Arrow Keys to control. Press ESC to quit.",
+            );
+
+            // Create Game Container
+            const gameContainer = document.createElement("div");
+            gameContainer.id = "snake-game";
+            gameContainer.className = "font-mono leading-none my-4 select-none";
+            gameContainer.style.whiteSpace = "pre";
+            this.output?.appendChild(gameContainer);
+
+            // Focus input to capture keys (handled in handleInputKeydown)
+            this.input?.focus();
+
+            this.gameInterval = setInterval(
+                () => this.gameLoop(gameContainer),
+                100,
+            );
+        }
+
+        private stopGame() {
+            if (!this.isGameActive) return;
+            this.isGameActive = false;
+            clearInterval(this.gameInterval);
+            const gameContainer = this.output?.querySelector("#snake-game");
+            if (gameContainer) {
+                gameContainer.innerHTML += `\n\n<span class="text-red-500">GAME OVER</span>\nScore: ${this.score}`;
+            }
+            this.addToOutput("", `Game finished. Score: ${this.score}`);
+        }
+
+        private spawnFood() {
+            this.food = {
+                x: Math.floor(Math.random() * this.gameWidth),
+                y: Math.floor(Math.random() * this.gameHeight),
+            };
+            // Ensure food doesn't spawn on snake
+            if (
+                this.snake.some(
+                    (segment) =>
+                        segment.x === this.food.x && segment.y === this.food.y,
+                )
+            ) {
+                this.spawnFood();
+            }
+        }
+
+        private gameLoop(container: HTMLElement) {
+            // Move Snake
+            const head = { ...this.snake[0] };
+            switch (this.direction) {
+                case "UP":
+                    head.y--;
+                    break;
+                case "DOWN":
+                    head.y++;
+                    break;
+                case "LEFT":
+                    head.x--;
+                    break;
+                case "RIGHT":
+                    head.x++;
+                    break;
+            }
+
+            // Check Collision (Walls)
+            if (
+                head.x < 0 ||
+                head.x >= this.gameWidth ||
+                head.y < 0 ||
+                head.y >= this.gameHeight
+            ) {
+                this.stopGame();
+                return;
+            }
+
+            // Check Collision (Self)
+            if (
+                this.snake.some(
+                    (segment) => segment.x === head.x && segment.y === head.y,
+                )
+            ) {
+                this.stopGame();
+                return;
+            }
+
+            this.snake.unshift(head);
+
+            // Check Food
+            if (head.x === this.food.x && head.y === this.food.y) {
+                this.score += 10;
+                this.spawnFood();
+            } else {
+                this.snake.pop();
+            }
+
+            // Render
+            this.renderGame(container);
+        }
+
+        private renderGame(container: HTMLElement) {
+            let grid = "";
+            // Top Border
+            grid += "+" + "-".repeat(this.gameWidth) + "+\n";
+
+            for (let y = 0; y < this.gameHeight; y++) {
+                grid += "|";
+                for (let x = 0; x < this.gameWidth; x++) {
+                    if (this.snake[0].x === x && this.snake[0].y === y) {
+                        grid += '<span class="text-green-500">O</span>'; // Head
+                    } else if (this.snake.some((s) => s.x === x && s.y === y)) {
+                        grid += '<span class="text-green-700">o</span>'; // Body
+                    } else if (this.food.x === x && this.food.y === y) {
+                        grid += '<span class="text-red-500">*</span>'; // Food
+                    } else {
+                        grid += '<span class="text-gray-800">.</span>'; // Empty
+                    }
+                }
+                grid += "|\n";
+            }
+
+            // Bottom Border
+            grid += "+" + "-".repeat(this.gameWidth) + "+";
+            grid += `\nScore: ${this.score}`;
+
+            container.innerHTML = grid;
+            if (this.content)
+                this.content.scrollTop = this.content.scrollHeight;
+        }
         private addToOutput(cmd: string, result: string) {
             if (!this.output) return;
 
