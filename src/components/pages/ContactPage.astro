@@ -15,9 +15,9 @@ const t = useTranslations(lang);
 ---
 
 <Layout title={`Portfolio | ${t("nav.contact")}`}>
-    <Section maxWidth="7xl">
+    <Section maxWidth="7xl" first>
         <div
-            class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start"
+            class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 items-start"
         >
             <!-- Left Column: Contact Info -->
             <div>
@@ -41,7 +41,7 @@ const t = useTranslations(lang);
                 </PageHeader>
 
                 <p
-                    class="text-xl text-gray-500 dark:text-gray-400 mb-12 mt-6 leading-relaxed"
+                    class="text-lg sm:text-xl text-gray-500 dark:text-gray-400 mb-8 sm:mb-12 mt-4 sm:mt-6 leading-relaxed"
                 >
                     {t("contact.desc")}
                 </p>
@@ -137,7 +137,7 @@ const t = useTranslations(lang);
 
             <!-- Right Column: Form -->
             <div
-                class="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-800"
+                class="bg-white dark:bg-gray-900 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 dark:border-gray-800"
             >
                 <form class="space-y-6" id="contact-form">
                     <FormInput

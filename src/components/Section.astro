@@ -3,15 +3,17 @@ interface Props {
     class?: string;
     maxWidth?: string;
     id?: string;
+    first?: boolean;
 }
 
-const { class: className, maxWidth = "7xl", id } = Astro.props;
+const { class: className, maxWidth = "7xl", id, first = false } = Astro.props;
 ---
 
 <section
     id={id}
     class:list={[
-        `py-20 mx-auto px-4 sm:px-6 lg:px-8 max-w-${maxWidth}`,
+        `mx-auto px-4 sm:px-6 lg:px-8 max-w-${maxWidth}`,
+        first ? "pt-20 pb-12 sm:pt-24 sm:pb-20" : "py-12 sm:py-20",
         className,
     ]}
 >

@@ -118,7 +118,7 @@ const languagesList = ["Spanish (Native)", "English (Fluent)"];
 ---
 
 <Layout title={`Portfolio | ${t("nav.about")}`}>
-    <Section maxWidth="4xl">
+    <Section maxWidth="4xl" first>
         <PageHeader
             title={t("about.title")}
             badgeText={t("about.badge")}
@@ -146,9 +146,9 @@ const languagesList = ["Spanish (Native)", "English (Fluent)"];
             </svg>
         </PageHeader>
 
-        <div class="prose prose-lg text-gray-500 dark:text-gray-400 mb-16">
+        <div class="prose prose-lg text-gray-500 dark:text-gray-400 mb-12 sm:mb-16">
             <blockquote
-                class="text-xl font-medium text-gray-900 dark:text-white italic mb-8 border-l-4 border-gray-900 dark:border-gray-100 pl-4"
+                class="text-lg sm:text-xl font-medium text-gray-900 dark:text-white italic mb-6 sm:mb-8 border-l-4 border-gray-900 dark:border-gray-100 pl-4"
             >
                 "{t("about.quote")}"
             </blockquote>
@@ -163,31 +163,31 @@ const languagesList = ["Spanish (Native)", "English (Fluent)"];
             </p>
         </div>
 
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-8">
             {t("about.experience")}
         </h2>
-        <div class="mb-20">
+        <div class="mb-16 sm:mb-20">
             {experience.map((item) => <TimelineItem {...item} />)}
         </div>
 
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-8">
             {t("about.education")}
         </h2>
-        <div class="mb-20">
+        <div class="mb-16 sm:mb-20">
             {education.map((item) => <TimelineItem {...item} />)}
         </div>
 
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-8">
             {t("about.skills")}
         </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-20">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 mb-16 sm:mb-20">
             {skills.map((skill) => <SkillCard name={skill} />)}
         </div>
 
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-8">
             {t("about.languages")}
         </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
             {languagesList.map((language) => <SkillCard name={language} />)}
         </div>
     </Section>

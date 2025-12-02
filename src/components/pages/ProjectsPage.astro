@@ -15,7 +15,7 @@ const t = useTranslations(lang);
 ---
 
 <Layout title={`Portfolio | ${t("nav.projects")}`}>
-    <Section>
+    <Section first>
         <PageHeader
             title={t("projects.title")}
             badgeText={t("projects.badge")}
@@ -42,11 +42,11 @@ const t = useTranslations(lang);
                 ></path>
             </svg>
         </PageHeader>
-        <p class="text-xl text-gray-500 dark:text-gray-400 mb-12 max-w-3xl">
+        <p class="text-lg sm:text-xl text-gray-500 dark:text-gray-400 mb-8 sm:mb-12 max-w-3xl">
             {t("projects.desc")}
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {projects.map((project) => <ProjectCard {...project} />)}
         </div>
     </Section>
