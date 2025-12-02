@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+
+## [2.1.3](/compare/v2.1.2...v2.1.3) (2025-12-02)
+
 ## [2.1.2](https://github.com/isaacismaelx14/portfolio/compare/v2.1.1...v2.1.2) (2025-12-02)
 
 ### Features
