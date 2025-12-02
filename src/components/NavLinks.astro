@@ -1,0 +1,75 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import I18nLink from "./I18nLink.astro";
+
+interface Props {
+    class?: string;
+    itemClass?: string;
+    orientation?: "horizontal" | "vertical";
+}
+
+const { class: className, itemClass, orientation = "horizontal" } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const currentPath = Astro.url.pathname;
+
+const links = [
+    { name: t("nav.home"), href: "/" },
+    { name: t("nav.about"), href: "/about" },
+    { name: t("nav.projects"), href: "/projects" },
+    { name: t("nav.contact"), href: "/contact" },
+];
+
+// Helper to check if link is active
+function isActive(href: string) {
+    // Handle root path specifically
+    if (href === "/") {
+        return (
+            currentPath === `/${lang}` ||
+            currentPath === `/${lang}/` ||
+            currentPath === "/"
+        );
+    }
+    // Handle other paths
+    return (
+        currentPath.startsWith(`/${lang}${href}`) ||
+        currentPath.startsWith(href)
+    );
+}
+---
+
+<ul
+    class:list={[
+        "flex",
+        orientation === "vertical"
+            ? "flex-col space-y-2"
+            : "flex-row space-x-1",
+        className,
+    ]}
+>
+    {
+        links.map((link) => {
+            const active = isActive(link.href);
+            return (
+                <li>
+                    <I18nLink
+                        href={link.href}
+                        class:list={[
+                            "block px-4 py-2 rounded-md font-mono text-sm transition-all duration-200 border",
+                            active
+                                ? "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400 font-bold shadow-sm"
+                                : "bg-transparent border-transparent hover:bg-white dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:shadow-sm",
+                            itemClass,
+                        ]}
+                    >
+                        <span class="flex items-center gap-2">
+                            {active && <span class="text-blue-500">></span>}
+                            {link.name}
+                        </span>
+                    </I18nLink>
+                </li>
+            );
+        })
+    }
+</ul>

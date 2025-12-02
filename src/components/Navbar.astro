@@ -1,19 +1,42 @@
 ---
 import SettingsDropdown from "./SettingsDropdown.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
-
+import MobileMenu from "./MobileMenu.astro";
+import NavLinks from "./NavLinks.astro";
 import I18nLink from "./I18nLink.astro";
+import { getLangFromUrl, useTranslations, languages } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-// translatePath is no longer needed here as I18nLink handles it
+const currentPath = Astro.url.pathname;
 
-const links = [
-  { name: t("nav.home"), href: "/" },
-  { name: t("nav.about"), href: "/about" },
-  { name: t("nav.projects"), href: "/projects" },
-  { name: t("nav.contact"), href: "/contact" },
-];
+function getLocalizedPath(targetLang: string) {
+    const hasLangPrefix = Object.keys(languages).some((l) =>
+        currentPath.startsWith(`/${l}`),
+    );
+
+    let cleanPath = currentPath;
+    if (hasLangPrefix) {
+        const parts = currentPath.split("/");
+        cleanPath = "/" + parts.slice(2).join("/");
+    } else if (currentPath === "/") {
+        cleanPath = "/";
+    }
+
+    if (!cleanPath.startsWith("/")) {
+        cleanPath = "/" + cleanPath;
+    }
+
+    if (targetLang === "en") {
+        return cleanPath === "" ? "/" : cleanPath;
+    }
+
+    return `/${targetLang}${cleanPath === "/" ? "" : cleanPath}`;
+}
+
+const flags = {
+    en: "🇺🇸",
+    es: "🇩🇴",
+};
 ---
 
 <nav
@@ -30,28 +53,305 @@ const links = [
         </I18nLink>
       </div>
       <div class="hidden sm:flex sm:space-x-8 items-center">
-        {
-          links.map((link) => (
-            <I18nLink
-              href={link.href}
-              class="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors relative group"
-            >
-              {link.name}
-              <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 dark:bg-white transition-all group-hover:w-full" />
-            </I18nLink>
-          ))
-        }
+        <NavLinks orientation="horizontal" />
         <SettingsDropdown />
       </div>
-      <!-- Mobile menu button placeholder (can be implemented with a simple script if needed) -->
-      <div class="flex items-center sm:hidden space-x-4">
-        <SettingsDropdown />
-        <I18nLink
-          href="/contact"
-          class="text-sm font-medium text-gray-900 dark:text-white"
-          >Menu</I18nLink
+      <!-- Mobile buttons -->
+      <div class="flex items-center sm:hidden space-x-2">
+        <!-- Mobile settings button -->
+        <button
+          id="mobile-settings-btn"
+          type="button"
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors"
+          aria-label="Settings"
         >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+            ></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+        </button>
+        <!-- Mobile menu button -->
+        <button
+          id="mobile-menu-btn"
+          type="button"
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            class="block h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
 </nav>
+
+<!-- Mobile Settings Modal -->
+<div
+  id="mobile-settings-backdrop"
+  class="fixed inset-0 z-[9998] bg-black/30 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 sm:hidden"
+  aria-hidden="true"
+></div>
+
+<div
+  id="mobile-settings-modal"
+  class="fixed top-20 right-4 z-[9999] w-[calc(100%-2rem)] max-w-xs opacity-0 pointer-events-none transition-all duration-300 transform scale-95 origin-top-right sm:hidden"
+  aria-hidden="true"
+>
+  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <!-- Window Header -->
+    <div class="flex items-center justify-between px-4 py-3 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+      <div class="flex items-center gap-2">
+        <button
+          id="close-mobile-settings-btn"
+          type="button"
+          class="group w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors flex items-center justify-center cursor-pointer"
+          aria-label="Close settings"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-2 h-2 text-red-900 opacity-0 group-hover:opacity-100 transition-opacity"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="3"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+        <span class="w-3 h-3 rounded-full bg-green-500"></span>
+        <span class="ml-2 font-mono text-xs text-gray-500 dark:text-gray-400">~/settings</span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="p-4 space-y-4">
+      <!-- Theme Section -->
+      <div>
+        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide font-mono">
+          {t("settings.appearance")}
+        </p>
+        <div class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+          <button
+            type="button"
+            class="mobile-theme-select-btn flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all"
+            data-theme="light"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            {t("settings.light")}
+          </button>
+          <button
+            type="button"
+            class="mobile-theme-select-btn flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all"
+            data-theme="dark"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+            {t("settings.dark")}
+          </button>
+        </div>
+      </div>
+
+      <div class="h-px bg-gray-200 dark:bg-gray-700"></div>
+
+      <!-- Language Section -->
+      <div>
+        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide font-mono">
+          {t("settings.language")}
+        </p>
+        <div class="space-y-1">
+          {
+            Object.entries(languages).map(([label, name]) => (
+              <a
+                href={getLocalizedPath(label)}
+                class={`flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  lang === label
+                    ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                }`}
+                onclick={`localStorage.setItem('preferred-lang', '${label}')`}
+              >
+                <span class="flex items-center gap-2">
+                  <span class="text-lg">{flags[label as keyof typeof flags]}</span>
+                  <span>{name}</span>
+                </span>
+                {lang === label && (
+                  <div class="w-2 h-2 rounded-full bg-blue-500" />
+                )}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-4 py-2 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700">
+      <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 font-mono">
+        <span>v1.0.0</span>
+        <span class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          {t("settings.systemOnline")}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile menu rendered outside nav for proper stacking -->
+<MobileMenu />
+
+<script is:inline>
+  function openMobileSettings() {
+    const modal = document.getElementById("mobile-settings-modal");
+    const backdrop = document.getElementById("mobile-settings-backdrop");
+    
+    if (modal && backdrop) {
+      backdrop.classList.remove("opacity-0", "pointer-events-none");
+      setTimeout(() => {
+        modal.classList.remove("opacity-0", "pointer-events-none", "scale-95");
+        modal.classList.add("scale-100");
+      }, 50);
+      modal.setAttribute("aria-hidden", "false");
+      backdrop.setAttribute("aria-hidden", "false");
+    }
+  }
+
+  function closeMobileSettings() {
+    const modal = document.getElementById("mobile-settings-modal");
+    const backdrop = document.getElementById("mobile-settings-backdrop");
+    
+    if (modal && backdrop) {
+      modal.classList.add("opacity-0", "scale-95");
+      modal.classList.remove("scale-100");
+      setTimeout(() => {
+        backdrop.classList.add("opacity-0", "pointer-events-none");
+        modal.classList.add("pointer-events-none");
+      }, 150);
+      modal.setAttribute("aria-hidden", "true");
+      backdrop.setAttribute("aria-hidden", "true");
+    }
+  }
+
+  // Expose functions globally
+  window.openMobileSettings = openMobileSettings;
+  window.closeMobileSettings = closeMobileSettings;
+
+  document.addEventListener("astro:page-load", () => {
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileSettingsBtn = document.getElementById("mobile-settings-btn");
+    const closeMobileSettingsBtn = document.getElementById("close-mobile-settings-btn");
+    const backdrop = document.getElementById("mobile-settings-backdrop");
+    const mobileThemeBtns = document.querySelectorAll(".mobile-theme-select-btn");
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener("click", () => {
+        if (typeof window.openMobileMenu === "function") {
+          window.openMobileMenu();
+        }
+      });
+    }
+
+    if (mobileSettingsBtn) {
+      mobileSettingsBtn.addEventListener("click", () => {
+        openMobileSettings();
+      });
+    }
+
+    if (closeMobileSettingsBtn) {
+      closeMobileSettingsBtn.addEventListener("click", () => {
+        closeMobileSettings();
+      });
+    }
+
+    if (backdrop) {
+      backdrop.addEventListener("click", () => {
+        closeMobileSettings();
+      });
+    }
+
+    // Mobile theme switching
+    function getTheme() {
+      if (localStorage.getItem("color-theme")) {
+        return localStorage.getItem("color-theme");
+      }
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "dark";
+      }
+      return "light";
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem("color-theme", theme);
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      updateMobileThemeUI(theme);
+    }
+
+    function updateMobileThemeUI(theme) {
+      mobileThemeBtns.forEach((btn) => {
+        const btnTheme = btn.getAttribute("data-theme");
+        if (btnTheme === theme) {
+          btn.classList.add("bg-white", "dark:bg-gray-700", "shadow-sm", "text-gray-900", "dark:text-white");
+          btn.classList.remove("text-gray-500", "dark:text-gray-400", "hover:text-gray-700");
+        } else {
+          btn.classList.remove("bg-white", "dark:bg-gray-700", "shadow-sm", "text-gray-900", "dark:text-white");
+          btn.classList.add("text-gray-500", "dark:text-gray-400", "hover:text-gray-700");
+        }
+      });
+    }
+
+    // Initialize mobile theme UI
+    updateMobileThemeUI(getTheme());
+
+    mobileThemeBtns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const theme = btn.getAttribute("data-theme");
+        if (theme) setTheme(theme);
+      });
+    });
+
+    // Handle escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeMobileSettings();
+      }
+    });
+  });
+</script>
