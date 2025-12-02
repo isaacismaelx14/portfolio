@@ -1,0 +1,15 @@
+---
+interface Props {
+    variant?: "default" | "compact";
+}
+
+const { variant = "default" } = Astro.props;
+
+const dotClasses = variant === "compact" ? "w-2.5 h-2.5" : "w-3 h-3";
+---
+
+<div class="flex gap-2">
+    <div class:list={["rounded-full bg-red-400", dotClasses]}></div>
+    <div class:list={["rounded-full bg-yellow-400", dotClasses]}></div>
+    <div class:list={["rounded-full bg-green-400", dotClasses]}></div>
+</div>

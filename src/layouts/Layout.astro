@@ -1,0 +1,160 @@
+---
+import "@fontsource/inter";
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import { ViewTransitions } from "astro:transitions";
+import StickyNavigation from "../components/StickyNavigation.astro";
+
+import { getLangFromUrl } from "../i18n/utils";
+
+interface Props {
+	title: string;
+	description?: string;
+	image?: string;
+	type?: "website" | "article" | "profile";
+	noindex?: boolean;
+}
+
+const { 
+	title, 
+	description = "Isaac Martinez - Software Architect with 9+ years of experience in Node.js, TypeScript, AWS, and AI. Building scalable backend systems and high-performance applications.",
+	image = "/og-image.jpg",
+	type = "website",
+	noindex = false
+} = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+const imageURL = new URL(image, Astro.url.origin);
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- Primary Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="author" content="Isaac Martinez" />
+		<meta name="keywords" content="Software Architect, Full Stack Developer, Node.js, TypeScript, React, AWS, Backend Development, AI Integration, Web Development" />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"} />
+		<meta property="og:site_name" content="Isaac Martinez - Portfolio" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={Astro.url} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageURL} />
+		<meta name="twitter:creator" content="@isaacismaelx14" />
+
+		<!-- Canonical URL -->
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- Alternate Languages -->
+		<link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname.replace(/^\/es/, ''), Astro.url.origin)} />
+		<link rel="alternate" hreflang="es" href={new URL(`/es${Astro.url.pathname.replace(/^\/es/, '')}`, Astro.url.origin)} />
+		<link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname.replace(/^\/es/, ''), Astro.url.origin)} />
+
+		<!-- Sitemap -->
+		<link rel="sitemap" href="/sitemap-index.xml" />
+
+		<!-- Preconnect to external resources -->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<ViewTransitions />
+
+		<!-- JSON-LD Structured Data -->
+		<script type="application/ld+json" is:inline>
+			{
+				"@context": "https://schema.org",
+				"@type": "Person",
+				"name": "Isaac Martinez",
+				"url": "https://www.isaacmartinez.dev",
+				"jobTitle": "Software Architect",
+				"description": "Software Architect with 9+ years of experience specializing in Node.js, TypeScript, AWS, and AI integration.",
+				"image": "https://www.isaacmartinez.dev/og-image.jpg",
+				"sameAs": [
+					"https://github.com/isaacismaelx14",
+					"https://linkedin.com/in/isaacismaelx14",
+					"https://twitter.com/isaacismaelx14"
+				],
+				"knowsAbout": [
+					"Software Architecture",
+					"Node.js",
+					"TypeScript",
+					"React",
+					"AWS",
+					"Backend Development",
+					"AI Integration"
+				],
+				"worksFor": {
+					"@type": "Organization",
+					"name": "WGSN"
+				}
+			}
+		</script>
+		<script is:inline>
+			function applyTheme() {
+				if (
+					localStorage.getItem("color-theme") === "dark" ||
+					(!("color-theme" in localStorage) &&
+						window.matchMedia("(prefers-color-scheme: dark)")
+							.matches)
+				) {
+					document.documentElement.classList.add("dark");
+				} else {
+					document.documentElement.classList.remove("dark");
+				}
+			}
+
+			// Apply on initial load
+			applyTheme();
+
+			// Apply on view transitions navigation
+			// Apply on view transitions navigation
+			document.addEventListener("astro:after-swap", applyTheme);
+
+			// Language Persistence
+			(function () {
+				const preferredLang = localStorage.getItem("preferred-lang");
+				const currentPath = window.location.pathname;
+
+				// Only redirect if on root path and preference is NOT english (default)
+				if (
+					currentPath === "/" &&
+					preferredLang &&
+					preferredLang !== "en"
+				) {
+					window.location.href = `/${preferredLang}`;
+				}
+			})();
+		</script>
+	</head>
+	<body
+		class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50 antialiased flex flex-col min-h-screen transition-colors duration-300"
+	>
+		<Navbar />
+		<main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+			<slot />
+		</main>
+		<StickyNavigation />
+		<Footer />
+	</body>
+</html>

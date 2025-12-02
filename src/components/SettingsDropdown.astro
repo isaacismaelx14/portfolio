@@ -1,0 +1,155 @@
+---
+import SettingsPanel from "./SettingsPanel.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div class="relative inline-block text-left" id="settings-menu-container">
+    <button
+        type="button"
+        class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500 transition-colors"
+        id="settings-menu-button"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-label="Settings"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+            ></path>
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+    </button>
+
+    <div
+        class="origin-top-right absolute right-0 mt-2 w-64 rounded-xl shadow-2xl bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5 focus:outline-none transform opacity-0 scale-95 transition-all duration-200 ease-out pointer-events-none border border-gray-200 dark:border-gray-800"
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="settings-menu-button"
+        tabindex="-1"
+        id="settings-menu-dropdown"
+    >
+        <SettingsPanel variant="desktop" />
+    </div>
+
+    <!-- Onboarding Tooltip -->
+    <div
+        id="settings-tooltip"
+        class="absolute top-full right-0 mt-4 w-64 p-4 bg-gray-900 text-white text-xs rounded-lg shadow-xl border border-gray-700 transform transition-all duration-500 opacity-0 translate-y-2 pointer-events-none z-50 hidden"
+    >
+        <div
+            class="absolute -top-2 right-3 w-4 h-4 bg-gray-900 border-t border-l border-gray-700 transform rotate-45"
+        ></div>
+        <div class="relative z-10">
+            <div class="flex justify-between items-start mb-2">
+                <span class="font-mono text-blue-400 font-bold">> {t("settings.tooltip.title")}</span>
+                <button
+                    id="close-tooltip"
+                    class="text-gray-500 hover:text-white transition-colors"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-gray-300 mb-2">
+                {t("settings.tooltip.desc")}
+            </p>
+            <div class="flex items-center gap-2 text-gray-500 text-[10px] font-mono">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span>{t("settings.tooltip.status")}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { initThemeButtons, dismissTooltip, showTooltip, updateThemeButtons, getTheme } from "../scripts/theme";
+
+    function initSettingsDropdown() {
+        const button = document.getElementById("settings-menu-button");
+        const dropdown = document.getElementById("settings-menu-dropdown");
+        const container = document.getElementById("settings-menu-container");
+        const closeBtn = document.getElementById("close-tooltip");
+
+        // Initialize theme buttons
+        initThemeButtons(".theme-select-btn");
+        
+        // Sync mobile theme buttons if they exist
+        const allThemeBtns = document.querySelectorAll('.theme-select-btn, .mobile-theme-select-btn');
+        updateThemeButtons(allThemeBtns, getTheme());
+
+        // Show tooltip for first-time visitors (desktop only)
+        const isDesktop = window.innerWidth >= 640;
+        if (isDesktop) {
+            showTooltip("settings-tooltip", "settings-tooltip-seen");
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dismissTooltip("settings-tooltip", "settings-tooltip-seen");
+            });
+        }
+
+        // Dropdown Logic
+        if (button && dropdown && container) {
+            let isOpen = false;
+
+            const toggleMenu = () => {
+                isOpen = !isOpen;
+                button.setAttribute("aria-expanded", isOpen.toString());
+                if (isOpen) {
+                    dropdown.classList.remove("opacity-0", "scale-95", "pointer-events-none");
+                    dropdown.classList.add("opacity-100", "scale-100");
+                } else {
+                    dropdown.classList.remove("opacity-100", "scale-100");
+                    dropdown.classList.add("opacity-0", "scale-95", "pointer-events-none");
+                }
+            };
+
+            button.addEventListener("click", (e) => {
+                e.stopPropagation();
+                toggleMenu();
+                dismissTooltip("settings-tooltip", "settings-tooltip-seen");
+            });
+
+            document.addEventListener("click", (event) => {
+                if (!container.contains(event.target as Node)) {
+                    if (isOpen) toggleMenu();
+                }
+            });
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && isOpen) {
+                    toggleMenu();
+                }
+            });
+        }
+    }
+
+    document.addEventListener("astro:page-load", initSettingsDropdown);
+</script>

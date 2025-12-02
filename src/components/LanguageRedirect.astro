@@ -1,0 +1,26 @@
+---
+interface Props {
+    path?: string;
+}
+
+const { path = "" } = Astro.props;
+const targetPath = path ? `/${path}` : "";
+
+// Try to get language preference from cookie
+const cookieLang = Astro.cookies.get("preferred-lang")?.value;
+
+// Get browser language from Accept-Language header
+const acceptLang = Astro.request.headers.get("accept-language") || "";
+const browserLang = acceptLang.split(",")[0]?.split("-")[0] || "en";
+
+// Determine target language
+const lang = cookieLang || (browserLang === "es" ? "es" : "en");
+
+// Server-side redirect (instant, no flash)
+const redirectUrl = `/${lang}${targetPath}`;
+---
+
+<meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
+<script define:vars={{ redirectUrl }}>
+    window.location.replace(redirectUrl);
+</script>

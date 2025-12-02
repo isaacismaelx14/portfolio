@@ -1,0 +1,337 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Section from "../Section.astro";
+import ResumeTemplate from "../ResumeTemplate.astro";
+import TerminalModal from "../TerminalModal.astro";
+import TerminalWindow from "../TerminalWindow.astro";
+import { useTranslations } from "../../i18n/utils";
+import { 
+    getExperience, 
+    getEducation, 
+    getLanguages, 
+    skills, 
+    contactInfo,
+    getPageDescription 
+} from "../../data/about";
+import type { Lang } from "../../types";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const experience = getExperience(t);
+const education = getEducation(t);
+const languages = getLanguages(t);
+const pageDescription = getPageDescription("about", lang);
+---
+
+<Layout 
+    title={`${t("about.title")} | Isaac Martinez`}
+    description={pageDescription}
+    type="profile"
+>
+    <Section maxWidth="6xl" first>
+        <!-- Header with Terminal Style -->
+        <div class="mb-8 sm:mb-12">
+            <div class="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
+                <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+                    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+                        {t("about.title")}
+                    </h1>
+                    <div 
+                        class="flex items-center gap-2 px-3 py-1.5 rounded-md bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                        style="view-transition-name: run-btn;"
+                    >
+                        <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span class="font-semibold text-xs">{t("about.badge")}</span>
+                    </div>
+                </div>
+                <button
+                    id="download-resume-btn"
+                    class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors font-medium text-sm print:hidden cursor-pointer"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span id="download-btn-text" data-loading={t("about.downloadingResume")}>{t("about.downloadResume")}</span>
+                </button>
+            </div>
+        </div>
+
+        <TerminalWindow filename="about.md" class="mb-8 sm:mb-12">
+            <div class="p-6 sm:p-8">
+                <blockquote class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6 pl-4 border-l-4 border-blue-500">
+                    "{t("about.quote")}"
+                </blockquote>
+                <div class="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed">
+                    <p>{t("about.p1")}</p>
+                    <p>{t("about.p2")}</p>
+                    <p>{t("about.p3")}</p>
+                </div>
+            </div>
+        </TerminalWindow>
+
+        <!-- Two Column Layout -->
+        <div class="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
+            <TerminalWindow filename="skills.json">
+                <div class="p-4 sm:p-6">
+                    <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                        <span class="text-green-500">$</span> {t("about.skills")}
+                    </h2>
+                    <div class="grid grid-cols-2 gap-2">
+                        {skills.map((skill) => (
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-700 font-mono text-sm">
+                                <span class="text-gray-800 dark:text-gray-200">{skill.name}</span>
+                                {skill.years && (
+                                    <span class="text-xs text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded">
+                                        {skill.years}
+                                    </span>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </TerminalWindow>
+
+            <TerminalWindow filename="languages.config" class="h-fit">
+                <div class="p-4 sm:p-6">
+                    <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                        <span class="text-green-500">$</span> {t("about.languages")}
+                    </h2>
+                    <div class="space-y-3">
+                        {languages.map((language) => (
+                            <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-700">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-2xl">{language.flag}</span>
+                                    <span class="font-semibold text-gray-900 dark:text-white">{language.name}</span>
+                                </div>
+                                <span class="text-sm text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded font-mono">
+                                    {language.level}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </TerminalWindow>
+        </div>
+
+        <TerminalWindow filename="experience.log" class="mb-8 sm:mb-12">
+            <div class="p-4 sm:p-6">
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                    <span class="text-green-500">$</span> git log --oneline {t("about.experience").toLowerCase()}
+                </h2>
+                <div class="space-y-6">
+                    {experience.map((item) => (
+                        <div class="relative pl-6 pb-6 border-l-2 border-gray-200 dark:border-gray-700 last:border-transparent last:pb-0">
+                            <div class="absolute left-0 top-0 w-3 h-3 -translate-x-[7px] rounded-full bg-blue-500 border-2 border-white dark:border-gray-800"></div>
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-2">
+                                <span class="text-xs font-mono bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded w-fit whitespace-nowrap">
+                                    {item.year}
+                                </span>
+                                <h3 class="font-bold text-gray-900 dark:text-white">{item.title}</h3>
+                            </div>
+                            <p class="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-2">{item.company}</p>
+                            {item.isGrouped && item.positions ? (
+                                <div class="mt-3 space-y-3">
+                                    {item.positions.map((pos) => (
+                                        <div class="relative pl-4 border-l-2 border-blue-200 dark:border-blue-800">
+                                            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
+                                                <span class="text-[10px] font-mono text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                                                    {pos.year}
+                                                </span>
+                                                <span class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                                    {pos.title}
+                                                </span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">{pos.description}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                item.description && (
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{item.description}</p>
+                                )
+                            )}
+                            {item.skills && item.skills.length > 0 && (
+                                <div class="flex flex-wrap gap-1.5 mt-3">
+                                    {item.skills.map((skill) => (
+                                        <span class="text-xs px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-medium">
+                                            {skill}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </TerminalWindow>
+
+        <TerminalWindow filename="education.log">
+            <div class="p-4 sm:p-6">
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                    <span class="text-green-500">$</span> git log --oneline {t("about.education").toLowerCase()}
+                </h2>
+                <div class="space-y-4">
+                    {education.map((item) => (
+                        <div class="relative pl-6 pb-4 border-l-2 border-gray-200 dark:border-gray-700 last:border-transparent last:pb-0">
+                            <div class="absolute left-0 top-0 w-3 h-3 -translate-x-[7px] rounded-full bg-green-500 border-2 border-white dark:border-gray-800"></div>
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-2">
+                                <span class="text-xs font-mono bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded w-fit">
+                                    {item.year}
+                                </span>
+                                <h3 class="font-bold text-gray-900 dark:text-white">{item.title}</h3>
+                            </div>
+                            <p class="text-sm font-semibold text-green-600 dark:text-green-400">{item.company}</p>
+                            {item.description && (
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.description}</p>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </TerminalWindow>
+    </Section>
+
+    <div id="resume-wrapper" class="fixed -left-[9999px] top-0 opacity-0 pointer-events-none" aria-hidden="true">
+        <ResumeTemplate
+            name={contactInfo.name}
+            title={lang === "es" ? "Arquitecto de Software" : "Software Architect"}
+            email={contactInfo.email}
+            phone={contactInfo.phone}
+            location={contactInfo.location}
+            website={contactInfo.website}
+            linkedin={contactInfo.linkedin}
+            github={contactInfo.github}
+            summary={t("about.p1")}
+            experience={experience}
+            education={education}
+            skills={skills}
+            languages={languages}
+            labels={{
+                experience: t("about.experience"),
+                education: t("about.education"),
+                skills: t("about.skills"),
+                languages: t("about.languages"),
+                contact: lang === "es" ? "Contacto" : "Contact"
+            }}
+        />
+    </div>
+
+    <!-- Terminal Modal for PDF Generation -->
+    <TerminalModal lang={lang} />
+</Layout>
+
+<style>
+    #resume-wrapper {
+        z-index: -9999;
+    }
+</style>
+
+<script>
+    // Lazy load PDF generation libraries and use terminal modal
+    async function generatePDFWithProgress(onProgress) {
+        const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+            import('html2canvas-pro'),
+            import('jspdf')
+        ]);
+
+        const resumeElement = document.getElementById('resume-template');
+        if (!resumeElement) {
+            throw new Error('Resume template not found');
+        }
+
+        // Temporarily make visible for capture
+        const wrapper = document.getElementById('resume-wrapper');
+        if (wrapper) {
+            wrapper.style.opacity = '1';
+            wrapper.style.left = '0';
+            wrapper.style.position = 'absolute';
+            wrapper.style.top = '0';
+            wrapper.style.zIndex = '1';
+        }
+
+        // Wait for render
+        await new Promise(resolve => setTimeout(resolve, 100));
+        onProgress?.(0.2);
+
+        try {
+            // A4 dimensions at 96 DPI: 794 x 1123 px
+            const canvas = await html2canvas(resumeElement, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
+                logging: false,
+                windowWidth: 794,
+                windowHeight: 1123,
+            });
+
+            onProgress?.(0.7);
+
+            // A4 in mm
+            const a4Width = 210;
+            const a4Height = 297;
+
+            // Create PDF
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4',
+                compress: true
+            });
+
+            onProgress?.(0.9);
+
+            // Add image to PDF
+            const imgData = canvas.toDataURL('image/jpeg', 0.92);
+            pdf.addImage(imgData, 'JPEG', 0, 0, a4Width, a4Height, undefined, 'FAST');
+
+            onProgress?.(1);
+
+            return pdf;
+        } finally {
+            // Hide again
+            if (wrapper) {
+                wrapper.style.opacity = '0';
+                wrapper.style.left = '-9999px';
+                wrapper.style.position = 'fixed';
+                wrapper.style.zIndex = '-9999';
+            }
+        }
+    }
+
+    function initDownloadButton() {
+        const downloadBtn = document.getElementById('download-resume-btn');
+        if (!downloadBtn) return;
+
+        // Remove old listeners by cloning
+        const newBtn = downloadBtn.cloneNode(true);
+        downloadBtn.parentNode?.replaceChild(newBtn, downloadBtn);
+
+        newBtn.addEventListener('click', async () => {
+            // Use the terminal modal
+            if (window.TerminalModal) {
+                window.TerminalModal.runSequence(generatePDFWithProgress);
+            } else {
+                // Fallback if modal not loaded
+                try {
+                    const pdf = await generatePDFWithProgress();
+                    pdf?.save('Isaac_Martinez_Resume.pdf');
+                } catch (error) {
+                    console.error('PDF generation failed:', error);
+                }
+            }
+        });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', initDownloadButton);
+    document.addEventListener('astro:page-load', initDownloadButton);
+</script>

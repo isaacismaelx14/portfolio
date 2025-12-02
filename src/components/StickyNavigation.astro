@@ -1,0 +1,143 @@
+---
+import { getLangFromUrl } from "../i18n/utils";
+import I18nLink from "./I18nLink.astro";
+
+const lang = getLangFromUrl(Astro.url);
+// translatePath removed
+const { pathname } = Astro.url;
+
+// Normalize pathname to remove lang prefix for matching
+const currentPath = pathname.replace(new RegExp(`^/${lang}`), "") || "/";
+
+// Hide on home page (check both root and localized home)
+if (
+    currentPath === "/" &&
+    (pathname === "/" || pathname === `/${lang}` || pathname === `/${lang}/`)
+) {
+    return null;
+}
+
+const routes = [
+    {
+        path: "/",
+        label: "Home",
+        next: "/about",
+        nextLabel: "./init_profile.sh",
+        color: "blue", // Should not be used since hidden on home
+    },
+    {
+        path: "/about",
+        label: "About",
+        next: "/projects",
+        nextLabel: "./compile_projects.sh",
+        color: "blue",
+    },
+    {
+        path: "/projects",
+        label: "Projects",
+        next: "/contact",
+        nextLabel: "./execute_contact.sh",
+        color: "yellow",
+    },
+    {
+        path: "/contact",
+        label: "Contact",
+        next: "/",
+        nextLabel: "./system_reboot.sh",
+        color: "green",
+    },
+];
+
+const currentRoute = routes.find((r) => r.path === currentPath) || routes[0];
+
+const colorClasses = {
+    blue: {
+        text: "text-blue-400",
+        hoverShadow: "hover:shadow-blue-900/20",
+        hoverBorder: "hover:border-blue-500/50",
+        dot: "bg-blue-500",
+        icon: "text-blue-500",
+    },
+    yellow: {
+        text: "text-yellow-400",
+        hoverShadow: "hover:shadow-yellow-900/20",
+        hoverBorder: "hover:border-yellow-500/50",
+        dot: "bg-yellow-500",
+        icon: "text-yellow-500",
+    },
+    green: {
+        text: "text-green-400",
+        hoverShadow: "hover:shadow-green-900/20",
+        hoverBorder: "hover:border-green-500/50",
+        dot: "bg-green-500",
+        icon: "text-green-500",
+    },
+};
+
+const theme =
+    colorClasses[currentRoute.color as keyof typeof colorClasses] ||
+    colorClasses.blue;
+---
+
+<div class="fixed bottom-8 right-8 z-50">
+    <I18nLink
+        href={currentRoute.next}
+        class={`group flex items-center bg-gray-900 text-white rounded-full shadow-2xl transition-all duration-500 border border-gray-800 overflow-hidden ${theme.hoverShadow} ${theme.hoverBorder}`}
+        style="view-transition-name: nav-pill;"
+        id="sticky-nav-link"
+        data-label={currentRoute.nextLabel}
+    >
+        <div
+            class="max-w-0 group-hover:max-w-[200px] transition-[max-width] duration-500 ease-in-out overflow-hidden whitespace-nowrap"
+        >
+            <span
+                id="sticky-nav-text"
+                class={`pl-5 py-3 block font-mono text-sm font-bold tracking-tight ${theme.text}`}
+            >
+                {/* Text injected by JS */}
+            </span>
+        </div>
+
+        <div
+            class="w-12 h-12 flex items-center justify-center bg-gray-800 group-hover:bg-gray-900 transition-colors relative"
+        >
+            <span class={`font-mono text-xl font-bold ${theme.icon}`}>>_</span>
+
+            <!-- Status dot (no animation) -->
+            <span
+                class={`absolute top-3 right-3 w-1.5 h-1.5 rounded-full ${theme.dot}`}
+            ></span>
+        </div>
+    </I18nLink>
+</div>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const navLink = document.getElementById("sticky-nav-link");
+        const navText = document.getElementById("sticky-nav-text");
+        let hasTyped = false;
+
+        if (navLink && navText) {
+            const label = navLink.dataset.label || "";
+
+            // Clear text initially to ensure typing effect works
+            navText.textContent = "";
+
+            navLink.addEventListener("mouseenter", () => {
+                if (!hasTyped) {
+                    hasTyped = true;
+                    navText.textContent = "";
+                    let i = 0;
+                    const typeWriter = () => {
+                        if (i < label.length) {
+                            navText.textContent += label.charAt(i);
+                            i++;
+                            setTimeout(typeWriter, 30); // Typing speed
+                        }
+                    };
+                    typeWriter();
+                }
+            });
+        }
+    });
+</script>

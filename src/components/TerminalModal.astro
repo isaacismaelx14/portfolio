@@ -1,0 +1,424 @@
+---
+import { useTranslations } from "../i18n/utils";
+import type { Lang } from "../types";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const texts = {
+    init: t("about.terminal.init"),
+    loading: t("about.terminal.loading"),
+    parsing: t("about.terminal.parsing"),
+    rendering: t("about.terminal.rendering"),
+    optimizing: t("about.terminal.optimizing"),
+    generating: t("about.terminal.generating"),
+    complete: t("about.terminal.complete"),
+    downloading: t("about.terminal.downloading"),
+    close: t("about.terminal.close"),
+    error: t("about.terminal.error"),
+    progress: t("about.terminal.progress")
+};
+---
+
+<div 
+    id="terminal-modal" 
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="terminal-title"
+>
+    <div 
+        id="terminal-window"
+        class="w-full max-w-2xl bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transform scale-95 opacity-0 transition-all duration-300"
+    >
+        <!-- Terminal Header -->
+        <div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-2">
+                <button 
+                    id="terminal-close-btn"
+                    class="group w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 transition-colors cursor-pointer opacity-50 flex items-center justify-center"
+                    aria-label="Close"
+                    disabled
+                >
+                    <svg class="w-2 h-2 text-red-900 opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <span id="terminal-title" class="text-xs text-gray-500 dark:text-gray-400 font-mono">resume-generator.sh</span>
+            <div class="w-16"></div>
+        </div>
+
+        <!-- Terminal Body -->
+        <div class="p-4 sm:p-6 font-mono text-sm min-h-[300px] max-h-[400px] overflow-y-auto bg-gray-50 dark:bg-gray-900" id="terminal-body">
+            <!-- Command line -->
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-green-600 dark:text-green-400">isaac@portfolio</span>
+                <span class="text-gray-400 dark:text-gray-500">:</span>
+                <span class="text-blue-600 dark:text-blue-400">~</span>
+                <span class="text-gray-400 dark:text-gray-500">$</span>
+                <span class="text-gray-800 dark:text-white">./generate-resume.sh</span>
+            </div>
+
+            <!-- Output lines container -->
+            <div id="terminal-output" class="space-y-2">
+                <!-- Lines will be added dynamically -->
+            </div>
+
+            <!-- Progress bar -->
+            <div id="terminal-progress-container" class="mt-4 hidden">
+                <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    <span id="progress-label">{texts.progress}</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="h-2 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                    <div 
+                        id="progress-bar" 
+                        class="h-full bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-300 ease-out"
+                        style="width: 0%"
+                    ></div>
+                </div>
+            </div>
+
+            <!-- Close instruction (shown after complete) -->
+            <div id="terminal-close-instruction" class="mt-6 text-center hidden">
+                <span class="text-gray-500 dark:text-gray-400 text-xs animate-pulse">{texts.close}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script define:vars={{ texts }}>
+    // Terminal Modal Controller
+    window.TerminalModal = {
+        modal: null,
+        window: null,
+        output: null,
+        progressContainer: null,
+        progressBar: null,
+        progressPercent: null,
+        closeInstruction: null,
+        closeBtn: null,
+        isComplete: false,
+        texts: texts,
+        activeLines: [], // Track lines with spinners
+
+        init() {
+            this.modal = document.getElementById('terminal-modal');
+            this.window = document.getElementById('terminal-window');
+            this.output = document.getElementById('terminal-output');
+            this.progressContainer = document.getElementById('terminal-progress-container');
+            this.progressBar = document.getElementById('progress-bar');
+            this.progressPercent = document.getElementById('progress-percent');
+            this.closeInstruction = document.getElementById('terminal-close-instruction');
+            this.closeBtn = document.getElementById('terminal-close-btn');
+
+            // Close handlers
+            this.modal?.addEventListener('click', (e) => {
+                if (e.target === this.modal && this.isComplete) {
+                    this.hide();
+                }
+            });
+
+            this.closeBtn?.addEventListener('click', () => {
+                if (this.isComplete) {
+                    this.hide();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (this.modal?.classList.contains('flex') && this.isComplete) {
+                    this.hide();
+                }
+            });
+        },
+
+        show() {
+            if (!this.modal || !this.window) return;
+            
+            this.isComplete = false;
+            this.activeLines = [];
+            this.output.innerHTML = '';
+            this.progressBar.style.width = '0%';
+            this.progressPercent.textContent = '0%';
+            this.progressContainer?.classList.add('hidden');
+            this.closeInstruction?.classList.add('hidden');
+            
+            // Disable close button
+            if (this.closeBtn) {
+                this.closeBtn.disabled = true;
+                this.closeBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                this.closeBtn.classList.remove('cursor-pointer');
+            }
+
+            this.modal.classList.remove('hidden');
+            this.modal.classList.add('flex');
+            
+            // Trigger animation
+            requestAnimationFrame(() => {
+                this.window.classList.remove('scale-95', 'opacity-0');
+                this.window.classList.add('scale-100', 'opacity-100');
+            });
+        },
+
+        hide() {
+            if (!this.modal || !this.window) return;
+
+            this.window.classList.remove('scale-100', 'opacity-100');
+            this.window.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                this.modal.classList.remove('flex');
+                this.modal.classList.add('hidden');
+            }, 300);
+        },
+
+        createSpinner() {
+            const spinner = document.createElement('span');
+            spinner.className = 'inline-flex items-center justify-center w-4 h-4 text-blue-500 dark:text-blue-400';
+            spinner.innerHTML = `<svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>`;
+            return spinner;
+        },
+
+        markLineComplete(line) {
+            const iconContainer = line.querySelector('.icon-container');
+            if (iconContainer) {
+                iconContainer.innerHTML = `<span class="text-green-500 dark:text-green-400">✓</span>`;
+            }
+            const textSpan = line.querySelector('.line-text');
+            if (textSpan) {
+                textSpan.classList.remove('text-blue-600', 'dark:text-blue-300', 'text-gray-700', 'dark:text-gray-300');
+                textSpan.classList.add('text-green-600', 'dark:text-green-400');
+            }
+        },
+
+        async addLine(text, type = 'info', delay = 0) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    // Mark previous process line as complete
+                    if (this.activeLines.length > 0 && type === 'process') {
+                        const lastLine = this.activeLines[this.activeLines.length - 1];
+                        this.markLineComplete(lastLine);
+                    }
+
+                    const line = document.createElement('div');
+                    line.className = 'flex items-start gap-2 animate-fadeIn';
+                    
+                    let iconHtml = '';
+                    let textColor = 'text-gray-700 dark:text-gray-300';
+                    
+                    switch(type) {
+                        case 'success':
+                            iconHtml = '<span class="icon-container inline-flex items-center justify-center w-4 h-4"><span class="text-green-500 dark:text-green-400">✓</span></span>';
+                            textColor = 'text-green-600 dark:text-green-400';
+                            break;
+                        case 'error':
+                            iconHtml = '<span class="icon-container inline-flex items-center justify-center w-4 h-4"><span class="text-red-500 dark:text-red-400">✗</span></span>';
+                            textColor = 'text-red-600 dark:text-red-400';
+                            break;
+                        case 'process':
+                            iconHtml = '<span class="icon-container inline-flex items-center justify-center w-4 h-4"></span>';
+                            textColor = 'text-blue-600 dark:text-blue-300';
+                            break;
+                        case 'download':
+                            iconHtml = '<span class="icon-container inline-flex items-center justify-center w-4 h-4"><span class="text-cyan-500 dark:text-cyan-400">↓</span></span>';
+                            textColor = 'text-cyan-600 dark:text-cyan-400';
+                            break;
+                        default:
+                            iconHtml = '<span class="icon-container inline-flex items-center justify-center w-4 h-4"><span class="text-gray-400 dark:text-gray-500">→</span></span>';
+                    }
+
+                    line.innerHTML = `${iconHtml}<span class="line-text ${textColor}">${text}</span>`;
+                    
+                    // Add spinner for process type
+                    if (type === 'process') {
+                        const iconContainer = line.querySelector('.icon-container');
+                        if (iconContainer) {
+                            iconContainer.appendChild(this.createSpinner());
+                        }
+                        this.activeLines.push(line);
+                    }
+
+                    this.output?.appendChild(line);
+                    
+                    // Auto scroll
+                    this.output?.scrollTo({ top: this.output.scrollHeight, behavior: 'smooth' });
+                    
+                    resolve();
+                }, delay);
+            });
+        },
+
+        showProgress() {
+            this.progressContainer?.classList.remove('hidden');
+        },
+
+        async updateProgress(percent) {
+            if (this.progressBar) {
+                this.progressBar.style.width = `${percent}%`;
+            }
+            if (this.progressPercent) {
+                this.progressPercent.textContent = `${Math.round(percent)}%`;
+            }
+        },
+
+        complete() {
+            // Mark last line as complete
+            if (this.activeLines.length > 0) {
+                const lastLine = this.activeLines[this.activeLines.length - 1];
+                this.markLineComplete(lastLine);
+            }
+
+            this.isComplete = true;
+            this.closeInstruction?.classList.remove('hidden');
+            
+            // Enable close button
+            if (this.closeBtn) {
+                this.closeBtn.disabled = false;
+                this.closeBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                this.closeBtn.classList.add('cursor-pointer');
+            }
+        },
+
+        async runSequence(generateFn) {
+            this.show();
+            
+            try {
+                // Step 1: Initialize
+                await this.addLine(this.texts.init, 'process', 100);
+                await this.sleep(400);
+                
+                // Step 2: Loading data
+                await this.addLine(this.texts.loading, 'process', 100);
+                await this.sleep(300);
+                
+                // Step 3: Show progress bar
+                this.showProgress();
+                await this.updateProgress(10);
+                
+                // Step 4: Parsing
+                await this.addLine(this.texts.parsing, 'process', 200);
+                await this.updateProgress(25);
+                await this.sleep(300);
+                
+                // Step 5: Rendering (this is where actual generation happens)
+                await this.addLine(this.texts.rendering, 'process', 200);
+                await this.updateProgress(40);
+                
+                // Actually generate the PDF
+                const result = await generateFn((progress) => {
+                    this.updateProgress(40 + progress * 0.4);
+                });
+                
+                await this.updateProgress(80);
+                
+                // Step 6: Optimizing
+                await this.addLine(this.texts.optimizing, 'process', 100);
+                await this.sleep(200);
+                await this.updateProgress(90);
+                
+                // Step 7: Generating
+                await this.addLine(this.texts.generating, 'process', 100);
+                await this.sleep(300);
+                await this.updateProgress(100);
+                
+                // Step 8: Success
+                await this.addLine(this.texts.complete, 'success', 200);
+                await this.sleep(200);
+                
+                // Step 9: Download
+                await this.addLine(this.texts.downloading, 'download', 100);
+                
+                // Save the PDF
+                if (result && result.save) {
+                    result.save('Isaac_Martinez_Resume.pdf');
+                }
+                
+                await this.sleep(500);
+                this.complete();
+                
+            } catch (error) {
+                console.error('PDF generation error:', error);
+                // Mark last line as failed
+                if (this.activeLines.length > 0) {
+                    const lastLine = this.activeLines[this.activeLines.length - 1];
+                    const iconContainer = lastLine.querySelector('.icon-container');
+                    if (iconContainer) {
+                        iconContainer.innerHTML = `<span class="text-red-500 dark:text-red-400">✗</span>`;
+                    }
+                    const textSpan = lastLine.querySelector('.line-text');
+                    if (textSpan) {
+                        textSpan.classList.remove('text-blue-600', 'dark:text-blue-300');
+                        textSpan.classList.add('text-red-600', 'dark:text-red-400');
+                    }
+                }
+                await this.addLine(this.texts.error, 'error', 100);
+                await this.sleep(1000);
+                this.complete();
+            }
+        },
+
+        sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    };
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => window.TerminalModal.init());
+    document.addEventListener('astro:page-load', () => window.TerminalModal.init());
+</script>
+
+<style>
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-4px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fadeIn {
+        animation: fadeIn 0.3s ease-out forwards;
+    }
+
+    #terminal-body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #terminal-body::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .dark #terminal-body::-webkit-scrollbar-track {
+        background: #1f2937;
+    }
+
+    #terminal-body::-webkit-scrollbar-thumb {
+        background: #d1d5db;
+        border-radius: 3px;
+    }
+
+    .dark #terminal-body::-webkit-scrollbar-thumb {
+        background: #4b5563;
+    }
+
+    #terminal-body::-webkit-scrollbar-thumb:hover {
+        background: #9ca3af;
+    }
+
+    .dark #terminal-body::-webkit-scrollbar-thumb:hover {
+        background: #6b7280;
+    }
+</style>

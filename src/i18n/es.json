@@ -1,0 +1,206 @@
+{
+    "nav": {
+        "home": "Inicio",
+        "about": "Sobre mí",
+        "projects": "Proyectos",
+        "contact": "Contacto"
+    },
+    "home": {
+        "role": "Arquitecto de Software",
+        "trustedBy": "Entregando resultados para equipos en EE. UU., Europa y LATAM",
+        "featuredProjects": "Proyectos Destacados",
+        "featuredProjectsDesc": "Soluciones reales que demuestran escalabilidad, rendimiento y arquitectura limpia.",
+        "viewAll": "Ver todos los proyectos",
+        "beyondCode": "Por Qué Trabajar Conmigo",
+        "beyondCodeDesc": "Aporto más de 9 años de experiencia práctica construyendo sistemas en producción que manejan tráfico real y problemas reales. Me comunico con claridad, entrego consistentemente y me apropio de los proyectos en los que trabajo. Ya sea un proyecto desde cero o escalar un sistema existente, yo lo resuelvo.",
+        "features": {
+            "architecture": {
+                "title": "Arquitectura",
+                "desc": "Sistemas escalables, microservicios, patrones orientados a eventos"
+            },
+            "backend": {
+                "title": "Backend",
+                "desc": "Node.js, TypeScript, NestJS, gRPC, PostgreSQL"
+            },
+            "ai": {
+                "title": "IA / ML",
+                "desc": "Integración de LLM, agentes de IA, RAG, embeddings"
+            },
+            "cloud": {
+                "title": "Nube",
+                "desc": "AWS, Docker, Kubernetes, Arquitectura nativa de la nube"
+            }
+        }
+    },
+    "hero": {
+        "available": "Disponible para contratación",
+        "greeting": "Hola, soy",
+        "title": "Construyo Sistemas Escalables <br class=\"hidden sm:block\" /> y Productos que Funcionan.",
+        "subtitle": "Arquitecto de Software · +9 Años en Backend, Cloud e IA",
+        "description": "Ayudo a empresas a construir software confiable y de alto rendimiento. Desde arquitecturas backend complejas hasta integraciones de IA, entrego soluciones que escalan con tu negocio.",
+        "buttons": {
+            "explore": "Ver mi trabajo",
+            "contact": "Contrátame",
+            "run": "Run",
+            "running": "Running..."
+        }
+    },
+    "about": {
+        "title": "Sobre Mí",
+        "badge": "Running...",
+        "quote": "No solo escribo código. Resuelvo problemas de negocio.",
+        "p1": "Soy Isaac Martinez, Arquitecto de Software en Santiago, República Dominicana. Me especializo en construir sistemas backend escalables, infraestructura cloud y funcionalidades con IA que generan valor real para el negocio.",
+        "p2": "Con más de 9 años de experiencia en Node.js, TypeScript y AWS, he ayudado a startups y empresas establecidas a lanzar productos más rápido, reducir deuda técnica y escalar sus sistemas de forma confiable. Me enorgullezco de escribir código limpio y mantenible, y comunicarme efectivamente con los equipos.",
+        "p3": "Actualmente estoy disponible para roles full-time o trabajo por contrato. Si buscas a alguien que pueda empezar de inmediato y entregar resultados, hablemos.",
+        "experience": "Experiencia",
+        "education": "Educación",
+        "skills": "Habilidades",
+        "languages": "Idiomas",
+        "present": "Presente",
+        "expected": "Esperado",
+        "fullTime": "Tiempo completo",
+        "partTime": "Medio tiempo",
+        "remote": "Remoto",
+        "experienceList": {
+            "wgsn": {
+                "title": "Arquitecto de Software",
+                "company": "WGSN",
+                "description": "Mantuve y optimicé un modelo predictivo interno que gestiona datos de la empresa y entrega pronósticos e información accionable desde reportes de negocio. Desarrollé un servicio AWS Lambda con streaming WebSocket para habilitar respuestas de chatbot en tiempo real, mejorando tanto el rendimiento como la seguridad. Colaboré con equipos multifuncionales para documentar procesos, resolver desafíos en el desarrollo de modelos e implementar soluciones escalables basadas en datos."
+            },
+            "zitdevs": {
+                "title": "CEO y Cofundador",
+                "company": "ZitDevs",
+                "description": "Liderando una empresa de desarrollo enfocada en entregar soluciones tecnológicas de impacto. Construyendo un equipo de desarrolladores apasionados creando productos y servicios innovadores."
+            },
+            "vpm": {
+                "title": "Ingeniero de Software",
+                "company": "VPM Solutions",
+                "description": "Contribuí a la mejora continua de la plataforma VPM Solutions manteniendo el código base y desarrollando nuevas funcionalidades para mejorar la funcionalidad general y la experiencia del usuario. Mejoré la funcionalidad de búsqueda de candidatos implementando un sistema de ordenamiento optimizado para mostrar los perfiles más relevantes. Construí reportes personalizados y dashboards visuales para ayudar a los dueños de empresas a obtener mejores insights sobre el rendimiento de su negocio. Trabajé extensamente en el panel de administración interno, construyendo herramientas y vistas para los equipos de Admin, Soporte y Marketing con visualización de datos en tiempo real, gráficos y reportes."
+            },
+            "minnek": {
+                "title": "Ingeniero Full Stack → Team Lead",
+                "company": "Minnek Digital Studio",
+                "description": "Progresé a través de múltiples roles durante 2 años, desde Ingeniero Full Stack hasta Team Lead.",
+                "positions": {
+                    "lead": {
+                        "title": "Team Lead - Ingeniero Full Stack",
+                        "description": "Lideré un equipo dinámico de tres profesionales de ingeniería de software. Logré mejoras significativas en rendimiento y mantenibilidad del código para clientes prominentes como Your Store Wizards y Conectando. Enfocado en fomentar un ambiente colaborativo y de aprendizaje continuo."
+                    },
+                    "mid": {
+                        "title": "SE2 (Mid) Ingeniero Full Stack",
+                        "description": "Desarrollé soluciones full-stack usando tecnologías modernas y mejores prácticas. Contribuí a varios proyectos de clientes con enfoque en calidad de código y capacidad de respuesta."
+                    },
+                    "junior": {
+                        "title": "Ingeniero Full Stack",
+                        "description": "Desarrollé páginas de E-Commerce para BigCommerce. Creé Cominnek, una herramienta CLI para Commits Convencionales vinculados a tickets de Jira. Construí dashboards internos usando Vue, Express y MongoDB."
+                    }
+                }
+            },
+            "ysw": {
+                "title": "Ingeniero Full Stack",
+                "company": "Your Store Wizards",
+                "description": "Desarrollé soluciones BigCommerce y páginas de e-commerce con enfoque en rendimiento y experiencia de usuario."
+            },
+            "selfEmployed": {
+                "title": "Desarrollador de Aplicaciones Web",
+                "company": "Independiente",
+                "description": "Desarrollé varias aplicaciones web y soluciones de software para clientes. Construí landing pages y aplicaciones de escritorio básicas mientras trabajaba directamente con clientes para recopilar requisitos y entregar soluciones personalizadas."
+            }
+        },
+        "educationList": {
+            "uapa": {
+                "title": "Ingeniero de Software",
+                "company": "Universidad Abierta para Adultos (UAPA)",
+                "description": "Cursos Relevantes: Desarrollo de Software, Gestión de Bases de Datos, Tecnologías Web"
+            },
+            "platzi": {
+                "title": "Comunicación Efectiva para Líderes",
+                "company": "Platzi"
+            },
+            "itla": {
+                "title": "Certificado en Introducción a la Programación",
+                "company": "Instituto Tecnológico de Las Américas (ITLA)"
+            },
+            "politecnico": {
+                "title": "Diploma en Técnico de Redes",
+                "company": "Politécnico Hermana Josefina Serrano"
+            },
+            "iui": {
+                "title": "Inglés",
+                "company": "Instituto Utesiano de Idiomas (IUI)"
+            }
+        },
+        "languagesList": {
+            "spanish": { "name": "Español", "level": "Nativo" },
+            "english": { "name": "Inglés", "level": "Fluido" }
+        },
+        "downloadResume": "Descargar CV",
+        "downloadingResume": "Generando PDF...",
+        "terminal": {
+            "init": "Inicializando generador de CV...",
+            "loading": "Cargando datos del perfil...",
+            "parsing": "Procesando experiencia y habilidades...",
+            "rendering": "Renderizando diseño PDF...",
+            "optimizing": "Optimizando para impresión...",
+            "generating": "Generando documento PDF...",
+            "complete": "¡CV generado exitosamente!",
+            "downloading": "Descargando: Isaac_Martinez_Resume.pdf",
+            "close": "Presiona cualquier tecla o clic afuera para cerrar",
+            "error": "Error al generar PDF. Intenta de nuevo.",
+            "progress": "Progreso"
+        }
+    },
+    "projects": {
+        "title": "Proyectos",
+        "badge": "Compiling...",
+        "desc": "Una selección de proyectos que demuestran mi capacidad para entregar software de calidad, desde la arquitectura hasta el despliegue."
+    },
+    "contact": {
+        "title": "Trabajemos Juntos",
+        "badge": "Execution Successful",
+        "desc": "¿Buscas un ingeniero de software que entregue resultados? Cuéntame sobre tu proyecto o vacante. Respondo en menos de 24 horas.",
+        "logs": {
+            "init": "inicializando protocolo_contacto...",
+            "deps": "dependencias cargadas",
+            "secure": "canal seguro establecido",
+            "ready": "listo para transmisión",
+            "waiting": "// Esperando entrada del usuario..."
+        },
+        "form": {
+            "name": "Nombre",
+            "namePlaceholder": "Tu Nombre",
+            "email": "Correo",
+            "emailPlaceholder": "tu@ejemplo.com",
+            "message": "Mensaje",
+            "messagePlaceholder": "¿Cómo puedo ayudarte?",
+            "submit": "Enviar Mensaje",
+            "success": "¡Gracias por tu mensaje! Te responderé pronto."
+        },
+        "info": {
+            "email": "Correo",
+            "phone": "Teléfono",
+            "connectWithMe": "Conéctate conmigo"
+        }
+    },
+    "settings": {
+        "title": "System Settings",
+        "appearance": "Appearance",
+        "language": "Language",
+        "light": "Light",
+        "dark": "Dark",
+        "systemOnline": "SYSTEM ONLINE",
+        "tooltip": {
+            "title": "NUEVA_FUNCIÓN",
+            "desc": "¡Personaliza tu experiencia! Cambia entre temas e idiomas desde este panel de control.",
+            "status": "System ready"
+        }
+    },
+    "notFound": {
+        "error": "No existe el archivo o directorio",
+        "title": "Página No Encontrada",
+        "suggestion": "Intenta volver al inicio",
+        "command": "cd ~/inicio",
+        "goHome": "Ir al Inicio",
+        "goBack": "Volver"
+    }
+}

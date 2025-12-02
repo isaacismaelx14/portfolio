@@ -1,0 +1,206 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About",
+        "projects": "Projects",
+        "contact": "Contact"
+    },
+    "home": {
+        "role": "Software Architect",
+        "trustedBy": "Delivering results for teams across the U.S., Europe, and LATAM",
+        "featuredProjects": "Featured Projects",
+        "featuredProjectsDesc": "Real-world solutions showcasing scalability, performance, and clean architecture.",
+        "viewAll": "View all projects",
+        "beyondCode": "Why Work With Me",
+        "beyondCodeDesc": "I bring 9+ years of hands-on experience building production systems that handle real traffic and real problems. I communicate clearly, ship consistently, and take ownership of the projects I work on. Whether it's a greenfield project or scaling an existing system, I get things done.",
+        "features": {
+            "architecture": {
+                "title": "Architecture",
+                "desc": "Scalable systems, microservices, event-driven patterns"
+            },
+            "backend": {
+                "title": "Backend",
+                "desc": "Node.js, TypeScript, NestJS, gRPC, PostgreSQL"
+            },
+            "ai": {
+                "title": "AI / ML",
+                "desc": "LLM integration, AI agents, RAG, embeddings"
+            },
+            "cloud": {
+                "title": "Cloud",
+                "desc": "AWS, Docker, Kubernetes, Cloud-native arch"
+            }
+        }
+    },
+    "hero": {
+        "available": "Available for hire",
+        "greeting": "Hey, I'm",
+        "title": "I Build Scalable Systems <br class=\"hidden sm:block\" /> & Ship Products That Perform.",
+        "subtitle": "Software Architect · 9+ Years in Backend, Cloud & AI",
+        "description": "I help companies build reliable, high-performance software. From complex backend architectures to AI integrations, I deliver solutions that scale with your business.",
+        "buttons": {
+            "explore": "See My Work",
+            "contact": "Hire Me",
+            "run": "Run",
+            "running": "Running..."
+        }
+    },
+    "about": {
+        "title": "About Me",
+        "badge": "Running...",
+        "quote": "I don't just write code. I solve business problems.",
+        "p1": "I'm Isaac Martinez, a Software Architect based in Santiago, Dominican Republic. I specialize in building scalable backend systems, cloud infrastructure, and AI-powered features that drive real business value.",
+        "p2": "With 9+ years of experience in Node.js, TypeScript, and AWS, I've helped startups and established companies ship products faster, reduce technical debt, and scale their systems reliably. I take pride in writing clean, maintainable code and communicating effectively with teams.",
+        "p3": "I'm currently available for full-time roles or contract work. If you're looking for someone who can hit the ground running and deliver results, let's talk.",
+        "experience": "Experience",
+        "education": "Education",
+        "skills": "Skills",
+        "languages": "Languages",
+        "present": "Present",
+        "expected": "Expected",
+        "fullTime": "Full-time",
+        "partTime": "Part-time",
+        "remote": "Remote",
+        "experienceList": {
+            "wgsn": {
+                "title": "Software Architect",
+                "company": "WGSN",
+                "description": "Maintained and optimized an internal predictive model that manages company data and delivers actionable forecasts and insights from business reports. Developed an AWS Lambda service with WebSocket streaming to enable real-time chatbot responses, enhancing both performance and security. Collaborated with cross-functional teams to document processes, resolve challenges in model development, and implement scalable, data-driven solutions."
+            },
+            "zitdevs": {
+                "title": "CEO & Co-Founder",
+                "company": "ZitDevs",
+                "description": "Leading a development company focused on delivering impactful technological solutions. Building a team of passionate developers creating innovative products and services."
+            },
+            "vpm": {
+                "title": "Software Engineer",
+                "company": "VPM Solutions",
+                "description": "Contributed to the continuous improvement of the VPM Solutions platform by maintaining the codebase and developing new features to enhance overall functionality and user experience. Improved the candidate search functionality by implementing an optimized sorting system to surface the most relevant profiles. Built custom reports and visual dashboards to help company owners gain better insights into their business performance. Worked extensively on the internal admin panel, building tools and views for the Admin, Support, and Marketing teams with real-time data displays, charts, and reports."
+            },
+            "minnek": {
+                "title": "Full Stack Engineer → Team Lead",
+                "company": "Minnek Digital Studio",
+                "description": "Progressed through multiple roles over 2 years, from Full Stack Engineer to Team Lead.",
+                "positions": {
+                    "lead": {
+                        "title": "Team Lead - Full Stack Engineer",
+                        "description": "Led a dynamic team of three software engineering professionals. Achieved significant improvements in performance and code maintainability for prominent clients like Your Store Wizards and Conectando. Focused on fostering a collaborative and continuous learning environment."
+                    },
+                    "mid": {
+                        "title": "SE2 (Mid) Full Stack Engineer",
+                        "description": "Developed full-stack solutions using modern technologies and best practices. Contributed to various client projects with focus on code quality and responsiveness."
+                    },
+                    "junior": {
+                        "title": "Full Stack Engineer",
+                        "description": "Developed E-Commerce pages for BigCommerce. Created Cominnek, a CLI tool for Conventional Commits linked to Jira tickets. Built internal dashboards using Vue, Express, and MongoDB."
+                    }
+                }
+            },
+            "ysw": {
+                "title": "Full Stack Engineer",
+                "company": "Your Store Wizards",
+                "description": "Developed BigCommerce solutions and e-commerce pages with focus on performance and user experience."
+            },
+            "selfEmployed": {
+                "title": "Web Application Developer",
+                "company": "Self-employed",
+                "description": "Developed various web applications and software solutions for clients. Built landing pages and basic desktop applications while working directly with clients to gather requirements and deliver customized solutions."
+            }
+        },
+        "educationList": {
+            "uapa": {
+                "title": "Bachelor's Degree in Software Engineering",
+                "company": "Universidad Abierta para Adultos (UAPA)",
+                "description": "Relevant Coursework: Software Development, Database Management, Web Technologies"
+            },
+            "platzi": {
+                "title": "Effective Communication for Leads",
+                "company": "Platzi"
+            },
+            "itla": {
+                "title": "Certificate in Introduction to Programming",
+                "company": "Instituto Tecnológico de Las Américas (ITLA)"
+            },
+            "politecnico": {
+                "title": "Diploma in Network Technician",
+                "company": "Politécnico Hermana Josefina Serrano"
+            },
+            "iui": {
+                "title": "English",
+                "company": "Instituto Utesiano de Idiomas (IUI)"
+            }
+        },
+        "languagesList": {
+            "spanish": { "name": "Spanish", "level": "Native" },
+            "english": { "name": "English", "level": "Fluent" }
+        },
+        "downloadResume": "Download Resume",
+        "downloadingResume": "Generating PDF...",
+        "terminal": {
+            "init": "Initializing resume generator...",
+            "loading": "Loading profile data...",
+            "parsing": "Parsing experience & skills...",
+            "rendering": "Rendering PDF layout...",
+            "optimizing": "Optimizing for print...",
+            "generating": "Generating PDF document...",
+            "complete": "Resume generated successfully!",
+            "downloading": "Downloading: Isaac_Martinez_Resume.pdf",
+            "close": "Press any key or click outside to close",
+            "error": "Error generating PDF. Please try again.",
+            "progress": "Progress"
+        }
+    },
+    "projects": {
+        "title": "Projects",
+        "badge": "Compiling...",
+        "desc": "A selection of projects that demonstrate my ability to ship quality software, from architecture to deployment."
+    },
+    "contact": {
+        "title": "Let's Work Together",
+        "badge": "Execution Successful",
+        "desc": "Looking for a software engineer who delivers? Tell me about your project or role. I respond within 24 hours.",
+        "logs": {
+            "init": "initializing contact_protocol...",
+            "deps": "dependencies loaded",
+            "secure": "secure channel established",
+            "ready": "ready for transmission",
+            "waiting": "// Waiting for user input..."
+        },
+        "form": {
+            "name": "Name",
+            "namePlaceholder": "Your Name",
+            "email": "Email",
+            "emailPlaceholder": "you@example.com",
+            "message": "Message",
+            "messagePlaceholder": "How can I help you?",
+            "submit": "Send Message",
+            "success": "Thank you for your message! I'll get back to you soon."
+        },
+        "info": {
+            "email": "Email",
+            "phone": "Phone",
+            "connectWithMe": "Connect with me"
+        }
+    },
+    "settings": {
+        "title": "System Settings",
+        "appearance": "Appearance",
+        "language": "Language",
+        "light": "Light",
+        "dark": "Dark",
+        "systemOnline": "SYSTEM ONLINE",
+        "tooltip": {
+            "title": "NEW_FEATURE_DETECTED",
+            "desc": "Customize your experience! Switch themes and languages from this new control panel.",
+            "status": "System ready"
+        }
+    },
+    "notFound": {
+        "error": "No such file or directory",
+        "title": "Page Not Found",
+        "suggestion": "Try navigating back home",
+        "command": "cd ~/home",
+        "goHome": "Go Home",
+        "goBack": "Go Back"
+    }
+}
