@@ -2,51 +2,57 @@
 
 All notable changes to this project will be documented in this file.
 
-
-## [2.1.2](/compare/v2.1.1...v2.1.2) (2025-12-02)
-
-## [2.1.1](/compare/v2.1.0...v2.1.1) (2025-12-02)
-
-
-### Bug Fixes
-
-* update commit message format and improve changelog structure 5edead6
-
-# Changelog
-
-# [2.1.0](/compare/v2.0.1...v2.1.0) (2025-12-02)
-
-
-### Bug Fixes
-
-* update version number to 2.0.0 in package.json f2889bd
-* Update changelog 96d7f83
-
+## [2.1.2](https://github.com/isaacismaelx14/portfolio/compare/v2.1.1...v2.1.2) (2025-12-02)
 
 ### Features
 
-* add @vercel/analytics integration and update package dependencies e544419
-* add release-it configuration for automated version management 1a097d5
-* **Projects:** add DevsCut project to project list 81e0ab4
+* add interactive terminal easter egg with commands, matrix effect, and snake game
+* add Snake game with keyboard controls and resume download functionality
+* enhance terminal snake game with difficulty levels and improved controls
+* add maximize button with toggle functionality and state persistence
+* implement language-aware navigation in terminal component
+* add new icon components and integrate them across various UI pages
+* add colored output to the Snake game and stop active games when terminal closes
+* improve mobile overlay visibility and enhance accessibility with ARIA attributes
 
+### Performance
 
+* standardize project image widths to 800px
 
-# 0.1.0 (2023-11-10)
+### Style
 
+* update color palette and text colors, enhance accessibility with ARIA attributes
+
+## [2.1.1](https://github.com/isaacismaelx14/portfolio/compare/v2.1.0...v2.1.1) (2025-12-02)
 
 ### Bug Fixes
 
-* error on build 6d55a88
+* update commit message format and improve changelog structure
 
+## [2.1.0](https://github.com/isaacismaelx14/portfolio/compare/v2.0.1...v2.1.0) (2025-12-02)
+
+### Bug Fixes
+
+* update version number to 2.0.0 in package.json
 
 ### Features
 
-* add image server to project list 5aabb65
-* add nest js to lang 4d08e91
-* update cominnek description to the version 2.01 made with Golang 3531d8e
-* update icons b0cb4d2
-* update package and styles 4abc225
-* update porfolio skills and identity 5f7b9ac
-* update project card 34aff6d
+* add @vercel/analytics integration and update package dependencies
+* add release-it configuration for automated version management
+* **Projects:** add DevsCut project to project list
 
-All notable changes to this project will be documented in this file.
+## [0.1.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v0.1.0) (2023-11-10)
+
+### Bug Fixes
+
+* error on build
+
+### Features
+
+* add image server to project list
+* add nest js to lang
+* update cominnek description to the version 2.01 made with Golang
+* update icons
+* update package and styles
+* update portfolio skills and identity
+* update project card
