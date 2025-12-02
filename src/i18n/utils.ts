@@ -32,6 +32,7 @@ export function useTranslations(lang: keyof typeof translations) {
 
 export function useTranslatedPath(lang: keyof typeof translations) {
     return function translatePath(path: string, l: string = lang) {
-        return l === defaultLang ? path : `/${l}${path}`;
+        const cleanPath = path.startsWith('/') ? path : `/${path}`;
+        return `/${l}${cleanPath === '/' ? '' : cleanPath}`;
     }
 }

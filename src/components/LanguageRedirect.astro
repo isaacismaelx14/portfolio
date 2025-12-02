@@ -1,0 +1,35 @@
+---
+interface Props {
+    path?: string;
+}
+
+const { path = "" } = Astro.props;
+const fallbackPath = `/en${path ? "/" + path : ""}`;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Redirecting...</title>
+        <meta name="robots" content="noindex" />
+        <script define:vars={{ path }}>
+            try {
+                const saved = localStorage.getItem("preferred-lang");
+                const browser = navigator.language.split("-")[0];
+                const lang = saved || (browser === "es" ? "es" : "en");
+                const target = `/${lang}${path ? "/" + path : ""}`;
+                window.location.href = target;
+            } catch (e) {
+                // Fallback handled by noscript
+            }
+        </script>
+        <noscript>
+            <meta http-equiv="refresh" content={`0;url=${fallbackPath}`} />
+        </noscript>
+    </head>
+    <body>
+        <p>Redirecting...</p>
+    </body>
+</html>

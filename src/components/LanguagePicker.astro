@@ -25,10 +25,6 @@ function getLocalizedPath(targetLang: string) {
         cleanPath = "/" + cleanPath;
     }
 
-    if (targetLang === "en") {
-        return cleanPath === "" ? "/" : cleanPath;
-    }
-
     return `/${targetLang}${cleanPath === "/" ? "" : cleanPath}`;
 }
 
