@@ -55,7 +55,85 @@
         "experience": "Experience",
         "education": "Education",
         "skills": "Skills",
-        "languages": "Languages"
+        "languages": "Languages",
+        "present": "Present",
+        "expected": "Expected",
+        "fullTime": "Full-time",
+        "partTime": "Part-time",
+        "remote": "Remote",
+        "experienceList": {
+            "wgsn": {
+                "title": "Software Architect",
+                "company": "WGSN",
+                "description": "Maintained and optimized an internal predictive model that manages company data and delivers actionable forecasts and insights from business reports. Developed an AWS Lambda service with WebSocket streaming to enable real-time chatbot responses, enhancing both performance and security. Collaborated with cross-functional teams to document processes, resolve challenges in model development, and implement scalable, data-driven solutions."
+            },
+            "zitdevs": {
+                "title": "CEO & Co-Founder",
+                "company": "ZitDevs",
+                "description": "Leading a development company focused on delivering impactful technological solutions. Building a team of passionate developers creating innovative products and services."
+            },
+            "vpm": {
+                "title": "Software Engineer",
+                "company": "VPM Solutions",
+                "description": "Contributed to the continuous improvement of the VPM Solutions platform by maintaining the codebase and developing new features to enhance overall functionality and user experience. Improved the candidate search functionality by implementing an optimized sorting system to surface the most relevant profiles. Built custom reports and visual dashboards to help company owners gain better insights into their business performance. Worked extensively on the internal admin panel, building tools and views for the Admin, Support, and Marketing teams with real-time data displays, charts, and reports."
+            },
+            "minnek": {
+                "title": "Full Stack Engineer → Team Lead",
+                "company": "Minnek Digital Studio",
+                "description": "Progressed through multiple roles over 2 years, from Full Stack Engineer to Team Lead.",
+                "positions": {
+                    "lead": {
+                        "title": "Team Lead - Full Stack Engineer",
+                        "description": "Led a dynamic team of three software engineering professionals. Achieved significant improvements in performance and code maintainability for prominent clients like Your Store Wizards and Conectando. Focused on fostering a collaborative and continuous learning environment."
+                    },
+                    "mid": {
+                        "title": "SE2 (Mid) Full Stack Engineer",
+                        "description": "Developed full-stack solutions using modern technologies and best practices. Contributed to various client projects with focus on code quality and responsiveness."
+                    },
+                    "junior": {
+                        "title": "Full Stack Engineer",
+                        "description": "Developed E-Commerce pages for BigCommerce. Created Cominnek, a CLI tool for Conventional Commits linked to Jira tickets. Built internal dashboards using Vue, Express, and MongoDB."
+                    }
+                }
+            },
+            "ysw": {
+                "title": "Full Stack Engineer",
+                "company": "Your Store Wizards",
+                "description": "Developed BigCommerce solutions and e-commerce pages with focus on performance and user experience."
+            },
+            "selfEmployed": {
+                "title": "Web Application Developer",
+                "company": "Self-employed",
+                "description": "Developed various web applications and software solutions for clients. Built landing pages and basic desktop applications while working directly with clients to gather requirements and deliver customized solutions."
+            }
+        },
+        "educationList": {
+            "uapa": {
+                "title": "Bachelor's Degree in Software Engineering",
+                "company": "Universidad Abierta para Adultos (UAPA)",
+                "description": "Relevant Coursework: Software Development, Database Management, Web Technologies"
+            },
+            "platzi": {
+                "title": "Effective Communication for Leads",
+                "company": "Platzi"
+            },
+            "itla": {
+                "title": "Certificate in Introduction to Programming",
+                "company": "Instituto Tecnológico de Las Américas (ITLA)"
+            },
+            "politecnico": {
+                "title": "Diploma in Network Technician",
+                "company": "Politécnico Hermana Josefina Serrano"
+            },
+            "iui": {
+                "title": "English",
+                "company": "Instituto Utesiano de Idiomas (IUI)"
+            }
+        },
+        "languagesList": {
+            "spanish": { "name": "Spanish", "level": "Native" },
+            "english": { "name": "English", "level": "Fluent" }
+        }
     },
     "projects": {
         "title": "Projects",

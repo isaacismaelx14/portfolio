@@ -55,7 +55,85 @@
         "experience": "Experiencia",
         "education": "Educación",
         "skills": "Habilidades",
-        "languages": "Idiomas"
+        "languages": "Idiomas",
+        "present": "Presente",
+        "expected": "Esperado",
+        "fullTime": "Tiempo completo",
+        "partTime": "Medio tiempo",
+        "remote": "Remoto",
+        "experienceList": {
+            "wgsn": {
+                "title": "Arquitecto de Software",
+                "company": "WGSN",
+                "description": "Mantuve y optimicé un modelo predictivo interno que gestiona datos de la empresa y entrega pronósticos e información accionable desde reportes de negocio. Desarrollé un servicio AWS Lambda con streaming WebSocket para habilitar respuestas de chatbot en tiempo real, mejorando tanto el rendimiento como la seguridad. Colaboré con equipos multifuncionales para documentar procesos, resolver desafíos en el desarrollo de modelos e implementar soluciones escalables basadas en datos."
+            },
+            "zitdevs": {
+                "title": "CEO y Cofundador",
+                "company": "ZitDevs",
+                "description": "Liderando una empresa de desarrollo enfocada en entregar soluciones tecnológicas de impacto. Construyendo un equipo de desarrolladores apasionados creando productos y servicios innovadores."
+            },
+            "vpm": {
+                "title": "Ingeniero de Software",
+                "company": "VPM Solutions",
+                "description": "Contribuí a la mejora continua de la plataforma VPM Solutions manteniendo el código base y desarrollando nuevas funcionalidades para mejorar la funcionalidad general y la experiencia del usuario. Mejoré la funcionalidad de búsqueda de candidatos implementando un sistema de ordenamiento optimizado para mostrar los perfiles más relevantes. Construí reportes personalizados y dashboards visuales para ayudar a los dueños de empresas a obtener mejores insights sobre el rendimiento de su negocio. Trabajé extensamente en el panel de administración interno, construyendo herramientas y vistas para los equipos de Admin, Soporte y Marketing con visualización de datos en tiempo real, gráficos y reportes."
+            },
+            "minnek": {
+                "title": "Ingeniero Full Stack → Team Lead",
+                "company": "Minnek Digital Studio",
+                "description": "Progresé a través de múltiples roles durante 2 años, desde Ingeniero Full Stack hasta Team Lead.",
+                "positions": {
+                    "lead": {
+                        "title": "Team Lead - Ingeniero Full Stack",
+                        "description": "Lideré un equipo dinámico de tres profesionales de ingeniería de software. Logré mejoras significativas en rendimiento y mantenibilidad del código para clientes prominentes como Your Store Wizards y Conectando. Enfocado en fomentar un ambiente colaborativo y de aprendizaje continuo."
+                    },
+                    "mid": {
+                        "title": "SE2 (Mid) Ingeniero Full Stack",
+                        "description": "Desarrollé soluciones full-stack usando tecnologías modernas y mejores prácticas. Contribuí a varios proyectos de clientes con enfoque en calidad de código y capacidad de respuesta."
+                    },
+                    "junior": {
+                        "title": "Ingeniero Full Stack",
+                        "description": "Desarrollé páginas de E-Commerce para BigCommerce. Creé Cominnek, una herramienta CLI para Commits Convencionales vinculados a tickets de Jira. Construí dashboards internos usando Vue, Express y MongoDB."
+                    }
+                }
+            },
+            "ysw": {
+                "title": "Ingeniero Full Stack",
+                "company": "Your Store Wizards",
+                "description": "Desarrollé soluciones BigCommerce y páginas de e-commerce con enfoque en rendimiento y experiencia de usuario."
+            },
+            "selfEmployed": {
+                "title": "Desarrollador de Aplicaciones Web",
+                "company": "Independiente",
+                "description": "Desarrollé varias aplicaciones web y soluciones de software para clientes. Construí landing pages y aplicaciones de escritorio básicas mientras trabajaba directamente con clientes para recopilar requisitos y entregar soluciones personalizadas."
+            }
+        },
+        "educationList": {
+            "uapa": {
+                "title": "Ingeniero de Software",
+                "company": "Universidad Abierta para Adultos (UAPA)",
+                "description": "Cursos Relevantes: Desarrollo de Software, Gestión de Bases de Datos, Tecnologías Web"
+            },
+            "platzi": {
+                "title": "Comunicación Efectiva para Líderes",
+                "company": "Platzi"
+            },
+            "itla": {
+                "title": "Certificado en Introducción a la Programación",
+                "company": "Instituto Tecnológico de Las Américas (ITLA)"
+            },
+            "politecnico": {
+                "title": "Diploma en Técnico de Redes",
+                "company": "Politécnico Hermana Josefina Serrano"
+            },
+            "iui": {
+                "title": "Inglés",
+                "company": "Instituto Utesiano de Idiomas (IUI)"
+            }
+        },
+        "languagesList": {
+            "spanish": { "name": "Español", "level": "Nativo" },
+            "english": { "name": "Inglés", "level": "Fluido" }
+        }
     },
     "projects": {
         "title": "Proyectos",
