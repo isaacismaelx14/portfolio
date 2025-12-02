@@ -3,138 +3,29 @@ import Layout from "../../layouts/Layout.astro";
 import Section from "../Section.astro";
 import ResumeTemplate from "../ResumeTemplate.astro";
 import TerminalModal from "../TerminalModal.astro";
+import TerminalWindow from "../TerminalWindow.astro";
 import { useTranslations } from "../../i18n/utils";
+import { 
+    getExperience, 
+    getEducation, 
+    getLanguages, 
+    skills, 
+    contactInfo,
+    getPageDescription 
+} from "../../data/about";
+import type { Lang } from "../../types";
 
 interface Props {
-    lang: "en" | "es";
+    lang: Lang;
 }
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const experience = [
-    {
-        year: `Jun 2025 - ${t("about.present")}`,
-        title: t("about.experienceList.wgsn.title"),
-        company: `${t("about.experienceList.wgsn.company")} · ${t("about.fullTime")} · ${t("about.remote")}`,
-        description: t("about.experienceList.wgsn.description"),
-        skills: ["Software Architecture", "React", "AWS", "TypeScript"],
-    },
-    {
-        year: `Oct 2023 - ${t("about.present")}`,
-        title: t("about.experienceList.zitdevs.title"),
-        company: `${t("about.experienceList.zitdevs.company")} · ${t("about.partTime")} · ${t("about.remote")}`,
-        description: t("about.experienceList.zitdevs.description"),
-        skills: ["Leadership", "Product Strategy", "Team Building"],
-    },
-    {
-        year: "Apr 2024 - May 2025",
-        title: t("about.experienceList.vpm.title"),
-        company: `${t("about.experienceList.vpm.company")} · ${t("about.fullTime")} · ${t("about.remote")}`,
-        description: t("about.experienceList.vpm.description"),
-        skills: ["Vue.js", "Express.js", "MySQL", "GraphQL", "Full-Stack Development"],
-    },
-    {
-        year: "Apr 2022 - Apr 2024",
-        title: t("about.experienceList.minnek.title"),
-        company: `${t("about.experienceList.minnek.company")} · ${t("about.fullTime")}`,
-        description: t("about.experienceList.minnek.description"),
-        isGrouped: true,
-        positions: [
-            {
-                year: "Oct 2023 - Apr 2024",
-                title: t("about.experienceList.minnek.positions.lead.title"),
-                description: t("about.experienceList.minnek.positions.lead.description"),
-            },
-            {
-                year: "Jul 2023 - Dec 2023",
-                title: t("about.experienceList.minnek.positions.mid.title"),
-                description: t("about.experienceList.minnek.positions.mid.description"),
-            },
-            {
-                year: "Apr 2022 - Jul 2023",
-                title: t("about.experienceList.minnek.positions.junior.title"),
-                description: t("about.experienceList.minnek.positions.junior.description"),
-            },
-        ],
-        skills: ["Next.js", "NestJS", "TypeScript", "Go", "BigCommerce", "Vue.js", "Team Leadership"],
-    },
-    {
-        year: "Apr 2022 - Jul 2023",
-        title: t("about.experienceList.ysw.title"),
-        company: `${t("about.experienceList.ysw.company")} · ${t("about.fullTime")} · ${t("about.remote")}`,
-        description: t("about.experienceList.ysw.description"),
-        skills: ["HTML5", "JavaScript", "BigCommerce", "SASS", "SQL"],
-    },
-    {
-        year: "Aug 2020 - Mar 2021",
-        title: t("about.experienceList.selfEmployed.title"),
-        company: t("about.experienceList.selfEmployed.company"),
-        description: t("about.experienceList.selfEmployed.description"),
-        skills: ["Front-End Development", "JavaScript", "HTML", "CSS"],
-    },
-];
-
-const education = [
-    {
-        year: `2026 (${t("about.expected")})`,
-        title: t("about.educationList.uapa.title"),
-        company: t("about.educationList.uapa.company"),
-        description: t("about.educationList.uapa.description"),
-    },
-    {
-        year: "2022",
-        title: t("about.educationList.platzi.title"),
-        company: t("about.educationList.platzi.company"),
-        description: "",
-    },
-    {
-        year: "2021",
-        title: t("about.educationList.itla.title"),
-        company: t("about.educationList.itla.company"),
-        description: "",
-    },
-    {
-        year: "2020",
-        title: t("about.educationList.politecnico.title"),
-        company: t("about.educationList.politecnico.company"),
-        description: "",
-    },
-    {
-        year: "2016 - 2021",
-        title: t("about.educationList.iui.title"),
-        company: t("about.educationList.iui.company"),
-        description: "",
-    },
-];
-
-const skills = [
-    { name: "Node.js", years: "+9y" },
-    { name: "TypeScript", years: "+7y" },
-    { name: "React", years: "+6y" },
-    { name: "Next.js", years: "+5y" },
-    { name: "AWS", years: "+4y" },
-    { name: "Vue.js", years: "+3y" },
-    { name: "NestJS", years: "" },
-    { name: "Express.js", years: "" },
-    { name: "GraphQL", years: "" },
-    { name: "Go", years: "" },
-    { name: "PostgreSQL", years: "" },
-    { name: "MySQL", years: "" },
-    { name: "MongoDB", years: "" },
-    { name: "Docker", years: "" },
-    { name: "BigCommerce", years: "" },
-    { name: "Tailwind CSS", years: "" },
-];
-
-const languagesList = [
-    { name: t("about.languagesList.spanish.name"), level: t("about.languagesList.spanish.level"), flag: "🇩🇴" },
-    { name: t("about.languagesList.english.name"), level: t("about.languagesList.english.level"), flag: "🇺🇸" },
-];
-
-const pageDescription = lang === "es" 
-    ? "Conoce a Isaac Martinez - Arquitecto de Software con más de 9 años de experiencia en Node.js, TypeScript, AWS e IA. Revisa mi experiencia, habilidades y educación."
-    : "Meet Isaac Martinez - Software Architect with 9+ years of experience in Node.js, TypeScript, AWS, and AI. View my experience, skills, and education.";
+const experience = getExperience(t);
+const education = getEducation(t);
+const languages = getLanguages(t);
+const pageDescription = getPageDescription("about", lang);
 ---
 
 <Layout 
@@ -173,20 +64,7 @@ const pageDescription = lang === "es"
             </div>
         </div>
 
-        <!-- Bio Terminal Window -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden mb-8 sm:mb-12">
-            <!-- Window Header -->
-            <div class="bg-gray-100 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                <div class="flex gap-2">
-                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 font-mono">about.md</div>
-                <div class="w-12"></div>
-            </div>
-            
-            <!-- Content -->
+        <TerminalWindow filename="about.md" class="mb-8 sm:mb-12">
             <div class="p-6 sm:p-8">
                 <blockquote class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6 pl-4 border-l-4 border-blue-500">
                     "{t("about.quote")}"
@@ -197,21 +75,11 @@ const pageDescription = lang === "es"
                     <p>{t("about.p3")}</p>
                 </div>
             </div>
-        </div>
+        </TerminalWindow>
 
         <!-- Two Column Layout -->
         <div class="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
-            <!-- Skills Terminal -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <div class="bg-gray-100 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                    <div class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                    </div>
-                    <div class="text-xs text-gray-500 dark:text-gray-400 font-mono">skills.json</div>
-                    <div class="w-12"></div>
-                </div>
+            <TerminalWindow filename="skills.json">
                 <div class="p-4 sm:p-6">
                     <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                         <span class="text-green-500">$</span> {t("about.skills")}
@@ -229,25 +97,15 @@ const pageDescription = lang === "es"
                         ))}
                     </div>
                 </div>
-            </div>
+            </TerminalWindow>
 
-            <!-- Languages Terminal -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden h-fit">
-                <div class="bg-gray-100 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                    <div class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                    </div>
-                    <div class="text-xs text-gray-500 dark:text-gray-400 font-mono">languages.config</div>
-                    <div class="w-12"></div>
-                </div>
+            <TerminalWindow filename="languages.config" class="h-fit">
                 <div class="p-4 sm:p-6">
                     <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                         <span class="text-green-500">$</span> {t("about.languages")}
                     </h2>
                     <div class="space-y-3">
-                        {languagesList.map((language) => (
+                        {languages.map((language) => (
                             <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-700">
                                 <div class="flex items-center gap-3">
                                     <span class="text-2xl">{language.flag}</span>
@@ -260,20 +118,10 @@ const pageDescription = lang === "es"
                         ))}
                     </div>
                 </div>
-            </div>
+            </TerminalWindow>
         </div>
 
-        <!-- Experience Timeline Terminal -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden mb-8 sm:mb-12">
-            <div class="bg-gray-100 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                <div class="flex gap-2">
-                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 font-mono">experience.log</div>
-                <div class="w-12"></div>
-            </div>
+        <TerminalWindow filename="experience.log" class="mb-8 sm:mb-12">
             <div class="p-4 sm:p-6">
                 <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                     <span class="text-green-500">$</span> git log --oneline {t("about.experience").toLowerCase()}
@@ -289,11 +137,9 @@ const pageDescription = lang === "es"
                                 <h3 class="font-bold text-gray-900 dark:text-white">{item.title}</h3>
                             </div>
                             <p class="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-2">{item.company}</p>
-                            
-                            {/* Grouped positions (e.g., Minnek career progression) */}
                             {item.isGrouped && item.positions ? (
                                 <div class="mt-3 space-y-3">
-                                    {item.positions.map((pos, idx) => (
+                                    {item.positions.map((pos) => (
                                         <div class="relative pl-4 border-l-2 border-blue-200 dark:border-blue-800">
                                             <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
                                                 <span class="text-[10px] font-mono text-gray-500 dark:text-gray-400 whitespace-nowrap">
@@ -312,7 +158,6 @@ const pageDescription = lang === "es"
                                     <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{item.description}</p>
                                 )
                             )}
-                            
                             {item.skills && item.skills.length > 0 && (
                                 <div class="flex flex-wrap gap-1.5 mt-3">
                                     {item.skills.map((skill) => (
@@ -326,19 +171,9 @@ const pageDescription = lang === "es"
                     ))}
                 </div>
             </div>
-        </div>
+        </TerminalWindow>
 
-        <!-- Education Timeline Terminal -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div class="bg-gray-100 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                <div class="flex gap-2">
-                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 font-mono">education.log</div>
-                <div class="w-12"></div>
-            </div>
+        <TerminalWindow filename="education.log">
             <div class="p-4 sm:p-6">
                 <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                     <span class="text-green-500">$</span> git log --oneline {t("about.education").toLowerCase()}
@@ -361,25 +196,24 @@ const pageDescription = lang === "es"
                     ))}
                 </div>
             </div>
-        </div>
+        </TerminalWindow>
     </Section>
 
-    <!-- Hidden Resume Template for PDF Generation -->
     <div id="resume-wrapper" class="fixed -left-[9999px] top-0 opacity-0 pointer-events-none" aria-hidden="true">
         <ResumeTemplate
-            name="Isaac Martinez"
+            name={contactInfo.name}
             title={lang === "es" ? "Arquitecto de Software" : "Software Architect"}
-            email="me@isaacmartinez.dev"
-            phone="+1 (829) 348-5948"
-            location="Santiago, Dominican Republic"
-            website="isaacmartinez.dev"
-            linkedin="linkedin.com/in/isaacismaelx14"
-            github="github.com/isaacismaelx14"
+            email={contactInfo.email}
+            phone={contactInfo.phone}
+            location={contactInfo.location}
+            website={contactInfo.website}
+            linkedin={contactInfo.linkedin}
+            github={contactInfo.github}
             summary={t("about.p1")}
             experience={experience}
             education={education}
             skills={skills}
-            languages={languagesList}
+            languages={languages}
             labels={{
                 experience: t("about.experience"),
                 education: t("about.education"),

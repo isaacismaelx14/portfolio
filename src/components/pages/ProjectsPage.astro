@@ -4,19 +4,18 @@ import ProjectCard from "../ProjectCard.astro";
 import Section from "../Section.astro";
 import PageHeader from "../PageHeader.astro";
 import { getLocalizedProjects } from "../../data/projects";
+import { getPageDescription } from "../../data/about";
 import { useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../types";
 
 interface Props {
-    lang: "en" | "es";
+    lang: Lang;
 }
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const projects = getLocalizedProjects(lang);
-
-const pageDescription = lang === "es" 
-    ? "Explora los proyectos de Isaac Martinez - Desde plataformas de analíticas hasta herramientas CLI. Soluciones reales demostrando escalabilidad y arquitectura limpia."
-    : "Explore Isaac Martinez's projects - From analytics platforms to CLI tools. Real-world solutions showcasing scalability and clean architecture.";
+const pageDescription = getPageDescription("projects", lang);
 ---
 
 <Layout 

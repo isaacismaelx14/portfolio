@@ -5,17 +5,16 @@ import PageHeader from "../PageHeader.astro";
 import FormInput from "../FormInput.astro";
 import FormTextarea from "../FormTextarea.astro";
 import { useTranslations } from "../../i18n/utils";
+import { getPageDescription } from "../../data/about";
+import type { Lang } from "../../types";
 
 interface Props {
-    lang: "en" | "es";
+    lang: Lang;
 }
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
-const pageDescription = lang === "es" 
-    ? "Contacta a Isaac Martinez para proyectos de desarrollo de software, consultoría o colaboración. Disponible para roles full-time o trabajo por contrato."
-    : "Contact Isaac Martinez for software development projects, consulting, or collaboration. Available for full-time roles or contract work.";
+const pageDescription = getPageDescription("contact", lang);
 ---
 
 <Layout 
@@ -96,7 +95,7 @@ const pageDescription = lang === "es"
                         <h3
                             class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4"
                         >
-                            Connect with me
+                            {t("contact.info.connectWithMe")}
                         </h3>
                         <div class="flex space-x-4">
                             <a

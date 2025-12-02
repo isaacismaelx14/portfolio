@@ -178,7 +178,8 @@
         },
         "info": {
             "email": "Email",
-            "phone": "Phone"
+            "phone": "Phone",
+            "connectWithMe": "Connect with me"
         }
     },
     "settings": {

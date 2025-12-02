@@ -1,30 +1,6 @@
-export interface Project {
-    title: string;
-    description: {
-        en: string;
-        es: string;
-    };
-    impact: {
-        en: string;
-        es: string;
-    };
-    tags: string[];
-    link: string;
-    image: string;
-    featured: boolean;
-}
+import type { Project, LocalizedProject, Lang } from "../types";
 
-export interface LocalizedProject {
-    title: string;
-    description: string;
-    impact: string;
-    tags: string[];
-    link: string;
-    image: string;
-    featured: boolean;
-}
-
-export function getLocalizedProjects(lang: 'en' | 'es'): LocalizedProject[] {
+export function getLocalizedProjects(lang: Lang): LocalizedProject[] {
     return projects.map(project => ({
         title: project.title,
         description: project.description[lang],

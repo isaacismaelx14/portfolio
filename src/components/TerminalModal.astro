@@ -1,19 +1,14 @@
 ---
-/**
- * TerminalModal - A terminal-style modal for showing process animations
- * Supports light/dark mode and i18n for important UI text
- */
-
 import { useTranslations } from "../i18n/utils";
+import type { Lang } from "../types";
 
 interface Props {
-    lang: "en" | "es";
+    lang: Lang;
 }
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-// Get terminal translations from i18n
 const texts = {
     init: t("about.terminal.init"),
     loading: t("about.terminal.loading"),

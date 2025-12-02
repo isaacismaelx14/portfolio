@@ -178,7 +178,8 @@
         },
         "info": {
             "email": "Correo",
-            "phone": "Teléfono"
+            "phone": "Teléfono",
+            "connectWithMe": "Conéctate conmigo"
         }
     },
     "settings": {

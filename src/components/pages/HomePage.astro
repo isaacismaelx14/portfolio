@@ -5,20 +5,19 @@ import ProjectCard from "../ProjectCard.astro";
 import Section from "../Section.astro";
 import FeatureCard from "../FeatureCard.astro";
 import { getLocalizedProjects } from "../../data/projects";
+import { getPageDescription } from "../../data/about";
 import { useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../types";
 
 interface Props {
-    lang: "en" | "es";
+    lang: Lang;
 }
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const featuredProjects = getLocalizedProjects(lang).filter((project) => project.featured);
-
-const pageDescription = lang === "es" 
-    ? "Isaac Martinez - Arquitecto de Software con +9 años de experiencia. Especializado en Node.js, TypeScript, AWS e integración de IA. Disponible para contratación."
-    : "Isaac Martinez - Software Architect with 9+ years of experience. Specialized in Node.js, TypeScript, AWS, and AI integration. Available for hire.";
+const featuredProjects = getLocalizedProjects(lang).filter((p) => p.featured);
+const pageDescription = getPageDescription("home", lang);
 ---
 
 <Layout 
