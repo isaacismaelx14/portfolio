@@ -179,19 +179,19 @@ export class SnakeGame {
         let output = `Score: ${this.score} | High Score: ${this.highScore} (${this.difficulty})\n`;
         output += `+${"-".repeat(this.gridSize.w)}+`;
 
-        const grid = Array(this.gridSize.h).fill(null).map(() => Array(this.gridSize.w).fill(" "));
+        const grid = Array(this.gridSize.h).fill(null).map(() => Array(this.gridSize.w).fill('<span class="text-gray-800">.</span>'));
 
         this.snake.forEach((p, i) => {
-            grid[p.y][p.x] = i === 0 ? "O" : "o";
+            grid[p.y][p.x] = i === 0 ? '<span class="text-green-500">O</span>' : '<span class="text-green-700">o</span>';
         });
-        grid[this.food.y][this.food.x] = "@";
+        grid[this.food.y][this.food.x] = '<span class="text-red-500">*</span>';
 
         for (let y = 0; y < this.gridSize.h; y++) {
             output += `\n|${grid[y].join("")}|`;
         }
         output += `\n+${"-".repeat(this.gridSize.w)}+`;
 
-        this.gameContainer.innerText = output;
+        this.gameContainer.innerHTML = output;
     }
 
     private renderGameOver(): void {

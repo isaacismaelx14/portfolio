@@ -181,6 +181,9 @@ export class TerminalController extends HTMLElement {
     }
 
     private close() {
+        this.snake?.stop("user");
+        this.matrix?.stop();
+
         this.state.isOpen = false;
         this.state.isMinimized = false;
         this.updateUI();
