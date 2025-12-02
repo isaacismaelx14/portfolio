@@ -124,7 +124,10 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2 mt-2">
+                <div
+                    id="terminal-input-line"
+                    class="flex items-center gap-2 mt-2"
+                >
                     <span class="text-[#33ff00]">➜</span>
                     <span class="text-[#00ccff]">~</span>
                     <input
@@ -147,6 +150,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
         private windowEl: HTMLElement | null = null;
         private minimizedTab: HTMLElement | null = null;
         private input: HTMLInputElement | null = null;
+        private inputLine: HTMLElement | null = null;
         private output: HTMLElement | null = null;
         private content: HTMLElement | null = null;
         private canvas: HTMLCanvasElement | null = null;
@@ -180,6 +184,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
             this.windowEl = this.querySelector("#terminal-window");
             this.minimizedTab = this.querySelector("#terminal-minimized");
             this.input = this.querySelector("#terminal-input");
+            this.inputLine = this.querySelector("#terminal-input-line");
             this.output = this.querySelector("#terminal-output");
             this.content = this.querySelector("#terminal-content");
             this.canvas = this.querySelector("#matrix-canvas");
@@ -337,29 +342,65 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                 } else {
                     this.openTerminal();
                 }
+                return;
             }
 
-            if (this.isOpen && e.key === "Escape") {
+            if (!this.isOpen) return;
+
+            // Game Controls (Window level)
+            if (this.isGameActive) {
+                if (e.ctrlKey && e.key === "c") {
+                    this.stopGame("user");
+                    e.preventDefault();
+                    return;
+                }
+                if (e.key === "Escape") {
+                    this.stopGame("user");
+                    e.preventDefault();
+                    return;
+                }
+
+                if (e.key === "ArrowUp" && this.direction !== "DOWN")
+                    this.nextDirection = "UP";
+                else if (e.key === "ArrowDown" && this.direction !== "UP")
+                    this.nextDirection = "DOWN";
+                else if (e.key === "ArrowLeft" && this.direction !== "RIGHT")
+                    this.nextDirection = "LEFT";
+                else if (e.key === "ArrowRight" && this.direction !== "LEFT")
+                    this.nextDirection = "RIGHT";
+
+                if (
+                    [
+                        "ArrowUp",
+                        "ArrowDown",
+                        "ArrowLeft",
+                        "ArrowRight",
+                    ].includes(e.key)
+                ) {
+                    e.preventDefault();
+                }
+                return;
+            }
+
+            if (this.isGameOver) {
+                if (e.key.toLowerCase() === "r") {
+                    this.startGame(this.gameDifficulty);
+                    e.preventDefault();
+                } else if (e.key.toLowerCase() === "q") {
+                    this.isGameOver = false;
+                    this.addToOutput("", "Game session ended.");
+                    this.restorePrompt();
+                    e.preventDefault();
+                }
+                return;
+            }
+
+            if (e.key === "Escape") {
                 this.closeTerminal();
             }
         }
 
         private handleInputKeydown(e: KeyboardEvent) {
-            if (this.isGameActive) {
-                // Game Controls
-                if (e.key === "ArrowUp" && this.direction !== "DOWN")
-                    this.direction = "UP";
-                else if (e.key === "ArrowDown" && this.direction !== "UP")
-                    this.direction = "DOWN";
-                else if (e.key === "ArrowLeft" && this.direction !== "RIGHT")
-                    this.direction = "LEFT";
-                else if (e.key === "ArrowRight" && this.direction !== "LEFT")
-                    this.direction = "RIGHT";
-                else if (e.key === "Escape") this.stopGame();
-                e.preventDefault();
-                return;
-            }
-
             if (e.key === "Enter") {
                 if (this.input) {
                     this.handleCommand(this.input.value);
@@ -573,18 +614,68 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                     result = "Closing session...";
                     break;
                 case "download":
-                    const link = document.createElement("a");
-                    link.href = "/resume.pdf";
-                    link.download = "resume.pdf";
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    result =
-                        "Downloading resume... (Ensure resume.pdf exists in public folder)";
+                    // Check if we are on the about page (localized)
+                    if (window.location.pathname.includes("/about")) {
+                        const btn = document.getElementById(
+                            "download-resume-btn",
+                        );
+                        if (btn) {
+                            result = "Initiating download sequence...";
+                            btn.click();
+                            setTimeout(() => this.minimizeTerminal(), 800);
+                        } else {
+                            result =
+                                '<span class="text-red-500">Error: Download module not found.</span>';
+                        }
+                    } else {
+                        result =
+                            "Redirecting to secure channel for download...";
+                        sessionStorage.setItem(
+                            "trigger-resume-download",
+                            "true",
+                        );
+                        setTimeout(() => this.minimizeTerminal(), 800);
+                        setTimeout(() => {
+                            window.location.href = "/about"; // or localized version if needed, but /about redirects usually
+                        }, 1500);
+                    }
                     break;
                 case "game":
-                    this.startGame();
-                    return; // Skip default output handling
+                    const arg = args[0]?.toLowerCase();
+                    if (arg === "--help" || arg === "-h") {
+                        result = `
+<div class="mb-2">
+  <span class="text-white font-bold">Snake Game Help</span>
+</div>
+<div class="grid grid-cols-[120px_1fr] gap-2 mb-2">
+  <span class="text-[#00ccff]">Usage</span> <span>game [difficulty]</span>
+  <span class="text-[#00ccff]">Difficulties</span> <span>easy, normal, difficult</span>
+</div>
+<div class="mb-2">
+  <span class="text-gray-400">Controls:</span>
+  <ul class="list-disc pl-5 text-sm text-gray-300">
+    <li>Arrow Keys: Move Snake</li>
+    <li>Ctrl+C / ESC: Cancel Game</li>
+    <li>r: Retry (Game Over)</li>
+    <li>q: Quit (Game Over)</li>
+  </ul>
+</div>`;
+                    } else {
+                        const difficulty = arg || "normal";
+                        if (
+                            ["easy", "normal", "difficult"].includes(difficulty)
+                        ) {
+                            this.startGame(
+                                difficulty as "easy" | "normal" | "difficult",
+                            );
+                            return;
+                        } else {
+                            result = `<span class="text-yellow-500">Usage: game [easy|normal|difficult]</span><br>Starting normal mode...`;
+                            setTimeout(() => this.startGame("normal"), 1500);
+                            return;
+                        }
+                    }
+                    break;
                 case "matrix":
                     if (this.canvas?.classList.contains("hidden")) {
                         this.startMatrix();
@@ -613,62 +704,125 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
         // Snake Game Logic
         private gameInterval: any = null;
         private isGameActive = false;
+        private isGameOver = false;
         private snake: { x: number; y: number }[] = [];
         private food: { x: number; y: number } = { x: 0, y: 0 };
         private direction: "UP" | "DOWN" | "LEFT" | "RIGHT" = "RIGHT";
+        private nextDirection: "UP" | "DOWN" | "LEFT" | "RIGHT" = "RIGHT";
         private score = 0;
+        private highScore = 0;
         private gameWidth = 40;
         private gameHeight = 20;
+        private gameSpeed = 100;
+        private gameDifficulty: "easy" | "normal" | "difficult" = "normal";
 
-        private startGame() {
+        private startGame(
+            difficulty: "easy" | "normal" | "difficult" = "normal",
+        ) {
             if (this.isGameActive) return;
+
+            // Clear terminal for full immersion
+            if (this.output) this.output.innerHTML = "";
+
+            // Hide input line
+            if (this.inputLine) this.inputLine.classList.add("hidden");
+
             this.isGameActive = true;
+            this.isGameOver = false;
             this.score = 0;
+            this.gameDifficulty = difficulty;
+            this.highScore = parseInt(
+                localStorage.getItem(`snake_highscore_${difficulty}`) || "0",
+            );
+
+            // Difficulty Settings
+            switch (difficulty) {
+                case "easy":
+                    this.gameSpeed = 150;
+                    break;
+                case "normal":
+                    this.gameSpeed = 100;
+                    break;
+                case "difficult":
+                    this.gameSpeed = 60;
+                    break;
+            }
+
             this.snake = [
                 { x: 10, y: 10 },
                 { x: 9, y: 10 },
                 { x: 8, y: 10 },
             ];
             this.direction = "RIGHT";
+            this.nextDirection = "RIGHT";
             this.spawnFood();
-
-            this.addToOutput(
-                "game",
-                "Starting Snake... Use Arrow Keys to control. Press ESC to quit.",
-            );
 
             // Create Game Container
             const gameContainer = document.createElement("div");
             gameContainer.id = "snake-game";
-            gameContainer.className = "font-mono leading-none my-4 select-none";
+            // Adjusted text size to be big but not overflow
+            gameContainer.className =
+                "font-mono leading-none my-4 select-none text-lg md:text-xl tracking-wider";
             gameContainer.style.whiteSpace = "pre";
             this.output?.appendChild(gameContainer);
 
-            // Focus input to capture keys (handled in handleInputKeydown)
-            this.input?.focus();
+            // We don't focus input here anymore as we use window listener
+            // But we might want to blur it to avoid mobile keyboard
+            this.input?.blur();
 
             this.gameInterval = setInterval(
                 () => this.gameLoop(gameContainer),
-                100,
+                this.gameSpeed,
             );
         }
 
-        private stopGame() {
+        private stopGame(reason: "collision" | "user" = "user") {
             if (!this.isGameActive) return;
             this.isGameActive = false;
             clearInterval(this.gameInterval);
+
             const gameContainer = this.output?.querySelector("#snake-game");
             if (gameContainer) {
-                gameContainer.innerHTML += `\n\n<span class="text-red-500">GAME OVER</span>\nScore: ${this.score}`;
+                if (reason === "collision") {
+                    this.isGameOver = true;
+                    gameContainer.innerHTML += `\n\n<span class="text-red-500 font-bold">GAME OVER</span>\nScore: ${this.score} | High Score: ${this.highScore}\n<span class="text-gray-400">Press 'r' to retry, 'q' to quit</span>`;
+                } else {
+                    gameContainer.innerHTML += `\n\n<span class="text-yellow-500">Game Cancelled by User</span>`;
+                    this.addToOutput("", `Game cancelled.`);
+                    this.restorePrompt();
+                }
             }
-            this.addToOutput("", `Game finished. Score: ${this.score}`);
+
+            if (this.score > this.highScore) {
+                localStorage.setItem(
+                    `snake_highscore_${this.gameDifficulty}`,
+                    this.score.toString(),
+                );
+            }
+        }
+
+        private restorePrompt() {
+            // Show input line again
+            if (this.inputLine) this.inputLine.classList.remove("hidden");
+            this.saveState();
+            setTimeout(() => this.input?.focus(), 50);
         }
 
         private spawnFood() {
+            let padding = 0;
+            if (this.gameDifficulty === "easy") padding = 2;
+            if (this.gameDifficulty === "normal") padding = 1;
+
+            const minX = padding;
+            const maxX = this.gameWidth - padding;
+            const minY = padding;
+            const maxY = this.gameHeight - padding;
+
             this.food = {
-                x: Math.floor(Math.random() * this.gameWidth),
-                y: Math.floor(Math.random() * this.gameHeight),
+                x: Math.floor(Math.random() * (maxX - minX)) + minX,
+                y: Math.floor(Math.random() * (maxY - minY)) + minY,
             };
+
             // Ensure food doesn't spawn on snake
             if (
                 this.snake.some(
@@ -681,8 +835,9 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
         }
 
         private gameLoop(container: HTMLElement) {
-            // Move Snake
+            this.direction = this.nextDirection;
             const head = { ...this.snake[0] };
+
             switch (this.direction) {
                 case "UP":
                     head.y--;
@@ -705,7 +860,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                 head.y < 0 ||
                 head.y >= this.gameHeight
             ) {
-                this.stopGame();
+                this.stopGame("collision");
                 return;
             }
 
@@ -715,7 +870,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                     (segment) => segment.x === head.x && segment.y === head.y,
                 )
             ) {
-                this.stopGame();
+                this.stopGame("collision");
                 return;
             }
 
@@ -724,6 +879,21 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
             // Check Food
             if (head.x === this.food.x && head.y === this.food.y) {
                 this.score += 10;
+
+                // Speed up logic
+                if (this.gameDifficulty === "easy")
+                    this.gameSpeed = Math.max(100, this.gameSpeed - 1);
+                if (this.gameDifficulty === "normal")
+                    this.gameSpeed = Math.max(50, this.gameSpeed - 2);
+                if (this.gameDifficulty === "difficult")
+                    this.gameSpeed = Math.max(30, this.gameSpeed - 4);
+
+                clearInterval(this.gameInterval);
+                this.gameInterval = setInterval(
+                    () => this.gameLoop(container),
+                    this.gameSpeed,
+                );
+
                 this.spawnFood();
             } else {
                 this.snake.pop();
@@ -756,7 +926,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
 
             // Bottom Border
             grid += "+" + "-".repeat(this.gameWidth) + "+";
-            grid += `\nScore: ${this.score}`;
+            grid += `\nScore: ${this.score} | High Score: ${Math.max(this.score, this.highScore)} | Mode: ${this.gameDifficulty.toUpperCase()}`;
 
             container.innerHTML = grid;
             if (this.content)
