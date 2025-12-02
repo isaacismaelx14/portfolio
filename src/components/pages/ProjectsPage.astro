@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import ProjectCard from "../ProjectCard.astro";
 import Section from "../Section.astro";
 import PageHeader from "../PageHeader.astro";
-import { projects } from "../../data/projects";
+import { getLocalizedProjects } from "../../data/projects";
 import { useTranslations } from "../../i18n/utils";
 
 interface Props {
@@ -12,6 +12,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const projects = getLocalizedProjects(lang);
 ---
 
 <Layout title={`Portfolio | ${t("nav.projects")}`}>

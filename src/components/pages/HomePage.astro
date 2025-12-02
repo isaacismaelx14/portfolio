@@ -4,7 +4,7 @@ import Hero from "../Hero.astro";
 import ProjectCard from "../ProjectCard.astro";
 import Section from "../Section.astro";
 import FeatureCard from "../FeatureCard.astro";
-import { projects } from "../../data/projects";
+import { getLocalizedProjects } from "../../data/projects";
 import { useTranslations } from "../../i18n/utils";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const featuredProjects = projects.filter((project) => project.featured);
+const featuredProjects = getLocalizedProjects(lang).filter((project) => project.featured);
 ---
 
 <Layout title={`Portfolio | ${t("nav.home")}`}>

@@ -1,5 +1,21 @@
 export interface Project {
     title: string;
+    description: {
+        en: string;
+        es: string;
+    };
+    impact: {
+        en: string;
+        es: string;
+    };
+    tags: string[];
+    link: string;
+    image: string;
+    featured: boolean;
+}
+
+export interface LocalizedProject {
+    title: string;
     description: string;
     impact: string;
     tags: string[];
@@ -8,11 +24,29 @@ export interface Project {
     featured: boolean;
 }
 
+export function getLocalizedProjects(lang: 'en' | 'es'): LocalizedProject[] {
+    return projects.map(project => ({
+        title: project.title,
+        description: project.description[lang],
+        impact: project.impact[lang],
+        tags: project.tags,
+        link: project.link,
+        image: project.image,
+        featured: project.featured
+    }));
+}
+
 export const projects: Project[] = [
     {
         title: 'DevsCut',
-        description: 'Analytics platform enhancing digital interactions through advanced link shortening and tracking.',
-        impact: 'Real-time Analytics · High Scale',
+        description: {
+            en: 'Analytics platform enhancing digital interactions through advanced link shortening and tracking.',
+            es: 'Plataforma de analíticas que mejora las interacciones digitales mediante acortamiento y seguimiento avanzado de enlaces.'
+        },
+        impact: {
+            en: 'Real-time Analytics · High Scale',
+            es: 'Analíticas en Tiempo Real · Alta Escala'
+        },
         tags: ['Analytics', 'Serverless', 'AWS'],
         link: 'https://devscut.com/',
         image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2370&auto=format&fit=crop',
@@ -20,8 +54,14 @@ export const projects: Project[] = [
     },
     {
         title: 'ZitDevs',
-        description: 'Software agency connecting passionate developers with meaningful projects through flexible collaboration.',
-        impact: 'Community Driven · Custom Software',
+        description: {
+            en: 'Software agency connecting passionate developers with meaningful projects through flexible collaboration.',
+            es: 'Agencia de software que conecta desarrolladores apasionados con proyectos significativos mediante colaboración flexible.'
+        },
+        impact: {
+            en: 'Community Driven · Custom Software',
+            es: 'Impulsado por la Comunidad · Software a Medida'
+        },
         tags: ['Astro', 'Agency', 'Platform'],
         link: 'https://zitdevs.com/en/',
         image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2370&auto=format&fit=crop',
@@ -29,8 +69,14 @@ export const projects: Project[] = [
     },
     {
         title: 'UnPrimer',
-        description: 'Business startup platform helping entrepreneurs build brands, validate ideas, and launch with confidence.',
-        impact: 'Brand Building · Business Strategy',
+        description: {
+            en: 'Business startup platform helping entrepreneurs build brands, validate ideas, and launch with confidence.',
+            es: 'Plataforma para startups que ayuda a emprendedores a construir marcas, validar ideas y lanzar con confianza.'
+        },
+        impact: {
+            en: 'Brand Building · Business Strategy',
+            es: 'Construcción de Marca · Estrategia de Negocio'
+        },
         tags: ['Next.js', 'SaaS', 'Marketing'],
         link: 'https://www.unprimer.com/',
         image: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=2370&auto=format&fit=crop',
@@ -38,8 +84,14 @@ export const projects: Project[] = [
     },
     {
         title: 'Project Templify',
-        description: 'Flexible CLI tool for rapid project scaffolding and architectural standardization.',
-        impact: 'Dev Productivity · Custom Templates',
+        description: {
+            en: 'Flexible CLI tool for rapid project scaffolding and architectural standardization.',
+            es: 'Herramienta CLI flexible para scaffolding rápido de proyectos y estandarización arquitectónica.'
+        },
+        impact: {
+            en: 'Dev Productivity · Custom Templates',
+            es: 'Productividad Dev · Plantillas Personalizadas'
+        },
         tags: ['CLI', 'Node.js', 'Architecture'],
         link: 'https://www.npmjs.com/package/project-templify',
         image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2388&auto=format&fit=crop',
@@ -47,8 +99,14 @@ export const projects: Project[] = [
     },
     {
         title: 'Cominnek',
-        description: 'Performance-focused CLI for enforcing conventional commit standards across teams.',
-        impact: 'Git Standards · Go Performance',
+        description: {
+            en: 'Performance-focused CLI for enforcing conventional commit standards across teams.',
+            es: 'CLI enfocado en rendimiento para aplicar estándares de commits convencionales en equipos.'
+        },
+        impact: {
+            en: 'Git Standards · Go Performance',
+            es: 'Estándares Git · Rendimiento en Go'
+        },
         tags: ['Go', 'Git', 'CLI'],
         link: 'https://github.com/Minnek-Digital-Studio/cominnek',
         image: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2374&auto=format&fit=crop',
@@ -56,8 +114,14 @@ export const projects: Project[] = [
     },
     {
         title: 'MedraMart',
-        description: 'Corporate website for a surveying firm with offline capabilities and map integration.',
-        impact: 'Offline-first · Maps Integration',
+        description: {
+            en: 'Corporate website for a surveying firm with offline capabilities and map integration.',
+            es: 'Sitio web corporativo para empresa de agrimensura con capacidades offline e integración de mapas.'
+        },
+        impact: {
+            en: 'Offline-first · Maps Integration',
+            es: 'Offline-first · Integración de Mapas'
+        },
         tags: ['Next.js', 'React', 'Google Maps'],
         link: '#',
         image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2373&auto=format&fit=crop',
@@ -65,8 +129,14 @@ export const projects: Project[] = [
     },
     {
         title: 'Project Manager CLI',
-        description: 'Automation tool for generating React component structures and configurations.',
-        impact: 'Workflow Automation · Code Gen',
+        description: {
+            en: 'Automation tool for generating React component structures and configurations.',
+            es: 'Herramienta de automatización para generar estructuras y configuraciones de componentes React.'
+        },
+        impact: {
+            en: 'Workflow Automation · Code Gen',
+            es: 'Automatización de Flujo · Generación de Código'
+        },
         tags: ['React', 'CLI', 'Automation'],
         link: 'https://github.com/isaacismaelx14/Project-Manager-CLI',
         image: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2370&auto=format&fit=crop',
@@ -74,8 +144,14 @@ export const projects: Project[] = [
     },
     {
         title: 'Image Server',
-        description: 'High-performance image processing server for upload, compression, and retrieval.',
-        impact: 'Image Optimization · Microservice',
+        description: {
+            en: 'High-performance image processing server for upload, compression, and retrieval.',
+            es: 'Servidor de procesamiento de imágenes de alto rendimiento para carga, compresión y recuperación.'
+        },
+        impact: {
+            en: 'Image Optimization · Microservice',
+            es: 'Optimización de Imágenes · Microservicio'
+        },
         tags: ['Node.js', 'Express', 'Sharp'],
         link: 'https://github.com/isaacismaelx14/image-server',
         image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2370&auto=format&fit=crop',
