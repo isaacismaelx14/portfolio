@@ -133,7 +133,9 @@
         "languagesList": {
             "spanish": { "name": "Español", "level": "Nativo" },
             "english": { "name": "Inglés", "level": "Fluido" }
-        }
+        },
+        "downloadResume": "Descargar CV",
+        "downloadingResume": "Generando PDF..."
     },
     "projects": {
         "title": "Proyectos",

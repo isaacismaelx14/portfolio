@@ -133,7 +133,9 @@
         "languagesList": {
             "spanish": { "name": "Spanish", "level": "Native" },
             "english": { "name": "English", "level": "Fluent" }
-        }
+        },
+        "downloadResume": "Download Resume",
+        "downloadingResume": "Generating PDF..."
     },
     "projects": {
         "title": "Projects",

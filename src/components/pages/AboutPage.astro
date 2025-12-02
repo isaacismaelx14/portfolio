@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Section from "../Section.astro";
+import ResumeTemplate from "../ResumeTemplate.astro";
 import { useTranslations } from "../../i18n/utils";
 
 interface Props {
@@ -143,20 +144,31 @@ const pageDescription = lang === "es"
     <Section maxWidth="6xl" first>
         <!-- Header with Terminal Style -->
         <div class="mb-8 sm:mb-12">
-            <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
-                    {t("about.title")}
-                </h1>
-                <div 
-                    class="flex items-center gap-2 px-3 py-1.5 rounded-md bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-                    style="view-transition-name: run-btn;"
-                >
-                    <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span class="font-semibold text-xs">{t("about.badge")}</span>
+            <div class="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
+                <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+                    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+                        {t("about.title")}
+                    </h1>
+                    <div 
+                        class="flex items-center gap-2 px-3 py-1.5 rounded-md bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                        style="view-transition-name: run-btn;"
+                    >
+                        <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span class="font-semibold text-xs">{t("about.badge")}</span>
+                    </div>
                 </div>
+                <button
+                    id="download-resume-btn"
+                    class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors font-medium text-sm print:hidden"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span id="download-btn-text" data-loading={t("about.downloadingResume")}>{t("about.downloadResume")}</span>
+                </button>
             </div>
         </div>
 
@@ -350,4 +362,158 @@ const pageDescription = lang === "es"
             </div>
         </div>
     </Section>
+
+    <!-- Hidden Resume Template for PDF Generation -->
+    <div id="resume-wrapper" class="fixed -left-[9999px] top-0 opacity-0 pointer-events-none" aria-hidden="true">
+        <ResumeTemplate
+            name="Isaac Martinez"
+            title={lang === "es" ? "Arquitecto de Software" : "Software Architect"}
+            email="me@isaacmartinez.dev"
+            phone="+1 (829) 348-5948"
+            location="Santiago, Dominican Republic"
+            website="isaacmartinez.dev"
+            linkedin="linkedin.com/in/isaacismaelx14"
+            github="github.com/isaacismaelx14"
+            summary={t("about.p1")}
+            experience={experience}
+            education={education}
+            skills={skills}
+            languages={languagesList}
+            labels={{
+                experience: t("about.experience"),
+                education: t("about.education"),
+                skills: t("about.skills"),
+                languages: t("about.languages"),
+                contact: lang === "es" ? "Contacto" : "Contact"
+            }}
+        />
+    </div>
 </Layout>
+
+<style>
+    #resume-wrapper {
+        z-index: -9999;
+    }
+</style>
+
+<script>
+    // Lazy load PDF generation libraries only when needed
+    async function generatePDF() {
+        const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+            import('html2canvas-pro'),
+            import('jspdf')
+        ]);
+
+        const resumeElement = document.getElementById('resume-template');
+        if (!resumeElement) {
+            console.error('Resume template not found');
+            return;
+        }
+
+        // Temporarily make visible for capture
+        const wrapper = document.getElementById('resume-wrapper');
+        if (wrapper) {
+            wrapper.style.opacity = '1';
+            wrapper.style.left = '0';
+            wrapper.style.position = 'absolute';
+            wrapper.style.top = '0';
+            wrapper.style.zIndex = '9999';
+        }
+
+        // Wait for render
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        try {
+            // A4 dimensions at 96 DPI: 794 x 1123 px
+            const canvas = await html2canvas(resumeElement, {
+                scale: 2, // 2x for high quality
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
+                logging: false,
+                windowWidth: 794,
+                windowHeight: 1123,
+            });
+
+            // A4 in mm
+            const a4Width = 210;
+            const a4Height = 297;
+
+            // Create PDF
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4',
+                compress: true
+            });
+
+            // Add image to PDF - fit to A4
+            const imgData = canvas.toDataURL('image/jpeg', 0.92);
+            pdf.addImage(imgData, 'JPEG', 0, 0, a4Width, a4Height, undefined, 'FAST');
+
+            // Download
+            pdf.save('Isaac_Martinez_Resume.pdf');
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            // Fallback to print
+            window.print();
+        } finally {
+            // Hide again
+            if (wrapper) {
+                wrapper.style.opacity = '0';
+                wrapper.style.left = '-9999px';
+                wrapper.style.position = 'fixed';
+                wrapper.style.zIndex = '-9999';
+            }
+        }
+    }
+
+    function initDownloadButton() {
+        const downloadBtn = document.getElementById('download-resume-btn');
+        const btnText = document.getElementById('download-btn-text');
+
+        if (!downloadBtn || !btnText) return;
+
+        // Remove old listeners by cloning
+        const newBtn = downloadBtn.cloneNode(true);
+        downloadBtn.parentNode?.replaceChild(newBtn, downloadBtn);
+        
+        const newBtnText = newBtn.querySelector('#download-btn-text');
+        const newBtnIcon = newBtn.querySelector('svg');
+
+        newBtn.addEventListener('click', async () => {
+            // Update UI to loading state
+            const originalText = newBtnText?.textContent || '';
+            if (newBtnText) {
+                newBtnText.textContent = newBtnText.dataset.loading || 'Generating...';
+            }
+            newBtn.disabled = true;
+            newBtn.classList.add('opacity-75', 'cursor-not-allowed');
+            
+            // Add spinner animation to icon
+            if (newBtnIcon) {
+                newBtnIcon.classList.add('animate-spin');
+            }
+
+            try {
+                await generatePDF();
+            } catch (error) {
+                console.error('PDF generation failed:', error);
+            } finally {
+                // Reset UI
+                if (newBtnText) {
+                    newBtnText.textContent = originalText;
+                }
+                newBtn.disabled = false;
+                newBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                if (newBtnIcon) {
+                    newBtnIcon.classList.remove('animate-spin');
+                }
+            }
+        });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', initDownloadButton);
+    document.addEventListener('astro:page-load', initDownloadButton);
+</script>
