@@ -27,22 +27,24 @@ function parseChangelog(): ChangelogEntry[] {
     const content = fs.readFileSync(changelogPath, 'utf-8');
     const entries: ChangelogEntry[] = [];
     
-    // Match version headers like "# 0.1.0 (2023-11-10)" or "## [2.0.0] - 2024-01-01"
-    const versionRegex = /^#{1,2}\s+\[?(\d+\.\d+\.\d+)\]?\s*(?:\(([^)]+)\)|-\s*(\S+))?/gm;
-    const sections = content.split(versionRegex);
+    // Split by version headers
+    const versionBlocks = content.split(/^## /gm).filter(block => block.trim());
     
-    // Process in groups: [before, version, date1, date2, content, version, date1, date2, content, ...]
-    for (let i = 1; i < sections.length; i += 4) {
-        const version = sections[i];
-        const date = sections[i + 1] || sections[i + 2] || 'Unknown';
-        const sectionContent = sections[i + 3] || '';
+    for (const block of versionBlocks) {
+        // Match version and date from format: [2.1.2](url) (2025-12-02) or [2.1.2] (2025-12-02)
+        const headerMatch = block.match(/^\[?(\d+\.\d+\.\d+)\]?(?:\([^)]*\))?\s*\((\d{4}-\d{2}-\d{2})\)/);
+        
+        if (!headerMatch) continue;
+        
+        const version = headerMatch[1];
+        const date = headerMatch[2];
         
         const features: string[] = [];
         const bugFixes: string[] = [];
         const breakingChanges: string[] = [];
         
         // Parse features
-        const featuresMatch = sectionContent.match(/### Features\n([\s\S]*?)(?=###|$)/);
+        const featuresMatch = block.match(/### Features\n([\s\S]*?)(?=###|$)/);
         if (featuresMatch) {
             const items = featuresMatch[1].match(/\* .+/g);
             if (items) {
@@ -53,7 +55,7 @@ function parseChangelog(): ChangelogEntry[] {
         }
         
         // Parse bug fixes
-        const bugFixesMatch = sectionContent.match(/### Bug Fixes\n([\s\S]*?)(?=###|$)/);
+        const bugFixesMatch = block.match(/### Bug Fixes\n([\s\S]*?)(?=###|$)/);
         if (bugFixesMatch) {
             const items = bugFixesMatch[1].match(/\* .+/g);
             if (items) {
@@ -64,7 +66,7 @@ function parseChangelog(): ChangelogEntry[] {
         }
         
         // Parse breaking changes
-        const breakingMatch = sectionContent.match(/### BREAKING CHANGES?\n([\s\S]*?)(?=###|$)/);
+        const breakingMatch = block.match(/### BREAKING CHANGES?\n([\s\S]*?)(?=###|$)/);
         if (breakingMatch) {
             const items = breakingMatch[1].match(/\* .+/g);
             if (items) {
@@ -74,15 +76,13 @@ function parseChangelog(): ChangelogEntry[] {
             }
         }
         
-        if (version) {
-            entries.push({
-                version,
-                date,
-                features,
-                bugFixes,
-                breakingChanges
-            });
-        }
+        entries.push({
+            version,
+            date,
+            features,
+            bugFixes,
+            breakingChanges
+        });
     }
     
     return entries;
