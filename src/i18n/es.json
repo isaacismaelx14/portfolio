@@ -30,6 +30,12 @@
                 "title": "Nube",
                 "desc": "AWS, Docker, Kubernetes, Arquitectura nativa de la nube"
             }
+        },
+        "cta": {
+            "title": "¿Quieres Saber Más?",
+            "description": "Descubre mi trayectoria, habilidades y lo que me motiva a construir gran software.",
+            "resumeButton": "Descargar CV",
+            "aboutButton": "Conoce Mi Historia"
         }
     },
     "hero": {

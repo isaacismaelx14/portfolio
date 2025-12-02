@@ -30,6 +30,12 @@
                 "title": "Cloud",
                 "desc": "AWS, Docker, Kubernetes, Cloud-native arch"
             }
+        },
+        "cta": {
+            "title": "Ready to Learn More?",
+            "description": "Discover my journey, skills, and what drives me to build great software.",
+            "resumeButton": "Download Resume",
+            "aboutButton": "Read My Story"
         }
     },
     "hero": {

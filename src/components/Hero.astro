@@ -243,6 +243,20 @@ const translatePath = useTranslatedPath(lang);
             <span class="font-semibold text-xs">{t("hero.buttons.run")}</span>
           </button>
         </div>
+
+        <!-- Status Bar -->
+        <div
+          class="bg-blue-600 dark:bg-blue-700 px-4 py-1 flex justify-between text-[10px] text-white font-mono rounded-b-xl"
+        >
+          <div class="flex gap-4">
+            <span>main*</span>
+            <span>Ln 12, Col 45</span>
+          </div>
+          <div class="flex gap-4">
+            <span>UTF-8</span>
+            <span>TypeScript</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -350,20 +364,6 @@ const translatePath = useTranslatedPath(lang);
     initRunButton();
   });
 </script>
-
-<!-- Status Bar -->
-<div
-  class="bg-gray-50 dark:bg-gray-900 px-4 py-2 border-t border-gray-100 dark:border-gray-800 flex justify-between text-[10px] text-gray-500 dark:text-gray-400 font-mono"
->
-  <div class="flex gap-4">
-    <span>main*</span>
-    <span>Ln 12, Col 45</span>
-  </div>
-  <div class="flex gap-4">
-    <span>UTF-8</span>
-    <span>TypeScript</span>
-  </div>
-</div>
 
 <style>
   /* Syntax Highlighting Themes */
