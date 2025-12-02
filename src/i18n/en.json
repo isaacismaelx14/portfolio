@@ -100,5 +100,13 @@
             "desc": "Customize your experience! Switch themes and languages from this new control panel.",
             "status": "System ready"
         }
+    },
+    "notFound": {
+        "error": "No such file or directory",
+        "title": "Page Not Found",
+        "suggestion": "Try navigating back home",
+        "command": "cd ~/home",
+        "goHome": "Go Home",
+        "goBack": "Go Back"
     }
 }

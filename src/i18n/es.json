@@ -100,5 +100,13 @@
             "desc": "¡Personaliza tu experiencia! Cambia entre temas e idiomas desde este panel de control.",
             "status": "System ready"
         }
+    },
+    "notFound": {
+        "error": "No existe el archivo o directorio",
+        "title": "Página No Encontrada",
+        "suggestion": "Intenta volver al inicio",
+        "command": "cd ~/inicio",
+        "goHome": "Ir al Inicio",
+        "goBack": "Volver"
     }
 }
