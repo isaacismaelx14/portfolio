@@ -27,6 +27,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
     data-projects={JSON.stringify(projectsData)}
     data-contact={JSON.stringify(contactInfo)}
     data-about={aboutText}
+    data-lang={lang}
 >
     <!-- Minimized Tab -->
     <div
@@ -189,6 +190,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
         private projects: any[] = [];
         private contactInfo: any = {};
         private aboutText: string = "";
+        private currentLang: string = "en";
 
         // Storage Keys
         private STORAGE_KEY_STATE = "terminal_state";
@@ -218,6 +220,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                 this.projects = JSON.parse(this.dataset.projects || "[]");
                 this.contactInfo = JSON.parse(this.dataset.contact || "{}");
                 this.aboutText = this.dataset.about || "";
+                this.currentLang = this.dataset.lang || "en";
             } catch (e) {
                 console.error("Error parsing terminal data", e);
             }
@@ -641,10 +644,14 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                     } else if (routes[path] || path === "..") {
                         // Handle .. basic support
                         if (path === "..") {
-                            window.location.href = "/";
+                            window.location.href = `/${this.currentLang}`;
                             result = "Navigating to home...";
                         } else {
-                            window.location.href = path;
+                            const targetPath =
+                                path === "/"
+                                    ? `/${this.currentLang}`
+                                    : `/${this.currentLang}${path}`;
+                            window.location.href = targetPath;
                             result = `Navigating to ${path}...`;
                         }
                     } else {
@@ -717,7 +724,7 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                         );
                         setTimeout(() => this.minimizeTerminal(), 800);
                         setTimeout(() => {
-                            window.location.href = "/about"; // or localized version if needed, but /about redirects usually
+                            window.location.href = `/${this.currentLang}/about`;
                         }, 1500);
                     }
                     break;
