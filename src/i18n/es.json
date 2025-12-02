@@ -7,12 +7,12 @@
     },
     "home": {
         "role": "Arquitecto de Software",
-        "trustedBy": "Con la confianza de equipos globales y startups en EE. UU., Europa y LATAM",
+        "trustedBy": "Entregando resultados para equipos en EE. UU., Europa y LATAM",
         "featuredProjects": "Proyectos Destacados",
-        "featuredProjectsDesc": "Trabajos seleccionados que muestran arquitectura e ingeniería.",
-        "viewAll": "Ver todos",
-        "beyondCode": "Más allá del código",
-        "beyondCodeDesc": "Soy un ingeniero full-stack dominicano que disfruta construyendo cosas - desde APIs y sistemas backend hasta experiencias de UI limpias. Me encanta resolver problemas, optimizar el rendimiento y experimentar con nuevas tecnologías. Cuando me alejo del teclado, probablemente estoy jugando tenis o escuchando música.",
+        "featuredProjectsDesc": "Soluciones reales que demuestran escalabilidad, rendimiento y arquitectura limpia.",
+        "viewAll": "Ver todos los proyectos",
+        "beyondCode": "Por Qué Trabajar Conmigo",
+        "beyondCodeDesc": "Aporto más de 9 años de experiencia práctica construyendo sistemas en producción que manejan tráfico real y problemas reales. Me comunico con claridad, entrego consistentemente y me apropio de los proyectos en los que trabajo. Ya sea un proyecto desde cero o escalar un sistema existente, yo lo resuelvo.",
         "features": {
             "architecture": {
                 "title": "Arquitectura",
@@ -33,25 +33,25 @@
         }
     },
     "hero": {
-        "available": "Disponible para nuevos proyectos",
+        "available": "Disponible para contratación",
         "greeting": "Hola, soy",
-        "title": "Construyendo Software Escalable <br class=\"hidden sm:block\" /> y Productos de IA.",
-        "subtitle": "Ingeniero Full-Stack · Backend, Frontend y Sistemas de IA",
-        "description": "Diseño sistemas fiables y escalables y frontends modernos utilizando Node.js, TypeScript y React. Me encanta resolver problemas complejos para construir software que se sienta rápido, estable e intuitivo.",
+        "title": "Construyo Sistemas Escalables <br class=\"hidden sm:block\" /> y Productos que Funcionan.",
+        "subtitle": "Arquitecto de Software · +9 Años en Backend, Cloud e IA",
+        "description": "Ayudo a empresas a construir software confiable y de alto rendimiento. Desde arquitecturas backend complejas hasta integraciones de IA, entrego soluciones que escalan con tu negocio.",
         "buttons": {
-            "explore": "Explorar mi trabajo",
-            "contact": "Trabajemos juntos",
-            "run": "Ejecutar",
-            "running": "Ejecutando..."
+            "explore": "Ver mi trabajo",
+            "contact": "Contrátame",
+            "run": "Run",
+            "running": "Running..."
         }
     },
     "about": {
-        "title": "Sobre mí",
-        "badge": "Ejecutando...",
-        "quote": "Un soñador atrapado en un cuerpo finito, con ideas infinitas.",
-        "p1": "Soy Isaac Martinez, un Arquitecto de Software y Desarrollador Full Stack con sede en Santiago, República Dominicana. Tengo un fuerte enfoque en soluciones impulsadas por IA y arquitecturas backend escalables.",
-        "p2": "Con más de 9 años de experiencia en Node.js y un profundo conocimiento de tecnologías en la nube como AWS, construyo sistemas que no solo son eficientes, sino también seguros y fiables. Me apasiona aprovechar la tecnología para resolver problemas empresariales complejos.",
-        "p3": "Cuando no estoy programando, disfruto jugando dominó, la fotografía y explorando los últimos avances en IA.",
+        "title": "Sobre Mí",
+        "badge": "Running...",
+        "quote": "No solo escribo código. Resuelvo problemas de negocio.",
+        "p1": "Soy Isaac Martinez, Arquitecto de Software en Santiago, República Dominicana. Me especializo en construir sistemas backend escalables, infraestructura cloud y funcionalidades con IA que generan valor real para el negocio.",
+        "p2": "Con más de 9 años de experiencia en Node.js, TypeScript y AWS, he ayudado a startups y empresas establecidas a lanzar productos más rápido, reducir deuda técnica y escalar sus sistemas de forma confiable. Me enorgullezco de escribir código limpio y mantenible, y comunicarme efectivamente con los equipos.",
+        "p3": "Actualmente estoy disponible para roles full-time o trabajo por contrato. Si buscas a alguien que pueda empezar de inmediato y entregar resultados, hablemos.",
         "experience": "Experiencia",
         "education": "Educación",
         "skills": "Habilidades",
@@ -59,13 +59,13 @@
     },
     "projects": {
         "title": "Proyectos",
-        "badge": "Compilando...",
-        "desc": "Una colección de proyectos en los que he trabajado, desde aplicaciones web hasta herramientas de línea de comandos."
+        "badge": "Compiling...",
+        "desc": "Una selección de proyectos que demuestran mi capacidad para entregar software de calidad, desde la arquitectura hasta el despliegue."
     },
     "contact": {
-        "title": "Ponte en contacto",
-        "badge": "Ejecución exitosa",
-        "desc": "¿Tienes un proyecto en mente o simplemente quieres saludar? Rellena el formulario a continuación o contáctame directamente.",
+        "title": "Trabajemos Juntos",
+        "badge": "Execution Successful",
+        "desc": "¿Buscas un ingeniero de software que entregue resultados? Cuéntame sobre tu proyecto o vacante. Respondo en menos de 24 horas.",
         "logs": {
             "init": "inicializando protocolo_contacto...",
             "deps": "dependencias cargadas",

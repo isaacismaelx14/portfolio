@@ -7,12 +7,12 @@
     },
     "home": {
         "role": "Software Architect",
-        "trustedBy": "Trusted by global teams and startups across the U.S., Europe, and LATAM",
+        "trustedBy": "Delivering results for teams across the U.S., Europe, and LATAM",
         "featuredProjects": "Featured Projects",
-        "featuredProjectsDesc": "Selected works showcasing architecture & engineering.",
-        "viewAll": "View all",
-        "beyondCode": "Beyond the Code",
-        "beyondCodeDesc": "I’m a Dominican full-stack engineer who enjoys building things - from APIs and backend systems to clean UI experiences. I love solving problems, optimizing performance, and experimenting with new technology. When I step away from the keyboard, I’m probably playing tennis or listening music.",
+        "featuredProjectsDesc": "Real-world solutions showcasing scalability, performance, and clean architecture.",
+        "viewAll": "View all projects",
+        "beyondCode": "Why Work With Me",
+        "beyondCodeDesc": "I bring 9+ years of hands-on experience building production systems that handle real traffic and real problems. I communicate clearly, ship consistently, and take ownership of the projects I work on. Whether it's a greenfield project or scaling an existing system, I get things done.",
         "features": {
             "architecture": {
                 "title": "Architecture",
@@ -33,14 +33,14 @@
         }
     },
     "hero": {
-        "available": "Available for new projects",
-        "greeting": "Hi, I'm",
-        "title": "Building Scalable Software <br class=\"hidden sm:block\" /> & AI-Driven Products.",
-        "subtitle": "Full-Stack Engineer · Backend, Frontend & AI Systems",
-        "description": "I engineer reliable, scalable systems and modern frontends using Node.js, TypeScript, and React. I love solving complex problems to build software that feels fast, stable, and intuitive.",
+        "available": "Available for hire",
+        "greeting": "Hey, I'm",
+        "title": "I Build Scalable Systems <br class=\"hidden sm:block\" /> & Ship Products That Perform.",
+        "subtitle": "Software Architect · 9+ Years in Backend, Cloud & AI",
+        "description": "I help companies build reliable, high-performance software. From complex backend architectures to AI integrations, I deliver solutions that scale with your business.",
         "buttons": {
-            "explore": "Explore My Work",
-            "contact": "Let's Work Together",
+            "explore": "See My Work",
+            "contact": "Hire Me",
             "run": "Run",
             "running": "Running..."
         }
@@ -48,10 +48,10 @@
     "about": {
         "title": "About Me",
         "badge": "Running...",
-        "quote": "A dreamer trapped in a finite body, with infinite ideas.",
-        "p1": "I'm Isaac Martinez, a Software Architect and Full Stack Developer based in Santiago, Dominican Republic. I have a strong focus on AI-driven solutions and scalable backend architectures.",
-        "p2": "With over 9 years of experience in Node.js and a deep understanding of cloud technologies like AWS, I build systems that are not only performant but also secure and reliable. I'm passionate about leveraging technology to solve complex business problems.",
-        "p3": "When I'm not coding, I enjoy playing dominoes, photography, and exploring the latest advancements in AI.",
+        "quote": "I don't just write code. I solve business problems.",
+        "p1": "I'm Isaac Martinez, a Software Architect based in Santiago, Dominican Republic. I specialize in building scalable backend systems, cloud infrastructure, and AI-powered features that drive real business value.",
+        "p2": "With 9+ years of experience in Node.js, TypeScript, and AWS, I've helped startups and established companies ship products faster, reduce technical debt, and scale their systems reliably. I take pride in writing clean, maintainable code and communicating effectively with teams.",
+        "p3": "I'm currently available for full-time roles or contract work. If you're looking for someone who can hit the ground running and deliver results, let's talk.",
         "experience": "Experience",
         "education": "Education",
         "skills": "Skills",
@@ -60,12 +60,12 @@
     "projects": {
         "title": "Projects",
         "badge": "Compiling...",
-        "desc": "A collection of projects I've worked on, ranging from web applications to command-line tools."
+        "desc": "A selection of projects that demonstrate my ability to ship quality software, from architecture to deployment."
     },
     "contact": {
-        "title": "Get in Touch",
+        "title": "Let's Work Together",
         "badge": "Execution Successful",
-        "desc": "Have a project in mind or just want to say hi? Fill out the form below or reach out directly.",
+        "desc": "Looking for a software engineer who delivers? Tell me about your project or role. I respond within 24 hours.",
         "logs": {
             "init": "initializing contact_protocol...",
             "deps": "dependencies loaded",
