@@ -5,6 +5,9 @@ import MobileMenu from "./MobileMenu.astro";
 import NavLinks from "./NavLinks.astro";
 import I18nLink from "./I18nLink.astro";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import SettingsIcon from "./icons/SettingsIcon.astro";
+import CloseIcon from "./icons/CloseIcon.astro";
+import MenuIcon from "./icons/MenuIcon.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -37,27 +40,9 @@ const t = useTranslations(lang);
             class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors"
             aria-label="Settings"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-              ></path>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            </svg>
+            <SettingsIcon class="h-6 w-6" stroke-width="2" />
           </button>
-          
+
           <!-- Mobile Settings Tooltip -->
           <div
             id="mobile-settings-tooltip"
@@ -65,17 +50,18 @@ const t = useTranslations(lang);
           >
             <div
               class="absolute -top-2 right-4 w-3 h-3 bg-gray-900 border-t border-l border-gray-700 transform rotate-45"
-            ></div>
+            >
+            </div>
             <div class="relative z-10">
               <div class="flex justify-between items-start mb-1.5">
-                <span class="font-mono text-blue-400 font-bold text-[10px]">> {t("settings.tooltip.title")}</span>
+                <span class="font-mono text-blue-400 font-bold text-[10px]"
+                  >> {t("settings.tooltip.title")}</span
+                >
                 <button
                   id="close-mobile-tooltip"
                   class="text-gray-500 hover:text-white transition-colors -mt-0.5 -mr-0.5"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                  </svg>
+                  <CloseIcon class="h-3.5 w-3.5" />
                 </button>
               </div>
               <p class="text-gray-300 text-[11px] leading-relaxed">
@@ -84,7 +70,7 @@ const t = useTranslations(lang);
             </div>
           </div>
         </div>
-        
+
         <!-- Mobile menu button -->
         <button
           id="mobile-menu-btn"
@@ -94,20 +80,7 @@ const t = useTranslations(lang);
           aria-expanded="false"
         >
           <span class="sr-only">Open main menu</span>
-          <svg
-            class="block h-6 w-6"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
+          <MenuIcon class="block h-6 w-6" stroke-width="2" />
         </button>
       </div>
     </div>
@@ -119,16 +92,21 @@ const t = useTranslations(lang);
   id="mobile-settings-backdrop"
   class="fixed inset-0 z-[9998] bg-black/30 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 sm:hidden"
   aria-hidden="true"
-></div>
+>
+</div>
 
 <div
   id="mobile-settings-modal"
   class="fixed top-20 right-4 z-[9999] w-[calc(100%-2rem)] max-w-xs opacity-0 pointer-events-none transition-all duration-300 transform scale-95 origin-top-right sm:hidden"
   aria-hidden="true"
 >
-  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+  <div
+    class="bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+  >
     <!-- Window Header -->
-    <div class="flex items-center justify-between px-4 py-3 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+    <div
+      class="flex items-center justify-between px-4 py-3 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700"
+    >
       <div class="flex items-center gap-2">
         <button
           id="close-mobile-settings-btn"
@@ -136,20 +114,16 @@ const t = useTranslations(lang);
           class="group w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors flex items-center justify-center cursor-pointer"
           aria-label="Close settings"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
+          <CloseIcon
             class="w-2 h-2 text-red-900 opacity-0 group-hover:opacity-100 transition-opacity"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
             stroke-width="3"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
+          />
         </button>
         <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
         <span class="w-3 h-3 rounded-full bg-green-500"></span>
-        <span class="ml-2 font-mono text-xs text-gray-500 dark:text-gray-400">~/settings</span>
+        <span class="ml-2 font-mono text-xs text-gray-500 dark:text-gray-400"
+          >~/settings</span
+        >
       </div>
     </div>
 
@@ -162,12 +136,18 @@ const t = useTranslations(lang);
 <MobileMenu />
 
 <script>
-  import { initThemeButtons, dismissTooltip, showTooltip, updateThemeButtons, getTheme } from "../scripts/theme";
+  import {
+    initThemeButtons,
+    dismissTooltip,
+    showTooltip,
+    updateThemeButtons,
+    getTheme,
+  } from "../scripts/theme";
 
   function openMobileSettings() {
     const modal = document.getElementById("mobile-settings-modal");
     const backdrop = document.getElementById("mobile-settings-backdrop");
-    
+
     if (modal && backdrop) {
       backdrop.classList.remove("opacity-0", "pointer-events-none");
       setTimeout(() => {
@@ -182,7 +162,7 @@ const t = useTranslations(lang);
   function closeMobileSettings() {
     const modal = document.getElementById("mobile-settings-modal");
     const backdrop = document.getElementById("mobile-settings-backdrop");
-    
+
     if (modal && backdrop) {
       modal.classList.add("opacity-0", "scale-95");
       modal.classList.remove("scale-100");
@@ -202,15 +182,21 @@ const t = useTranslations(lang);
   function initMobileNav() {
     const mobileMenuBtn = document.getElementById("mobile-menu-btn");
     const mobileSettingsBtn = document.getElementById("mobile-settings-btn");
-    const closeMobileSettingsBtn = document.getElementById("close-mobile-settings-btn");
+    const closeMobileSettingsBtn = document.getElementById(
+      "close-mobile-settings-btn",
+    );
     const backdrop = document.getElementById("mobile-settings-backdrop");
-    const closeMobileTooltipBtn = document.getElementById("close-mobile-tooltip");
+    const closeMobileTooltipBtn = document.getElementById(
+      "close-mobile-tooltip",
+    );
 
     // Initialize mobile theme buttons using shared utility
     initThemeButtons(".mobile-theme-select-btn");
-    
+
     // Sync all theme buttons
-    const allThemeBtns = document.querySelectorAll('.theme-select-btn, .mobile-theme-select-btn');
+    const allThemeBtns = document.querySelectorAll(
+      ".theme-select-btn, .mobile-theme-select-btn",
+    );
     updateThemeButtons(allThemeBtns, getTheme());
 
     // Show mobile tooltip for first-time visitors (only on mobile)
@@ -222,7 +208,10 @@ const t = useTranslations(lang);
     if (closeMobileTooltipBtn) {
       closeMobileTooltipBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        dismissTooltip("mobile-settings-tooltip", "mobile-settings-tooltip-seen");
+        dismissTooltip(
+          "mobile-settings-tooltip",
+          "mobile-settings-tooltip-seen",
+        );
       });
     }
 
@@ -237,7 +226,10 @@ const t = useTranslations(lang);
     if (mobileSettingsBtn) {
       mobileSettingsBtn.addEventListener("click", () => {
         openMobileSettings();
-        dismissTooltip("mobile-settings-tooltip", "mobile-settings-tooltip-seen");
+        dismissTooltip(
+          "mobile-settings-tooltip",
+          "mobile-settings-tooltip-seen",
+        );
       });
     }
 

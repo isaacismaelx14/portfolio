@@ -5,6 +5,9 @@ import {
   useTranslations,
   useTranslatedPath,
 } from "../i18n/utils";
+import ChevronDownIcon from "./icons/ChevronDownIcon.astro";
+import PlayIcon from "./icons/PlayIcon.astro";
+import SpinnerIcon from "./icons/SpinnerIcon.astro";
 
 interface Props {
   name: string;
@@ -18,7 +21,9 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<section class="pt-20 pb-12 sm:pt-24 sm:pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section
+  class="pt-20 pb-12 sm:pt-24 sm:pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+>
   <div class="grid lg:grid-cols-2 gap-12 items-center">
     <!-- Left Column: Intro & Buttons -->
     <div class="flex flex-col justify-center items-start relative">
@@ -77,9 +82,13 @@ const translatePath = useTranslatedPath(lang);
 
       <!-- Mobile Code Snippet -->
       <div class="lg:hidden mt-8 w-full">
-        <div class="bg-gray-900 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl border border-gray-700">
+        <div
+          class="bg-gray-900 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xl border border-gray-700"
+        >
           <!-- Mini Header -->
-          <div class="bg-gray-800 dark:bg-gray-700 px-4 py-2 flex items-center justify-between">
+          <div
+            class="bg-gray-800 dark:bg-gray-700 px-4 py-2 flex items-center justify-between"
+          >
             <div class="flex gap-1.5">
               <div class="w-2.5 h-2.5 rounded-full bg-red-400"></div>
               <div class="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
@@ -95,17 +104,23 @@ const translatePath = useTranslatedPath(lang);
               <span class="text-purple-400">const</span>
               <span class="text-blue-300"> developer</span>
               <span class="text-gray-400"> = </span>
-              <span class="text-yellow-300">"Isaac Martinez"</span><span class="text-gray-400">;</span>
+              <span class="text-yellow-300">"Isaac Martinez"</span><span
+                class="text-gray-400">;</span
+              >
             </div>
             <div>
               <span class="text-purple-400">const</span>
               <span class="text-blue-300"> status</span>
               <span class="text-gray-400"> = </span>
-              <span class="text-green-400">"Available for hire"</span><span class="text-gray-400">;</span>
+              <span class="text-green-400">"Available for hire"</span><span
+                class="text-gray-400">;</span
+              >
             </div>
           </div>
           <!-- Mini Status Bar -->
-          <div class="bg-blue-600 px-3 py-1 flex justify-between text-[9px] text-white font-mono">
+          <div
+            class="bg-blue-600 px-3 py-1 flex justify-between text-[9px] text-white font-mono"
+          >
             <span>main* · TypeScript</span>
             <span>UTF-8</span>
           </div>
@@ -145,17 +160,7 @@ const translatePath = useTranslatedPath(lang);
                 class="flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 <span id="current-theme-name">Default</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-3 w-3"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd"></path>
-                </svg>
+                <ChevronDownIcon class="h-3 w-3" />
               </button>
               <!-- Dropdown with padding bridge -->
               <div
@@ -266,17 +271,7 @@ const translatePath = useTranslatedPath(lang);
             data-running-text={t("hero.buttons.running")}
             data-redirect-url={translatePath("/about")}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                clip-rule="evenodd"></path>
-            </svg>
+            <PlayIcon class="h-4 w-4" />
             <span class="font-semibold text-xs">{t("hero.buttons.run")}</span>
           </button>
         </div>
@@ -298,6 +293,10 @@ const translatePath = useTranslatedPath(lang);
     </div>
   </div>
 </section>
+
+<div id="spinner-template" class="hidden">
+  <SpinnerIcon class="animate-spin h-4 w-4 text-blue-700 dark:text-blue-400" />
+</div>
 
 <script>
   import { navigate } from "astro:transitions/client";
@@ -348,8 +347,9 @@ const translatePath = useTranslatedPath(lang);
   // Run Logic
   function initRunButton() {
     const runBtn = document.getElementById("run-btn");
+    const spinnerTemplate = document.getElementById("spinner-template");
 
-    if (runBtn) {
+    if (runBtn && spinnerTemplate) {
       // Clone the button to remove existing event listeners (prevent duplicates)
       const newBtn = runBtn.cloneNode(true) as HTMLElement;
       runBtn.parentNode?.replaceChild(newBtn, runBtn);
@@ -363,10 +363,7 @@ const translatePath = useTranslatedPath(lang);
 
         // Change state to "Running"
         newBtn.innerHTML = `
-        <svg class="animate-spin h-4 w-4 text-blue-700 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
+        ${spinnerTemplate.innerHTML}
         <span class="font-semibold text-xs text-blue-700 dark:text-blue-400">${runningText}</span>
       `;
         newBtn.classList.remove(

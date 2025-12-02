@@ -2,6 +2,9 @@
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import { projects } from "../data/projects";
 import { contactInfo } from "../data/about";
+import CloseIcon from "./icons/CloseIcon.astro";
+import MinimizeIcon from "./icons/MinimizeIcon.astro";
+import MaximizeIcon from "./icons/MaximizeIcon.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -68,18 +71,10 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                         class="w-3 h-3 rounded-full bg-[#ff5f56] flex items-center justify-center hover:bg-[#ff5f56]/80 transition-colors group-hover:opacity-100"
                         aria-label="Close"
                     >
-                        <svg
+                        <CloseIcon
                             class="w-2 h-2 text-black opacity-0 hover:opacity-100 transition-opacity"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
                             stroke-width="4"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
+                        />
                     </button>
                     <!-- Minimize Button -->
                     <button
@@ -87,17 +82,9 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                         class="w-3 h-3 rounded-full bg-[#ffbd2e] flex items-center justify-center hover:bg-[#ffbd2e]/80 transition-colors group-hover:opacity-100"
                         aria-label="Minimize"
                     >
-                        <svg
+                        <MinimizeIcon
                             class="w-2 h-2 text-black opacity-0 hover:opacity-100 transition-opacity"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="4"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg>
+                        />
                     </button>
                     <!-- Maximize Button -->
                     <button
@@ -105,20 +92,9 @@ const aboutText = t("about.experienceList.wgsn.description"); // Use current rol
                         class="w-3 h-3 rounded-full bg-[#27c93f] flex items-center justify-center hover:bg-[#27c93f]/80 transition-colors group-hover:opacity-100"
                         aria-label="Maximize"
                     >
-                        <svg
+                        <MaximizeIcon
                             class="w-2 h-2 text-black opacity-0 hover:opacity-100 transition-opacity"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="4"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <polyline points="9 21 3 21 3 15"></polyline>
-                            <line x1="21" y1="3" x2="14" y2="10"></line>
-                            <line x1="3" y1="21" x2="10" y2="14"></line>
-                        </svg>
+                        />
                     </button>
                 </div>
                 <div
