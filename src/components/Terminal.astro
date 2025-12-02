@@ -1,0 +1,668 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { projects } from "../data/projects";
+import { contactInfo } from "../data/about";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Prepare data for client-side
+const projectsData = projects
+    .filter(
+        (p) =>
+            p.featured ||
+            p.title === "Project Templify" ||
+            p.title === "Cominnek",
+    )
+    .map((p) => ({
+        title: p.title,
+        description: p.description[lang],
+        link: p.link,
+    }));
+
+const aboutText = t("about.experienceList.wgsn.description"); // Use current role description as bio
+---
+
+<terminal-window
+    data-projects={JSON.stringify(projectsData)}
+    data-contact={JSON.stringify(contactInfo)}
+    data-about={aboutText}
+>
+    <!-- Minimized Tab -->
+    <div
+        id="terminal-minimized"
+        class="fixed bottom-0 right-8 z-[99] bg-[#1a1a1a] border-t border-x border-[#333] rounded-t-lg px-4 py-2 cursor-pointer transform translate-y-full transition-transform duration-300 flex items-center gap-2 hover:bg-[#252525]"
+        role="button"
+        aria-label="Restore Terminal"
+    >
+        <span class="text-[#33ff00] font-mono text-sm">>_ Terminal</span>
+    </div>
+
+    <!-- Terminal Overlay/Window -->
+    <div
+        id="terminal-overlay"
+        class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Terminal Mode"
+    >
+        <div
+            id="terminal-window"
+            class="w-full max-w-4xl h-[80vh] bg-[#0c0c0c] rounded-lg shadow-2xl border border-[#333] flex flex-col font-mono overflow-hidden relative transition-all duration-300 transform scale-100 origin-bottom-right"
+        >
+            <!-- Matrix Canvas (Background) -->
+            <canvas
+                id="matrix-canvas"
+                class="absolute inset-0 pointer-events-none opacity-10 hidden z-0"
+            ></canvas>
+
+            <!-- Terminal Header -->
+            <div
+                class="bg-[#1a1a1a] px-4 py-2 flex items-center justify-between border-b border-[#333] relative z-10 select-none"
+            >
+                <div class="flex items-center gap-2 group">
+                    <!-- Close Button -->
+                    <button
+                        id="term-close"
+                        class="w-3 h-3 rounded-full bg-[#ff5f56] flex items-center justify-center hover:bg-[#ff5f56]/80 transition-colors group-hover:opacity-100"
+                        aria-label="Close"
+                    >
+                        <svg
+                            class="w-2 h-2 text-black opacity-0 hover:opacity-100 transition-opacity"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="4"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <!-- Minimize Button -->
+                    <button
+                        id="term-minimize"
+                        class="w-3 h-3 rounded-full bg-[#ffbd2e] flex items-center justify-center hover:bg-[#ffbd2e]/80 transition-colors group-hover:opacity-100"
+                        aria-label="Minimize"
+                    >
+                        <svg
+                            class="w-2 h-2 text-black opacity-0 hover:opacity-100 transition-opacity"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="4"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                    <!-- Maximize Button (Visual only) -->
+                    <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                </div>
+                <div
+                    class="text-[#666] text-xs absolute left-1/2 transform -translate-x-1/2"
+                >
+                    isaac@portfolio:~
+                </div>
+            </div>
+
+            <!-- Terminal Content -->
+            <div
+                id="terminal-content"
+                class="flex-1 p-4 overflow-y-auto text-[#33ff00] text-sm md:text-base font-mono leading-relaxed relative z-10 cursor-text"
+                style="text-shadow: 0 0 5px rgba(51, 255, 0, 0.5);"
+            >
+                <div id="terminal-output">
+                    <div class="mb-4">
+                        <p>Welcome to Terminal Mode v1.1.0</p>
+                        <p>
+                            Type <span class="text-white">'help'</span> to see available
+                            commands.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 mt-2">
+                    <span class="text-[#33ff00]">➜</span>
+                    <span class="text-[#00ccff]">~</span>
+                    <input
+                        type="text"
+                        id="terminal-input"
+                        class="flex-1 bg-transparent border-none outline-none text-[#33ff00] placeholder-gray-700 caret-[#33ff00]"
+                        autocomplete="off"
+                        spellcheck="false"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</terminal-window>
+
+<script>
+    class TerminalWindow extends HTMLElement {
+        // Elements
+        private overlay: HTMLElement | null = null;
+        private windowEl: HTMLElement | null = null;
+        private minimizedTab: HTMLElement | null = null;
+        private input: HTMLInputElement | null = null;
+        private output: HTMLElement | null = null;
+        private content: HTMLElement | null = null;
+        private canvas: HTMLCanvasElement | null = null;
+        private closeBtn: HTMLElement | null = null;
+        private minimizeBtn: HTMLElement | null = null;
+
+        // State
+        private isOpen = false;
+        private isMinimized = false;
+        private history: string[] = [];
+        private historyIndex = -1;
+        private matrixInterval: any = null;
+
+        // Data
+        private projects: any[] = [];
+        private contactInfo: any = {};
+        private aboutText: string = "";
+
+        // Storage Keys
+        private STORAGE_KEY_STATE = "terminal_state";
+        private STORAGE_KEY_HISTORY = "terminal_history";
+        private STORAGE_KEY_OUTPUT = "terminal_output";
+
+        constructor() {
+            super();
+        }
+
+        connectedCallback() {
+            // Initialize elements
+            this.overlay = this.querySelector("#terminal-overlay");
+            this.windowEl = this.querySelector("#terminal-window");
+            this.minimizedTab = this.querySelector("#terminal-minimized");
+            this.input = this.querySelector("#terminal-input");
+            this.output = this.querySelector("#terminal-output");
+            this.content = this.querySelector("#terminal-content");
+            this.canvas = this.querySelector("#matrix-canvas");
+            this.closeBtn = this.querySelector("#term-close");
+            this.minimizeBtn = this.querySelector("#term-minimize");
+
+            // Load Data
+            try {
+                this.projects = JSON.parse(this.dataset.projects || "[]");
+                this.contactInfo = JSON.parse(this.dataset.contact || "{}");
+                this.aboutText = this.dataset.about || "";
+            } catch (e) {
+                console.error("Error parsing terminal data", e);
+            }
+
+            // Restore State
+            this.restoreState();
+
+            // Bind events
+            this.handleKeydown = this.handleKeydown.bind(this);
+            this.handleInputKeydown = this.handleInputKeydown.bind(this);
+            this.handleResize = this.handleResize.bind(this);
+            this.openTerminal = this.openTerminal.bind(this);
+            this.closeTerminal = this.closeTerminal.bind(this);
+            this.minimizeTerminal = this.minimizeTerminal.bind(this);
+            this.focusInput = this.focusInput.bind(this);
+
+            // Add listeners
+            window.addEventListener("keydown", this.handleKeydown);
+            window.addEventListener("resize", this.handleResize);
+
+            this.input?.addEventListener("keydown", this.handleInputKeydown);
+            this.content?.addEventListener("click", this.focusInput);
+            this.closeBtn?.addEventListener("click", this.closeTerminal);
+            this.minimizeBtn?.addEventListener("click", this.minimizeTerminal);
+            this.minimizedTab?.addEventListener("click", this.openTerminal);
+        }
+
+        disconnectedCallback() {
+            // Clean up listeners
+            window.removeEventListener("keydown", this.handleKeydown);
+            window.removeEventListener("resize", this.handleResize);
+
+            this.input?.removeEventListener("keydown", this.handleInputKeydown);
+            this.content?.removeEventListener("click", this.focusInput);
+            this.closeBtn?.removeEventListener("click", this.closeTerminal);
+            this.minimizeBtn?.removeEventListener(
+                "click",
+                this.minimizeTerminal,
+            );
+            this.minimizedTab?.removeEventListener("click", this.openTerminal);
+
+            this.stopMatrix();
+        }
+
+        private saveState() {
+            const state = {
+                isOpen: this.isOpen,
+                isMinimized: this.isMinimized,
+            };
+            sessionStorage.setItem(
+                this.STORAGE_KEY_STATE,
+                JSON.stringify(state),
+            );
+            sessionStorage.setItem(
+                this.STORAGE_KEY_HISTORY,
+                JSON.stringify(this.history),
+            );
+            if (this.output) {
+                sessionStorage.setItem(
+                    this.STORAGE_KEY_OUTPUT,
+                    this.output.innerHTML,
+                );
+            }
+        }
+
+        private restoreState() {
+            try {
+                // Restore History
+                const savedHistory = sessionStorage.getItem(
+                    this.STORAGE_KEY_HISTORY,
+                );
+                if (savedHistory) {
+                    this.history = JSON.parse(savedHistory);
+                    this.historyIndex = this.history.length;
+                }
+
+                // Restore Output
+                const savedOutput = sessionStorage.getItem(
+                    this.STORAGE_KEY_OUTPUT,
+                );
+                if (savedOutput && this.output) {
+                    this.output.innerHTML = savedOutput;
+                    // Scroll to bottom after restore
+                    setTimeout(() => {
+                        if (this.content)
+                            this.content.scrollTop = this.content.scrollHeight;
+                    }, 0);
+                }
+
+                // Restore UI State
+                const savedState = sessionStorage.getItem(
+                    this.STORAGE_KEY_STATE,
+                );
+                if (savedState) {
+                    const { isOpen, isMinimized } = JSON.parse(savedState);
+                    this.isOpen = isOpen;
+                    this.isMinimized = isMinimized;
+
+                    if (this.isOpen) {
+                        if (this.isMinimized) {
+                            // Restore in minimized state
+                            this.minimizedTab?.classList.remove(
+                                "translate-y-full",
+                            );
+                            this.overlay?.classList.add("hidden");
+                            this.windowEl?.classList.add(
+                                "scale-0",
+                                "opacity-0",
+                                "translate-y-[500px]",
+                            );
+                            this.windowEl?.classList.remove(
+                                "scale-100",
+                                "opacity-100",
+                                "translate-y-0",
+                            );
+                        } else {
+                            // Restore in open state
+                            this.overlay?.classList.remove("hidden");
+                            this.windowEl?.classList.remove(
+                                "scale-0",
+                                "opacity-0",
+                                "translate-y-[500px]",
+                            );
+                            this.windowEl?.classList.add(
+                                "scale-100",
+                                "opacity-100",
+                                "translate-y-0",
+                            );
+                            document.body.style.overflow = "hidden";
+                            setTimeout(() => this.input?.focus(), 50);
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Error restoring terminal state", e);
+            }
+        }
+
+        private handleKeydown(e: KeyboardEvent) {
+            if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+                e.preventDefault();
+                if (this.isOpen && !this.isMinimized) {
+                    this.closeTerminal();
+                } else {
+                    this.openTerminal();
+                }
+            }
+
+            if (this.isOpen && e.key === "Escape") {
+                this.closeTerminal();
+            }
+        }
+
+        private handleInputKeydown(e: KeyboardEvent) {
+            if (e.key === "Enter") {
+                if (this.input) {
+                    this.handleCommand(this.input.value);
+                }
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                if (this.historyIndex > 0) {
+                    this.historyIndex--;
+                    if (this.input)
+                        this.input.value = this.history[this.historyIndex];
+                }
+            } else if (e.key === "ArrowDown") {
+                e.preventDefault();
+                if (this.historyIndex < this.history.length - 1) {
+                    this.historyIndex++;
+                    if (this.input)
+                        this.input.value = this.history[this.historyIndex];
+                } else {
+                    this.historyIndex = this.history.length;
+                    if (this.input) this.input.value = "";
+                }
+            }
+        }
+
+        private focusInput() {
+            this.input?.focus();
+        }
+
+        private openTerminal() {
+            if (!this.overlay || !this.windowEl) return;
+
+            if (this.isMinimized) {
+                this.minimizedTab?.classList.add("translate-y-full");
+                this.overlay.classList.remove("hidden");
+                setTimeout(() => {
+                    this.windowEl?.classList.remove(
+                        "scale-0",
+                        "opacity-0",
+                        "translate-y-[500px]",
+                    );
+                    this.windowEl?.classList.add(
+                        "scale-100",
+                        "opacity-100",
+                        "translate-y-0",
+                    );
+                }, 50);
+                this.isMinimized = false;
+            } else {
+                this.overlay.classList.remove("hidden");
+                document.body.style.overflow = "hidden";
+            }
+
+            this.isOpen = true;
+            this.saveState();
+            // Small delay to ensure visibility before focus
+            setTimeout(() => this.input?.focus(), 50);
+        }
+
+        private closeTerminal() {
+            if (!this.overlay) return;
+            this.overlay.classList.add("hidden");
+            document.body.style.overflow = "";
+            this.isOpen = false;
+            this.isMinimized = false;
+            this.minimizedTab?.classList.add("translate-y-full");
+
+            // Clear Session
+            sessionStorage.removeItem(this.STORAGE_KEY_STATE);
+            sessionStorage.removeItem(this.STORAGE_KEY_HISTORY);
+            sessionStorage.removeItem(this.STORAGE_KEY_OUTPUT);
+
+            // Reset Internal State
+            this.history = [];
+            this.historyIndex = -1;
+            if (this.output) {
+                this.output.innerHTML = `
+        <div class="mb-4">
+          <p>Welcome to Terminal Mode v1.1.0</p>
+          <p>Type <span class="text-white">'help'</span> to see available commands.</p>
+        </div>`;
+            }
+        }
+
+        private minimizeTerminal() {
+            if (!this.overlay || !this.windowEl || !this.minimizedTab) return;
+
+            this.windowEl.classList.remove(
+                "scale-100",
+                "opacity-100",
+                "translate-y-0",
+            );
+            this.windowEl.classList.add(
+                "scale-0",
+                "opacity-0",
+                "translate-y-[500px]",
+            );
+
+            setTimeout(() => {
+                this.overlay?.classList.add("hidden");
+                this.minimizedTab?.classList.remove("translate-y-full");
+                document.body.style.overflow = "";
+            }, 300);
+
+            this.isMinimized = true;
+            this.isOpen = true; // Still "open" but minimized
+            this.saveState();
+        }
+
+        private handleCommand(cmdStr: string) {
+            const trimmed = cmdStr.trim();
+            if (!trimmed) return;
+
+            this.history.push(trimmed);
+            this.historyIndex = this.history.length;
+
+            const [cmd, ...args] = trimmed.split(" ");
+
+            // Routes map
+            const routes: Record<string, string> = {
+                "/": "Home",
+                "/about": "About",
+                "/projects": "Projects",
+                "/contact": "Contact",
+                "/changelog": "Changelog",
+            };
+
+            let result: string | void = "";
+
+            switch (cmd.toLowerCase()) {
+                case "help":
+                    result = `
+<div class="grid grid-cols-[100px_1fr] gap-2">
+  <span class="text-white">ls</span>       <span>List available pages (routes)</span>
+  <span class="text-white">cd [path]</span><span>Navigate to a page</span>
+  <span class="text-white">about</span>    <span>Display information about Isaac</span>
+  <span class="text-white">projects</span> <span>List key projects</span>
+  <span class="text-white">contact</span>  <span>Show contact information</span>
+  <span class="text-white">clear</span>    <span>Clear the terminal screen</span>
+  <span class="text-white">matrix</span>   <span>Toggle Matrix rain effect</span>
+  <span class="text-white">exit</span>     <span>Close terminal mode</span>
+</div>`;
+                    break;
+                case "ls":
+                    result = Object.entries(routes)
+                        .map(
+                            ([path, name]) =>
+                                `<div class="text-[#00ccff]">${name} <span class="text-gray-500">(${path})</span></div>`,
+                        )
+                        .join("");
+                    break;
+                case "cd":
+                    const path = args[0];
+                    if (!path) {
+                        result = `<span class="text-yellow-500">Usage: cd [path] (e.g., cd /projects)</span>`;
+                    } else if (routes[path] || path === "..") {
+                        // Handle .. basic support
+                        if (path === "..") {
+                            window.location.href = "/";
+                            result = "Navigating to home...";
+                        } else {
+                            window.location.href = path;
+                            result = `Navigating to ${path}...`;
+                        }
+                    } else {
+                        result = `<span class="text-red-500">Path not found: ${path}</span>`;
+                    }
+                    break;
+                case "about":
+                    result = `
+<div class="mb-2">
+  <span class="text-white font-bold">Isaac Martinez</span>
+  <br/>
+  Software Architect & Full Stack Developer
+</div>
+<p class="mb-2 text-gray-300">
+  ${this.aboutText}
+</p>
+<div>
+  <span class="text-gray-400">Tech Stack:</span> Node.js, TypeScript, React, Astro, AWS, Docker.
+</div>`;
+                    break;
+                case "projects":
+                    result = this.projects
+                        .map(
+                            (p: any, i: number) => `
+<div class="mb-2">
+  <span class="text-white font-bold">${i + 1}. ${p.title}</span>
+  <div class="pl-4 text-gray-400 text-sm">${p.description}</div>
+  <div class="pl-4"><a href="${p.link}" target="_blank" class="text-[#00ccff] underline hover:text-white text-xs">View Project</a></div>
+</div>`,
+                        )
+                        .join("");
+                    break;
+                case "contact":
+                    result = `
+<div class="grid grid-cols-[100px_1fr] gap-2">
+  <span class="text-white">Email</span>    <a href="mailto:${this.contactInfo.email}" class="underline hover:text-white">${this.contactInfo.email}</a>
+  <span class="text-white">GitHub</span>   <a href="https://${this.contactInfo.github}" target="_blank" class="underline hover:text-white">${this.contactInfo.github}</a>
+  <span class="text-white">LinkedIn</span> <a href="https://${this.contactInfo.linkedin}" target="_blank" class="underline hover:text-white">${this.contactInfo.linkedin}</a>
+  <span class="text-white">Location</span> <span>${this.contactInfo.location}</span>
+</div>`;
+                    break;
+                case "clear":
+                    if (this.output) this.output.innerHTML = "";
+                    result = "";
+                    break;
+                case "exit":
+                    this.closeTerminal();
+                    result = "Closing session...";
+                    break;
+                case "matrix":
+                    if (this.canvas?.classList.contains("hidden")) {
+                        this.startMatrix();
+                        result =
+                            "Matrix effect enabled. Follow the white rabbit.";
+                    } else {
+                        this.stopMatrix();
+                        result = "Matrix effect disabled.";
+                    }
+                    break;
+                case "sudo":
+                    result = `<span class="text-red-500">Permission denied: You are not root. Nice try though.</span>`;
+                    break;
+                default:
+                    result = `<span class="text-red-400">Command not found: ${cmd}. Type 'help' for available commands.</span>`;
+            }
+
+            if (result !== undefined) {
+                this.addToOutput(trimmed, result as string);
+            }
+
+            if (this.input) this.input.value = "";
+            this.saveState();
+        }
+
+        private addToOutput(cmd: string, result: string) {
+            if (!this.output) return;
+
+            const cmdLine = document.createElement("div");
+            cmdLine.className = "mb-1";
+            cmdLine.innerHTML = `<span class="text-[#33ff00]">➜</span> <span class="text-[#00ccff]">~</span> <span class="text-white">${cmd}</span>`;
+            this.output.appendChild(cmdLine);
+
+            if (result) {
+                const resultLine = document.createElement("div");
+                resultLine.className = "mb-4 text-gray-300";
+                resultLine.innerHTML = result;
+                this.output.appendChild(resultLine);
+            }
+
+            if (this.content)
+                this.content.scrollTop = this.content.scrollHeight;
+        }
+
+        private startMatrix() {
+            if (!this.canvas) return;
+            this.canvas.classList.remove("hidden");
+            const ctx = this.canvas.getContext("2d");
+            if (!ctx) return;
+
+            this.canvas.width = this.windowEl?.offsetWidth || 800;
+            this.canvas.height = this.windowEl?.offsetHeight || 600;
+
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%";
+            const fontSize = 14;
+            const columns = this.canvas.width / fontSize;
+            const drops: number[] = [];
+
+            for (let i = 0; i < columns; i++) {
+                drops[i] = 1;
+            }
+
+            const draw = () => {
+                if (!ctx || !this.canvas) return;
+                ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+                ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                ctx.fillStyle = "#0F0";
+                ctx.font = fontSize + "px monospace";
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = letters.charAt(
+                        Math.floor(Math.random() * letters.length),
+                    );
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (
+                        drops[i] * fontSize > this.canvas.height &&
+                        Math.random() > 0.975
+                    ) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            };
+
+            this.matrixInterval = setInterval(draw, 33);
+        }
+
+        private stopMatrix() {
+            if (!this.canvas) return;
+            this.canvas.classList.add("hidden");
+            if (this.matrixInterval) {
+                clearInterval(this.matrixInterval);
+                this.matrixInterval = null;
+            }
+        }
+
+        private handleResize() {
+            if (!this.canvas?.classList.contains("hidden")) {
+                this.stopMatrix();
+                this.startMatrix();
+            }
+        }
+    }
+
+    // Register the custom element
+    if (!customElements.get("terminal-window")) {
+        customElements.define("terminal-window", TerminalWindow);
+    }
+</script>
