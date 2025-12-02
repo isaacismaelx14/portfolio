@@ -60,6 +60,7 @@ const t = useTranslations(lang);
                 <button
                   id="close-mobile-tooltip"
                   class="text-gray-500 hover:text-white transition-colors -mt-0.5 -mr-0.5"
+                  aria-label="Close tooltip"
                 >
                   <CloseIcon class="h-3.5 w-3.5" />
                 </button>
@@ -90,14 +91,14 @@ const t = useTranslations(lang);
 <!-- Mobile Settings Modal -->
 <div
   id="mobile-settings-backdrop"
-  class="fixed inset-0 z-[9998] bg-black/30 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 sm:hidden"
+  class="fixed inset-0 z-[9998] bg-black/30 backdrop-blur-sm opacity-0 invisible pointer-events-none transition-all duration-300 sm:hidden"
   aria-hidden="true"
 >
 </div>
 
 <div
   id="mobile-settings-modal"
-  class="fixed top-20 right-4 z-[9999] w-[calc(100%-2rem)] max-w-xs opacity-0 pointer-events-none transition-all duration-300 transform scale-95 origin-top-right sm:hidden"
+  class="fixed top-20 right-4 z-[9999] w-[calc(100%-2rem)] max-w-xs opacity-0 invisible pointer-events-none transition-all duration-300 transform scale-95 origin-top-right sm:hidden"
   aria-hidden="true"
 >
   <div
@@ -149,9 +150,18 @@ const t = useTranslations(lang);
     const backdrop = document.getElementById("mobile-settings-backdrop");
 
     if (modal && backdrop) {
-      backdrop.classList.remove("opacity-0", "pointer-events-none");
+      backdrop.classList.remove(
+        "opacity-0",
+        "pointer-events-none",
+        "invisible",
+      );
       setTimeout(() => {
-        modal.classList.remove("opacity-0", "pointer-events-none", "scale-95");
+        modal.classList.remove(
+          "opacity-0",
+          "pointer-events-none",
+          "invisible",
+          "scale-95",
+        );
         modal.classList.add("scale-100");
       }, 50);
       modal.setAttribute("aria-hidden", "false");
@@ -167,8 +177,8 @@ const t = useTranslations(lang);
       modal.classList.add("opacity-0", "scale-95");
       modal.classList.remove("scale-100");
       setTimeout(() => {
-        backdrop.classList.add("opacity-0", "pointer-events-none");
-        modal.classList.add("pointer-events-none");
+        backdrop.classList.add("opacity-0", "pointer-events-none", "invisible");
+        modal.classList.add("pointer-events-none", "invisible");
       }, 150);
       modal.setAttribute("aria-hidden", "true");
       backdrop.setAttribute("aria-hidden", "true");

@@ -10,7 +10,7 @@ const t = useTranslations(lang);
 <!-- Backdrop blur overlay -->
 <div
     id="mobile-menu-backdrop"
-    class="fixed inset-0 z-[9998] bg-black/50 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300"
+    class="fixed inset-0 z-[9998] bg-black/50 backdrop-blur-md opacity-0 invisible pointer-events-none transition-all duration-300"
     aria-hidden="true"
 >
 </div>
@@ -18,7 +18,7 @@ const t = useTranslations(lang);
 <!-- Full page menu -->
 <div
     id="mobile-menu-overlay"
-    class="fixed inset-0 z-[9999] bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300 flex flex-col transform scale-95"
+    class="fixed inset-0 z-[9999] bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl opacity-0 invisible pointer-events-none transition-all duration-300 flex flex-col transform scale-95"
     aria-hidden="true"
 >
     <!-- Grid Background Pattern -->
@@ -114,13 +114,18 @@ const t = useTranslations(lang);
 
         if (overlay && backdrop) {
             // Show backdrop first
-            backdrop.classList.remove("opacity-0", "pointer-events-none");
+            backdrop.classList.remove(
+                "opacity-0",
+                "pointer-events-none",
+                "invisible",
+            );
 
             // Then show menu with slight delay for smooth animation
             setTimeout(() => {
                 overlay.classList.remove(
                     "opacity-0",
                     "pointer-events-none",
+                    "invisible",
                     "scale-95",
                 );
                 overlay.classList.add("scale-100");
@@ -160,8 +165,12 @@ const t = useTranslations(lang);
 
             // Then hide backdrop with slight delay
             setTimeout(() => {
-                backdrop.classList.add("opacity-0", "pointer-events-none");
-                overlay.classList.add("pointer-events-none");
+                backdrop.classList.add(
+                    "opacity-0",
+                    "pointer-events-none",
+                    "invisible",
+                );
+                overlay.classList.add("pointer-events-none", "invisible");
             }, 150);
 
             overlay.setAttribute("aria-hidden", "true");
