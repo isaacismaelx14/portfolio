@@ -13,9 +13,16 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const projects = getLocalizedProjects(lang);
+
+const pageDescription = lang === "es" 
+    ? "Explora los proyectos de Isaac Martinez - Desde plataformas de analíticas hasta herramientas CLI. Soluciones reales demostrando escalabilidad y arquitectura limpia."
+    : "Explore Isaac Martinez's projects - From analytics platforms to CLI tools. Real-world solutions showcasing scalability and clean architecture.";
 ---
 
-<Layout title={`Portfolio | ${t("nav.projects")}`}>
+<Layout 
+    title={`${t("projects.title")} | Isaac Martinez`}
+    description={pageDescription}
+>
     <Section first>
         <PageHeader
             title={t("projects.title")}

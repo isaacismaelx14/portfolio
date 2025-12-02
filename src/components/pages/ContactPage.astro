@@ -12,9 +12,16 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+const pageDescription = lang === "es" 
+    ? "Contacta a Isaac Martinez para proyectos de desarrollo de software, consultoría o colaboración. Disponible para roles full-time o trabajo por contrato."
+    : "Contact Isaac Martinez for software development projects, consulting, or collaboration. Available for full-time roles or contract work.";
 ---
 
-<Layout title={`Portfolio | ${t("nav.contact")}`}>
+<Layout 
+    title={`${t("contact.title")} | Isaac Martinez`}
+    description={pageDescription}
+>
     <Section maxWidth="7xl" first>
         <div
             class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 items-start"

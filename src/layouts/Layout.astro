@@ -10,74 +10,104 @@ import { getLangFromUrl } from "../i18n/utils";
 
 interface Props {
 	title: string;
+	description?: string;
+	image?: string;
+	type?: "website" | "article" | "profile";
+	noindex?: boolean;
 }
 
-const { title } = Astro.props;
+const { 
+	title, 
+	description = "Isaac Martinez - Software Architect with 9+ years of experience in Node.js, TypeScript, AWS, and AI. Building scalable backend systems and high-performance applications.",
+	image = "/og-image.jpg",
+	type = "website",
+	noindex = false
+} = Astro.props;
+
 const lang = getLangFromUrl(Astro.url);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+const imageURL = new URL(image, Astro.url.origin);
 ---
 
 <!doctype html>
 <html lang={lang} class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 
 		<!-- Primary Meta Tags -->
 		<title>{title}</title>
 		<meta name="title" content={title} />
-		<meta
-			name="description"
-			content="Isaac Martinez - Software Architect & Full Stack Developer. Specializing in building exceptional digital experiences."
-		/>
+		<meta name="description" content={description} />
+		<meta name="author" content="Isaac Martinez" />
+		<meta name="keywords" content="Software Architect, Full Stack Developer, Node.js, TypeScript, React, AWS, Backend Development, AI Integration, Web Development" />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
 
 		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={type} />
 		<meta property="og:url" content={Astro.url} />
 		<meta property="og:title" content={title} />
-		<meta
-			property="og:description"
-			content="Isaac Martinez - Software Architect & Full Stack Developer. Specializing in building exceptional digital experiences."
-		/>
-		<meta
-			property="og:image"
-			content={new URL("/og-image.jpg", Astro.url)}
-		/>
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"} />
+		<meta property="og:site_name" content="Isaac Martinez - Portfolio" />
 
 		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={Astro.url} />
-		<meta property="twitter:title" content={title} />
-		<meta
-			property="twitter:description"
-			content="Isaac Martinez - Software Architect & Full Stack Developer. Specializing in building exceptional digital experiences."
-		/>
-		<meta
-			property="twitter:image"
-			content={new URL("/og-image.jpg", Astro.url)}
-		/>
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={Astro.url} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageURL} />
+		<meta name="twitter:creator" content="@isaacismaelx14" />
 
 		<!-- Canonical URL -->
-		<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- Alternate Languages -->
+		<link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname.replace(/^\/es/, ''), Astro.url.origin)} />
+		<link rel="alternate" hreflang="es" href={new URL(`/es${Astro.url.pathname.replace(/^\/es/, '')}`, Astro.url.origin)} />
+		<link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname.replace(/^\/es/, ''), Astro.url.origin)} />
 
 		<!-- Sitemap -->
 		<link rel="sitemap" href="/sitemap-index.xml" />
 
+		<!-- Preconnect to external resources -->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
 		<ViewTransitions />
 
-		<!-- JSON-LD -->
+		<!-- JSON-LD Structured Data -->
 		<script type="application/ld+json" is:inline>
 			{
 				"@context": "https://schema.org",
 				"@type": "Person",
 				"name": "Isaac Martinez",
 				"url": "https://www.isaacmartinez.dev",
-				"jobTitle": "Software Architect & Full Stack Developer",
+				"jobTitle": "Software Architect",
+				"description": "Software Architect with 9+ years of experience specializing in Node.js, TypeScript, AWS, and AI integration.",
+				"image": "https://www.isaacmartinez.dev/og-image.jpg",
 				"sameAs": [
 					"https://github.com/isaacismaelx14",
-					"https://linkedin.com/in/isaacismaelx14"
-				]
+					"https://linkedin.com/in/isaacismaelx14",
+					"https://twitter.com/isaacismaelx14"
+				],
+				"knowsAbout": [
+					"Software Architecture",
+					"Node.js",
+					"TypeScript",
+					"React",
+					"AWS",
+					"Backend Development",
+					"AI Integration"
+				],
+				"worksFor": {
+					"@type": "Organization",
+					"name": "WGSN"
+				}
 			}
 		</script>
 		<script is:inline>

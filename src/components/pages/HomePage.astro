@@ -15,9 +15,16 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const featuredProjects = getLocalizedProjects(lang).filter((project) => project.featured);
+
+const pageDescription = lang === "es" 
+    ? "Isaac Martinez - Arquitecto de Software con +9 años de experiencia. Especializado en Node.js, TypeScript, AWS e integración de IA. Disponible para contratación."
+    : "Isaac Martinez - Software Architect with 9+ years of experience. Specialized in Node.js, TypeScript, AWS, and AI integration. Available for hire.";
 ---
 
-<Layout title={`Portfolio | ${t("nav.home")}`}>
+<Layout 
+    title="Isaac Martinez | Software Architect"
+    description={pageDescription}
+>
     <Hero name="Isaac Martinez" role={t("home.role")} description="" />
 
     <!-- Social Proof -->

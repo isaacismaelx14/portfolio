@@ -136,9 +136,17 @@ const languagesList = [
     { name: "Spanish", level: "Native", flag: "🇩🇴" },
     { name: "English", level: "Fluent", flag: "🇺🇸" },
 ];
+
+const pageDescription = lang === "es" 
+    ? "Conoce a Isaac Martinez - Arquitecto de Software con más de 9 años de experiencia en Node.js, TypeScript, AWS e IA. Revisa mi experiencia, habilidades y educación."
+    : "Meet Isaac Martinez - Software Architect with 9+ years of experience in Node.js, TypeScript, AWS, and AI. View my experience, skills, and education.";
 ---
 
-<Layout title={`Portfolio | ${t("nav.about")}`}>
+<Layout 
+    title={`${t("about.title")} | Isaac Martinez`}
+    description={pageDescription}
+    type="profile"
+>
     <Section maxWidth="6xl" first>
         <!-- Header with Terminal Style -->
         <div class="mb-8 sm:mb-12">
