@@ -1,5 +1,17 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
+
+## [2.1.1](/compare/v2.1.0...v2.1.1) (2025-12-02)
+
+
+### Bug Fixes
+
+* update commit message format and improve changelog structure 5edead6
+
+# Changelog
+
 # [2.1.0](/compare/v2.0.1...v2.1.0) (2025-12-02)
 
 
