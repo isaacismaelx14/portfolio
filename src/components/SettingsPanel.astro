@@ -57,6 +57,7 @@ const themeButtonClass = isDesktop
                 type="button"
                 class={`${themeButtonClass} flex-1 flex items-center justify-center gap-2 px-3 py-${isDesktop ? "1.5" : "2"} rounded-md text-sm font-medium transition-all`}
                 data-theme="light"
+                role={isDesktop ? "menuitem" : undefined}
             >
                 <SunIcon class="w-4 h-4" />
                 {t("settings.light")}
@@ -65,6 +66,7 @@ const themeButtonClass = isDesktop
                 type="button"
                 class={`${themeButtonClass} flex-1 flex items-center justify-center gap-2 px-3 py-${isDesktop ? "1.5" : "2"} rounded-md text-sm font-medium transition-all`}
                 data-theme="dark"
+                role={isDesktop ? "menuitem" : undefined}
             >
                 <MoonIcon class="w-4 h-4" />
                 {t("settings.dark")}
@@ -95,6 +97,7 @@ const themeButtonClass = isDesktop
                                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                         }`}
                         onclick={`localStorage.setItem('preferred-lang', '${label}')`}
+                        role={isDesktop ? "menuitem" : undefined}
                     >
                         <span class="flex items-center gap-2">
                             <span class="text-lg">{flags[label]}</span>
@@ -120,12 +123,15 @@ const themeButtonClass = isDesktop
                     href={translatePath("/changelog")}
                     class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                     title="View changelog"
+                    role={isDesktop ? "menuitem" : undefined}
                 >
                     v{APP_VERSION}
                 </a>
                 <span class="flex items-center gap-1">
                     <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    {t("settings.systemOnline")}
+                    <span class="text-gray-600 dark:text-gray-400">
+                        {t("settings.systemOnline")}
+                    </span>
                 </span>
             </div>
         </div>
