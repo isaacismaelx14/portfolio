@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 
 
+## [2.3.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.3.0) (2025-12-03)
+
+### Features
+
+* Redesign feature cards to display technology stacks, introduce a new Frontend icon, and update feature sections.
+* update feature descriptions in English and Spanish i18n files for improved clarity.
+* Improve command-line UX and unify interactive input handling
+* Add Debug Mode and Matrix Theme toggles with persistence and styling.
+* Implement now mode with a dedicated service and hidden digit component, refactoring password prompt logic
+
+### Refactoring
+
+* remove StickyNavigation component and its import
+* remove unused components and clean up codebase
+
 ## [2.2.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.2.0) (2025-12-03)
 
 ### Features
