@@ -31,8 +31,13 @@ const currentYear = new Date().getFullYear();
         </a>
       </div>
       <div class="mt-8 md:mt-0 md:order-1">
-        <p class="text-center text-base text-gray-600 dark:text-gray-400">
-          &copy; {currentYear} Isaac Martinez. All rights reserved.
+        <p
+          class="text-center text-base text-gray-600 dark:text-gray-400 group cursor-default"
+        >
+          &copy; {currentYear} Isaac Martinez. All rights reserved. <span
+            class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 dark:text-gray-500 font-bold select-none ml-1"
+            >2</span
+          >
         </p>
       </div>
     </div>

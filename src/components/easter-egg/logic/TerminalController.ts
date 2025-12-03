@@ -15,7 +15,13 @@ export class TerminalController extends HTMLElement {
         isMaximized: false,
         history: [] as string[],
         historyIndex: -1,
+        inputMode: "command" as "command" | "password",
+        passwordCallback: null as ((password: string) => void) | null,
     };
+
+    // ... (existing code)
+
+
 
     private data = {
         projects: [],
@@ -35,6 +41,16 @@ export class TerminalController extends HTMLElement {
         this.initComponents();
         this.restoreState();
         this.bindEvents();
+
+        // Expose sudo trigger to console
+        (window as any).sudo = (password?: string) => {
+            this.open();
+            if (password) {
+                this.execute(`sudo mode ${password}`);
+            } else {
+                this.execute("sudo");
+            }
+        };
     }
 
     disconnectedCallback() {
@@ -48,7 +64,7 @@ export class TerminalController extends HTMLElement {
             "terminal-overlay", "terminal-window", "terminal-minimized",
             "terminal-input", "terminal-input-line", "terminal-output",
             "terminal-content", "matrix-canvas", "term-close",
-            "term-minimize", "term-maximize"
+            "term-minimize", "term-maximize", "term-prompt-arrow", "term-prompt-path"
         ];
         ids.forEach(id => this.elements[id] = this.querySelector(`#${id}`));
     }
@@ -123,9 +139,22 @@ export class TerminalController extends HTMLElement {
     private handleInputKeydown(e: KeyboardEvent) {
         if (e.key === "Enter") {
             const input = this.elements["terminal-input"] as HTMLInputElement;
-            this.execute(input.value);
+            const value = input.value;
             input.value = "";
+
+            if (this.state.inputMode === "password") {
+                if (this.state.passwordCallback) {
+                    this.state.passwordCallback(value);
+                }
+                return;
+            }
+
+            this.execute(value);
         } else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+            if (this.state.inputMode === "password") {
+                e.preventDefault();
+                return;
+            }
             this.navigateHistory(e.key === "ArrowUp" ? -1 : 1);
             e.preventDefault();
         }
@@ -148,7 +177,42 @@ export class TerminalController extends HTMLElement {
                 exit: () => this.close(),
                 minimize: () => this.minimize(),
                 toggleMatrix: () => this.matrix?.isActive() ? this.matrix.stop() : this.matrix?.start(),
-                startGame: (diff) => this.snake?.start(diff as any)
+                startGame: (diff) => this.snake?.start(diff as any),
+                promptPassword: (callback: (pwd: string) => boolean) => {
+                    this.state.inputMode = "password";
+                    let attempts = 0;
+                    const maxAttempts = 3;
+
+                    // Hide prompt and change input type
+                    if (this.elements["term-prompt-arrow"]) this.elements["term-prompt-arrow"].classList.add("hidden");
+                    if (this.elements["term-prompt-path"]) this.elements["term-prompt-path"].classList.add("hidden");
+                    const input = this.elements["terminal-input"] as HTMLInputElement;
+                    if (input) input.type = "password";
+
+                    this.print(`\n<span class="text-yellow-500">Password: </span>`);
+
+                    this.state.passwordCallback = (pwd) => {
+                        attempts++;
+                        const success = callback(pwd);
+
+                        if (success || attempts >= maxAttempts) {
+                            this.state.inputMode = "command";
+                            this.state.passwordCallback = null;
+
+                            // Restore prompt and input type
+                            if (this.elements["term-prompt-arrow"]) this.elements["term-prompt-arrow"].classList.remove("hidden");
+                            if (this.elements["term-prompt-path"]) this.elements["term-prompt-path"].classList.remove("hidden");
+                            if (input) input.type = "text";
+
+                            if (!success) {
+                                this.print(`\n<span class="text-red-500">sudo: 3 incorrect password attempts</span>`);
+                            }
+                        } else {
+                            this.print(`\n<span class="text-red-500">Sorry, try again.</span>`);
+                            this.print(`\n<span class="text-yellow-500">Password: </span>`);
+                        }
+                    };
+                }
             }
         });
 

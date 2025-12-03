@@ -2,6 +2,7 @@ export interface TerminalState {
     isOpen: boolean;
     isMinimized: boolean;
     isMaximized: boolean;
+    sudo_mode?: boolean;
 }
 
 export class TerminalStorage {

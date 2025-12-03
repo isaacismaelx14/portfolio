@@ -113,6 +113,73 @@ const themeButtonClass = isDesktop
     </div>
 </div>
 
+<!-- Sudo Mode Section (Hidden by default) -->
+<div id="sudo-mode-section" class={`hidden ${isDesktop ? "px-2 py-2" : ""}`}>
+    <div class={`h-px bg-red-500/20 mb-2 ${isDesktop ? "mx-2" : ""}`}></div>
+    <p
+        class="text-xs font-medium text-red-500 mb-2 uppercase tracking-wide font-mono flex items-center gap-2"
+    >
+        <span>⚠️ Sudo Mode</span>
+    </p>
+    <div class="space-y-1">
+        <button
+            type="button"
+            id="goat-mode-toggle"
+            class={`w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors text-red-400 hover:bg-red-500/10 border border-red-500/20`}
+            role={isDesktop ? "menuitem" : undefined}
+        >
+            <span class="flex items-center gap-2">
+                <span>🐐 GOAT Mode</span>
+            </span>
+            <span id="goat-mode-status" class="text-xs opacity-50">OFF</span>
+        </button>
+    </div>
+</div>
+
+<script>
+    // Handle Sudo Mode UI
+    function initSudoMode() {
+        const section = document.getElementById("sudo-mode-section");
+        const goatBtn = document.getElementById("goat-mode-toggle");
+        const goatStatus = document.getElementById("goat-mode-status");
+
+        const checkSudo = () => {
+            const state = JSON.parse(
+                sessionStorage.getItem("terminal_state") || "{}",
+            );
+            if (state.sudo_mode && section) {
+                section.classList.remove("hidden");
+            }
+        };
+
+        // Check on load
+        checkSudo();
+
+        // Listen for unlock event
+        window.addEventListener("sudo-mode-unlocked", checkSudo);
+
+        // GOAT Mode Logic
+        if (goatBtn && goatStatus) {
+            let isGoat = false;
+            goatBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                isGoat = !isGoat;
+                document.designMode = isGoat ? "on" : "off";
+                goatStatus.textContent = isGoat ? "ON" : "OFF";
+                goatBtn.classList.toggle("bg-red-500/20", isGoat);
+
+                if (isGoat) {
+                    document.body.classList.add("cursor-text");
+                } else {
+                    document.body.classList.remove("cursor-text");
+                }
+            });
+        }
+    }
+
+    document.addEventListener("astro:page-load", initSudoMode);
+</script>
+
 {
     showFooter && (
         <div

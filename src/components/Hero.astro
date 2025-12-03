@@ -257,12 +257,16 @@ const translatePath = useTranslatedPath(lang);
 
         <!-- Terminal / Action Area -->
         <div
-          class="bg-gray-50 dark:bg-gray-800 px-4 py-3 flex justify-between items-center"
+          class="bg-gray-50 dark:bg-gray-800 px-4 py-3 flex justify-between items-center group"
         >
           <div class="text-xs text-gray-400 font-mono flex gap-2">
             <span>TERMINAL</span>
             <span class="text-gray-300 dark:text-gray-600">|</span>
             <span>OUTPUT</span>
+            <span
+              class="opacity-20 group-hover:opacity-100 transition-all duration-300 text-[10px] text-gray-400 dark:text-gray-600 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-bold select-none ml-2"
+              title="Secret">4</span
+            >
           </div>
           <button
             id="run-btn"
