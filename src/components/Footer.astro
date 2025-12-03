@@ -1,6 +1,7 @@
 ---
 import GitHubIcon from "./icons/GitHubIcon.astro";
 import LinkedInIcon from "./icons/LinkedInIcon.astro";
+import HiddenDigit from "./easter-egg/HiddenDigit.astro";
 
 const currentYear = new Date().getFullYear();
 ---
@@ -31,8 +32,13 @@ const currentYear = new Date().getFullYear();
         </a>
       </div>
       <div class="mt-8 md:mt-0 md:order-1">
-        <p class="text-center text-base text-gray-600 dark:text-gray-400">
-          &copy; {currentYear} Isaac Martinez. All rights reserved.
+        <p
+          class="text-center text-base text-gray-600 dark:text-gray-400 group cursor-default"
+        >
+          &copy; {currentYear} Isaac Martinez. All rights reserved. <HiddenDigit
+            digit="2"
+            class="ml-1"
+          />
         </p>
       </div>
     </div>

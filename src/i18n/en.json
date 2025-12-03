@@ -14,21 +14,21 @@
         "beyondCode": "Why Work With Me",
         "beyondCodeDesc": "I bring 9+ years of hands-on experience building production systems that handle real traffic and real problems. I communicate clearly, ship consistently, and take ownership of the projects I work on. Whether it's a greenfield project or scaling an existing system, I get things done.",
         "features": {
-            "architecture": {
-                "title": "Architecture",
-                "desc": "Scalable systems, microservices, event-driven patterns"
+            "frontend": {
+                "title": "Frontend",
+                "desc": "Building responsive, accessible, and performant user interfaces with modern architecture."
             },
             "backend": {
                 "title": "Backend",
-                "desc": "Node.js, TypeScript, NestJS, gRPC, PostgreSQL"
+                "desc": "Designing robust, scalable server-side systems that handle high concurrency and complex logic."
             },
             "ai": {
                 "title": "AI / ML",
-                "desc": "LLM integration, AI agents, RAG, embeddings"
+                "desc": "Integrating intelligent agents and LLMs to create adaptive, data-driven user experiences."
             },
             "cloud": {
                 "title": "Cloud",
-                "desc": "AWS, Docker, Kubernetes, Cloud-native arch"
+                "desc": "Deploying secure, resilient infrastructure using infrastructure-as-code and containerization."
             }
         },
         "cta": {
@@ -137,8 +137,14 @@
             }
         },
         "languagesList": {
-            "spanish": { "name": "Spanish", "level": "Native" },
-            "english": { "name": "English", "level": "Fluent" }
+            "spanish": {
+                "name": "Spanish",
+                "level": "Native"
+            },
+            "english": {
+                "name": "English",
+                "level": "Fluent"
+            }
         },
         "downloadResume": "Download Resume",
         "downloadingResume": "Generating PDF...",

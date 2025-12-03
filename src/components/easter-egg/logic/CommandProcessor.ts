@@ -1,3 +1,5 @@
+import { SudoService } from "../../../scripts/sudo";
+
 export interface CommandContext {
     lang: string;
     projects: any[];
@@ -9,6 +11,7 @@ export interface CommandContext {
         minimize: () => void;
         toggleMatrix: () => void;
         startGame: (difficulty: string) => void;
+        promptPassword: (callback: (pwd: string) => boolean) => void;
     };
 }
 
@@ -53,9 +56,47 @@ export class CommandProcessor {
                 return this.handleGame(args[0], ctx);
             case "download":
                 return this.handleDownload(ctx);
+            case "sudo":
+                return this.handleSudo(args, ctx);
             default:
                 return `<span class="text-red-500">Command not found: ${cmd}. Type 'help' for available commands.</span>`;
         }
+    }
+
+    private handleSudo(args: string[], ctx: CommandContext): string | void {
+        const subCmd = args[0]?.toLowerCase();
+
+        if (args.includes("--help") || args.includes("-h")) {
+            return `
+<div class="mb-2"><span class="text-white font-bold">Sudo Help</span></div>
+<div class="mb-2 text-gray-300">To gain root access, you must find the 4 hidden digits scattered across the system.</div>
+<div class="grid grid-cols-[120px_1fr] gap-2 mb-2 text-sm">
+  <span class="text-[#00ccff]">Hint 1</span> <span>Hover over the identity.</span>
+  <span class="text-[#00ccff]">Hint 2</span> <span>The terminal knows itself.</span>
+  <span class="text-[#00ccff]">Hint 3</span> <span>Check the bottom line.</span>
+  <span class="text-[#00ccff]">Hint 4</span> <span>Skills are key.</span>
+</div>
+<div class="text-gray-400 text-xs">Usage: sudo su</div>`;
+        }
+
+        if (subCmd === "su") {
+            ctx.actions.promptPassword((password) => {
+                if (password === "7429") {
+                    SudoService.unlockSudoMode();
+
+                    const output = document.getElementById("terminal-output");
+                    if (output) {
+                        output.innerHTML += `<div><span class="text-[#33ff00] font-bold">ACCESS GRANTED.</span><br/><span class="text-white">Root access enabled.</span></div>`;
+                        output.scrollTop = output.scrollHeight;
+                    }
+                    return true;
+                }
+                return false;
+            });
+            return;
+        }
+
+        return `<span class="text-yellow-500">Usage: sudo su</span><br/><span class="text-gray-400">Try 'sudo --help' for hints.</span>`;
     }
 
     private getHelp(): string {

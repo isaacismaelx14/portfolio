@@ -8,6 +8,7 @@ import {
 import ChevronDownIcon from "./icons/ChevronDownIcon.astro";
 import PlayIcon from "./icons/PlayIcon.astro";
 import SpinnerIcon from "./icons/SpinnerIcon.astro";
+import HiddenDigit from "./easter-egg/HiddenDigit.astro";
 
 interface Props {
   name: string;
@@ -257,12 +258,13 @@ const translatePath = useTranslatedPath(lang);
 
         <!-- Terminal / Action Area -->
         <div
-          class="bg-gray-50 dark:bg-gray-800 px-4 py-3 flex justify-between items-center"
+          class="bg-gray-50 dark:bg-gray-800 px-4 py-3 flex justify-between items-center group"
         >
           <div class="text-xs text-gray-400 font-mono flex gap-2">
             <span>TERMINAL</span>
             <span class="text-gray-300 dark:text-gray-600">|</span>
             <span>OUTPUT</span>
+            <HiddenDigit digit="4" class="text-[10px] ml-2" />
           </div>
           <button
             id="run-btn"

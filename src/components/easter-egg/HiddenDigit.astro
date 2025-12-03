@@ -1,0 +1,19 @@
+---
+interface Props {
+    digit: string;
+    class?: string;
+}
+
+const { digit, class: className = "" } = Astro.props;
+---
+
+<span
+    class:list={[
+        "opacity-5 group-hover:opacity-100 transition-all duration-300 font-bold select-none",
+        "text-gray-400 dark:text-gray-600 group-hover:text-blue-600 dark:group-hover:text-blue-400",
+        className,
+    ]}
+    title="Secret"
+>
+    {digit}
+</span>

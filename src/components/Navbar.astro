@@ -8,6 +8,7 @@ import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import SettingsIcon from "./icons/SettingsIcon.astro";
 import CloseIcon from "./icons/CloseIcon.astro";
 import MenuIcon from "./icons/MenuIcon.astro";
+import HiddenDigit from "./easter-egg/HiddenDigit.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -21,9 +22,13 @@ const t = useTranslations(lang);
       <div class="flex-shrink-0 flex items-center">
         <I18nLink
           href="/"
-          class="text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+          class="text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 transition-colors group relative"
         >
-          Dev.
+          Dev<span
+            class="text-transparent group-hover:text-blue-500 transition-colors"
+            >.</span
+          >
+          <HiddenDigit digit="7" class="absolute -top-1 -right-2 text-[10px]" />
         </I18nLink>
       </div>
       <div class="hidden sm:flex sm:space-x-8 items-center">

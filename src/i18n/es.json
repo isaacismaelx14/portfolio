@@ -14,21 +14,21 @@
         "beyondCode": "Por Qué Trabajar Conmigo",
         "beyondCodeDesc": "Aporto más de 9 años de experiencia práctica construyendo sistemas en producción que manejan tráfico real y problemas reales. Me comunico con claridad, entrego consistentemente y me apropio de los proyectos en los que trabajo. Ya sea un proyecto desde cero o escalar un sistema existente, yo lo resuelvo.",
         "features": {
-            "architecture": {
-                "title": "Arquitectura",
-                "desc": "Sistemas escalables, microservicios, patrones orientados a eventos"
+            "frontend": {
+                "title": "Frontend",
+                "desc": "Creando interfaces de usuario responsivas, accesibles y de alto rendimiento con arquitectura moderna."
             },
             "backend": {
                 "title": "Backend",
-                "desc": "Node.js, TypeScript, NestJS, gRPC, PostgreSQL"
+                "desc": "Diseñando sistemas robustos y escalables capaces de manejar alta concurrencia y lógica compleja."
             },
             "ai": {
                 "title": "IA / ML",
-                "desc": "Integración de LLM, agentes de IA, RAG, embeddings"
+                "desc": "Integrando agentes inteligentes y LLMs para crear experiencias adaptativas basadas en datos."
             },
             "cloud": {
                 "title": "Nube",
-                "desc": "AWS, Docker, Kubernetes, Arquitectura nativa de la nube"
+                "desc": "Desplegando infraestructura segura y resiliente utilizando infraestructura como código."
             }
         },
         "cta": {
@@ -137,8 +137,14 @@
             }
         },
         "languagesList": {
-            "spanish": { "name": "Español", "level": "Nativo" },
-            "english": { "name": "Inglés", "level": "Fluido" }
+            "spanish": {
+                "name": "Español",
+                "level": "Nativo"
+            },
+            "english": {
+                "name": "Inglés",
+                "level": "Fluido"
+            }
         },
         "downloadResume": "Descargar CV",
         "downloadingResume": "Generando PDF...",
