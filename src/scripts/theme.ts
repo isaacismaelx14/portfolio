@@ -4,9 +4,6 @@ export function getTheme(): string {
     if (typeof localStorage !== 'undefined' && localStorage.getItem('color-theme')) {
         return localStorage.getItem('color-theme')!;
     }
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-    }
     return 'light';
 }
 
@@ -34,10 +31,10 @@ export function updateThemeButtons(buttons: NodeListOf<Element>, theme: string):
 
 export function initThemeButtons(selector: string): void {
     const buttons = document.querySelectorAll(selector);
-    
+
     // Initialize UI
     updateThemeButtons(buttons, getTheme());
-    
+
     // Add click handlers
     buttons.forEach((btn) => {
         btn.addEventListener('click', (e) => {
@@ -66,7 +63,7 @@ export function dismissTooltip(tooltipId: string, storageKey: string): void {
 export function showTooltip(tooltipId: string, storageKey: string, delay: number = 1500): void {
     const tooltip = document.getElementById(tooltipId);
     const hasSeen = localStorage.getItem(storageKey);
-    
+
     if (tooltip && !hasSeen) {
         setTimeout(() => {
             tooltip.classList.remove('hidden');
