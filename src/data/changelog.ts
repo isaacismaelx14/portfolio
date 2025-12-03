@@ -54,9 +54,10 @@ function parseChangelog(): ChangelogEntry[] {
             if (match) {
                 const items = match[1].match(/\* .+/g);
                 if (items) {
-                    return items.map(item =>
-                        item.replace(/^\* /, '').replace(/\s*\([a-f0-9]+\)$/, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-                    );
+                    return items.map(item => {
+                        const cleaned = item.replace(/^\* /, '').replace(/\s*\([a-f0-9]+\)$/, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+                        return cleaned.charAt(0).toUpperCase() + cleaned.slice(1).toLowerCase();
+                    });
                 }
             }
             return [];
