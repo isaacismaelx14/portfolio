@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 
+## [2.2.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.2.0) (2025-12-03)
+
+### Features
+
+* implement custom release script and update release workflow
+
 ## [2.1.4](/compare/v2.1.3...v2.1.4) (2025-12-02)
 
 ## [2.1.3](/compare/v2.1.2...v2.1.3) (2025-12-02)
