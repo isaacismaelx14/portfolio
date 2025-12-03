@@ -3,27 +3,53 @@ import { MatrixEffect } from "./MatrixEffect";
 import { SnakeGame } from "./SnakeGame";
 import { CommandProcessor } from "./CommandProcessor";
 
+interface TerminalState {
+    isOpen: boolean;
+    isMinimized: boolean;
+    isMaximized: boolean;
+    history: string[];
+    historyIndex: number;
+    inputMode: "command" | "password";
+    passwordCallback: ((password: string) => void) | null;
+}
+
+interface TerminalData {
+    projects: any[];
+    contact: Record<string, string>;
+    about: string;
+    lang: string;
+}
+
+const ELEMENT_IDS = [
+    "terminal-overlay", "terminal-window", "terminal-minimized",
+    "terminal-input", "terminal-input-line", "terminal-output",
+    "terminal-content", "matrix-canvas", "term-close",
+    "term-minimize", "term-maximize", "term-prompt-arrow", "term-prompt-path"
+] as const;
+
+const WELCOME_MESSAGE = `
+<div class="mb-4">
+    <p>Welcome to Terminal Mode v1.1.0</p>
+    <p>Type <span class="text-white">'help'</span> to see available commands.</p>
+</div>`;
+
 export class TerminalController extends HTMLElement {
     private elements: Record<string, HTMLElement | null> = {};
     private matrix: MatrixEffect | null = null;
     private snake: SnakeGame | null = null;
     private processor: CommandProcessor;
 
-    private state = {
+    private state: TerminalState = {
         isOpen: false,
         isMinimized: false,
         isMaximized: false,
-        history: [] as string[],
+        history: [],
         historyIndex: -1,
-        inputMode: "command" as "command" | "password",
-        passwordCallback: null as ((password: string) => void) | null,
+        inputMode: "command",
+        passwordCallback: null,
     };
 
-    // ... (existing code)
-
-
-
-    private data = {
+    private data: TerminalData = {
         projects: [],
         contact: {},
         about: "",
@@ -35,69 +61,65 @@ export class TerminalController extends HTMLElement {
         this.processor = new CommandProcessor();
     }
 
-    connectedCallback() {
+    connectedCallback(): void {
         this.initElements();
         this.loadData();
         this.initComponents();
         this.restoreState();
         this.bindEvents();
-
-        // Expose sudo trigger to console
-        (window as any).sudo = (password?: string) => {
-            this.open();
-            if (password) {
-                this.execute(`sudo mode ${password}`);
-            } else {
-                this.execute("sudo");
-            }
-        };
+        this.exposeSudoCommand();
     }
 
-    disconnectedCallback() {
+    disconnectedCallback(): void {
         this.unbindEvents();
         this.matrix?.stop();
         this.snake?.stop("user");
     }
 
-    private initElements() {
-        const ids = [
-            "terminal-overlay", "terminal-window", "terminal-minimized",
-            "terminal-input", "terminal-input-line", "terminal-output",
-            "terminal-content", "matrix-canvas", "term-close",
-            "term-minimize", "term-maximize", "term-prompt-arrow", "term-prompt-path"
-        ];
-        ids.forEach(id => this.elements[id] = this.querySelector(`#${id}`));
+    public openTerminal(): void {
+        this.open();
     }
 
-    private loadData() {
+    private initElements(): void {
+        ELEMENT_IDS.forEach(id => this.elements[id] = this.querySelector(`#${id}`));
+    }
+
+    private loadData(): void {
         try {
-            this.data.projects = JSON.parse(this.dataset.projects || "[]");
-            this.data.contact = JSON.parse(this.dataset.contact || "{}");
-            this.data.about = this.dataset.about || "";
-            this.data.lang = this.dataset.lang || "en";
-        } catch (e) {
-            console.error("Failed to load terminal data", e);
+            this.data = {
+                projects: JSON.parse(this.dataset.projects || "[]"),
+                contact: JSON.parse(this.dataset.contact || "{}"),
+                about: this.dataset.about || "",
+                lang: this.dataset.lang || "en",
+            };
+        } catch {
+            console.error("Failed to parse terminal data");
         }
     }
 
-    private initComponents() {
-        if (this.elements["matrix-canvas"]) {
-            this.matrix = new MatrixEffect(this.elements["matrix-canvas"] as HTMLCanvasElement);
-        }
-        if (this.elements["terminal-output"]) {
-            this.snake = new SnakeGame(this.elements["terminal-output"], {
+    private initComponents(): void {
+        const canvas = this.elements["matrix-canvas"] as HTMLCanvasElement;
+        const output = this.elements["terminal-output"];
+
+        if (canvas) this.matrix = new MatrixEffect(canvas);
+        if (output) {
+            this.snake = new SnakeGame(output, {
                 onGameOver: () => this.saveState(),
                 onGameCancel: () => this.saveState(),
-                onInputHide: () => this.elements["terminal-input-line"]?.classList.add("hidden"),
+                onInputHide: () => this.toggleInputLine(false),
                 onInputShow: () => {
-                    this.elements["terminal-input-line"]?.classList.remove("hidden");
+                    this.toggleInputLine(true);
                     this.focusInput();
                 }
             });
         }
     }
 
-    private bindEvents() {
+    private toggleInputLine(visible: boolean): void {
+        this.elements["terminal-input-line"]?.classList.toggle("hidden", !visible);
+    }
+
+    private bindEvents(): void {
         this.handleKeydown = this.handleKeydown.bind(this);
         this.handleInputKeydown = this.handleInputKeydown.bind(this);
         this.handleResize = this.handleResize.bind(this);
@@ -110,16 +132,23 @@ export class TerminalController extends HTMLElement {
         this.elements["terminal-content"]?.addEventListener("click", this.focusInput);
         this.elements["term-close"]?.addEventListener("click", () => this.close());
         this.elements["term-minimize"]?.addEventListener("click", () => this.minimize());
-        this.elements["term-maximize"]?.addEventListener("click", () => this.maximize());
+        this.elements["term-maximize"]?.addEventListener("click", () => this.toggleMaximize());
         this.elements["terminal-minimized"]?.addEventListener("click", () => this.open());
     }
 
-    private unbindEvents() {
+    private unbindEvents(): void {
         window.removeEventListener("keydown", this.handleKeydown);
         window.removeEventListener("resize", this.handleResize);
     }
 
-    private handleKeydown(e: KeyboardEvent) {
+    private exposeSudoCommand(): void {
+        (window as any).sudo = (password?: string) => {
+            this.open();
+            this.execute(password ? `sudo mode ${password}` : "sudo");
+        };
+    }
+
+    private handleKeydown(e: KeyboardEvent): void {
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
             e.preventDefault();
             this.state.isOpen && !this.state.isMinimized ? this.close() : this.open();
@@ -136,19 +165,17 @@ export class TerminalController extends HTMLElement {
         if (e.key === "Escape") this.close();
     }
 
-    private handleInputKeydown(e: KeyboardEvent) {
+    private handleInputKeydown(e: KeyboardEvent): void {
+        const input = this.elements["terminal-input"] as HTMLInputElement;
+
         if (e.key === "Enter") {
-            const input = this.elements["terminal-input"] as HTMLInputElement;
             const value = input.value;
             input.value = "";
 
             if (this.state.inputMode === "password") {
-                if (this.state.passwordCallback) {
-                    this.state.passwordCallback(value);
-                }
+                this.state.passwordCallback?.(value);
                 return;
             }
-
             this.execute(value);
         } else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
             if (this.state.inputMode === "password") {
@@ -160,7 +187,7 @@ export class TerminalController extends HTMLElement {
         }
     }
 
-    private execute(cmd: string) {
+    private execute(cmd: string): void {
         if (!cmd.trim()) return;
 
         this.state.history.push(cmd);
@@ -173,12 +200,12 @@ export class TerminalController extends HTMLElement {
             contact: this.data.contact,
             about: this.data.about,
             actions: {
-                clear: () => { if (this.elements["terminal-output"]) this.elements["terminal-output"].innerHTML = ""; },
+                clear: () => this.clearOutput(),
                 exit: () => this.close(),
                 minimize: () => this.minimize(),
                 toggleMatrix: () => this.matrix?.isActive() ? this.matrix.stop() : this.matrix?.start(),
                 startGame: (diff) => this.snake?.start(diff as any),
-                promptPassword: (callback: (pwd: string) => boolean) => this.handlePasswordPrompt(callback)
+                promptPassword: (callback) => this.handlePasswordPrompt(callback)
             }
         });
 
@@ -187,14 +214,12 @@ export class TerminalController extends HTMLElement {
         this.scrollToBottom();
     }
 
-    private handlePasswordPrompt(callback: (pwd: string) => boolean) {
+    private handlePasswordPrompt(callback: (pwd: string) => boolean): void {
         this.state.inputMode = "password";
         let attempts = 0;
         const maxAttempts = 3;
 
-        // Hide prompt and change input type
-        if (this.elements["term-prompt-arrow"]) this.elements["term-prompt-arrow"].classList.add("hidden");
-        if (this.elements["term-prompt-path"]) this.elements["term-prompt-path"].classList.add("hidden");
+        this.setPromptVisibility(false);
         const input = this.elements["terminal-input"] as HTMLInputElement;
         if (input) input.type = "password";
 
@@ -205,14 +230,7 @@ export class TerminalController extends HTMLElement {
             const success = callback(pwd);
 
             if (success || attempts >= maxAttempts) {
-                this.state.inputMode = "command";
-                this.state.passwordCallback = null;
-
-                // Restore prompt and input type
-                if (this.elements["term-prompt-arrow"]) this.elements["term-prompt-arrow"].classList.remove("hidden");
-                if (this.elements["term-prompt-path"]) this.elements["term-prompt-path"].classList.remove("hidden");
-                if (input) input.type = "text";
-
+                this.resetPasswordMode(input);
                 if (!success) {
                     this.print(`\n<span class="text-red-500">sudo: 3 incorrect password attempts</span>`);
                 }
@@ -223,13 +241,30 @@ export class TerminalController extends HTMLElement {
         };
     }
 
-    private print(html: string) {
-        if (this.elements["terminal-output"]) {
-            this.elements["terminal-output"].innerHTML += `<div>${html}</div>`;
-        }
+    private resetPasswordMode(input: HTMLInputElement): void {
+        this.state.inputMode = "command";
+        this.state.passwordCallback = null;
+        this.setPromptVisibility(true);
+        if (input) input.type = "text";
     }
 
-    private navigateHistory(direction: number) {
+    private setPromptVisibility(visible: boolean): void {
+        const method = visible ? "remove" : "add";
+        this.elements["term-prompt-arrow"]?.classList[method]("hidden");
+        this.elements["term-prompt-path"]?.classList[method]("hidden");
+    }
+
+    private print(html: string): void {
+        const output = this.elements["terminal-output"];
+        if (output) output.innerHTML += `<div>${html}</div>`;
+    }
+
+    private clearOutput(): void {
+        const output = this.elements["terminal-output"];
+        if (output) output.innerHTML = "";
+    }
+
+    private navigateHistory(direction: number): void {
         const newIndex = this.state.historyIndex + direction;
         if (newIndex >= 0 && newIndex <= this.state.history.length) {
             this.state.historyIndex = newIndex;
@@ -238,7 +273,7 @@ export class TerminalController extends HTMLElement {
         }
     }
 
-    private open() {
+    private open(): void {
         this.state.isOpen = true;
         this.state.isMinimized = false;
         this.updateUI();
@@ -246,38 +281,35 @@ export class TerminalController extends HTMLElement {
         setTimeout(this.focusInput, 50);
     }
 
-    private close() {
+    private close(): void {
         this.snake?.stop("user");
         this.matrix?.stop();
 
         this.state.isOpen = false;
         this.state.isMinimized = false;
-        this.updateUI();
-        TerminalStorage.clearSession();
         this.state.history = [];
         this.state.historyIndex = -1;
-        if (this.elements["terminal-output"]) {
-            this.elements["terminal-output"].innerHTML = `
-                <div class="mb-4">
-                    <p>Welcome to Terminal Mode v1.1.0</p>
-                    <p>Type <span class="text-white">'help'</span> to see available commands.</p>
-                </div>`;
-        }
+
+        this.updateUI();
+        TerminalStorage.clearSession();
+
+        const output = this.elements["terminal-output"];
+        if (output) output.innerHTML = WELCOME_MESSAGE;
     }
 
-    private minimize() {
+    private minimize(): void {
         this.state.isMinimized = true;
         this.updateUI();
         this.saveState();
     }
 
-    private maximize() {
+    private toggleMaximize(): void {
         this.state.isMaximized = !this.state.isMaximized;
         this.updateUI();
         this.saveState();
     }
 
-    private updateUI() {
+    private updateUI(): void {
         const { isOpen, isMinimized, isMaximized } = this.state;
         const overlay = this.elements["terminal-overlay"];
         const windowEl = this.elements["terminal-window"];
@@ -291,62 +323,70 @@ export class TerminalController extends HTMLElement {
         }
 
         if (isMinimized) {
-            overlay?.classList.add("hidden");
-            tab?.classList.remove("translate-y-full");
-            windowEl?.classList.add("scale-0", "opacity-0", "translate-y-[500px]");
-            document.body.style.overflow = "";
+            this.applyMinimizedState(overlay, windowEl, tab);
         } else {
-            overlay?.classList.remove("hidden");
-            tab?.classList.add("translate-y-full");
-            windowEl?.classList.remove("scale-0", "opacity-0", "translate-y-[500px]");
-            windowEl?.classList.add("scale-100", "opacity-100", "translate-y-0");
-            document.body.style.overflow = "hidden";
-
-            if (isMaximized) {
-                windowEl?.classList.remove("max-w-4xl", "h-[80vh]", "rounded-lg");
-                windowEl?.classList.add("h-full", "rounded-none");
-            } else {
-                windowEl?.classList.add("max-w-4xl", "h-[80vh]", "rounded-lg");
-                windowEl?.classList.remove("h-full", "rounded-none");
-            }
+            this.applyOpenState(overlay, windowEl, tab, isMaximized);
         }
     }
 
-    private saveState() {
+    private applyMinimizedState(overlay: HTMLElement | null, windowEl: HTMLElement | null, tab: HTMLElement | null): void {
+        overlay?.classList.add("hidden");
+        tab?.classList.remove("translate-y-full");
+        windowEl?.classList.add("scale-0", "opacity-0", "translate-y-[500px]");
+        document.body.style.overflow = "";
+    }
+
+    private applyOpenState(overlay: HTMLElement | null, windowEl: HTMLElement | null, tab: HTMLElement | null, isMaximized: boolean): void {
+        overlay?.classList.remove("hidden");
+        tab?.classList.add("translate-y-full");
+        windowEl?.classList.remove("scale-0", "opacity-0", "translate-y-[500px]");
+        windowEl?.classList.add("scale-100", "opacity-100", "translate-y-0");
+        document.body.style.overflow = "hidden";
+
+        const maximizedClasses = ["h-full", "rounded-none"];
+        const normalClasses = ["max-w-4xl", "h-[80vh]", "rounded-lg"];
+
+        if (isMaximized) {
+            windowEl?.classList.remove(...normalClasses);
+            windowEl?.classList.add(...maximizedClasses);
+        } else {
+            windowEl?.classList.add(...normalClasses);
+            windowEl?.classList.remove(...maximizedClasses);
+        }
+    }
+
+    private saveState(): void {
         TerminalStorage.saveState(this.state);
         TerminalStorage.saveHistory(this.state.history);
-        if (this.elements["terminal-output"]) {
-            TerminalStorage.saveOutput(this.elements["terminal-output"].innerHTML);
-        }
+        const output = this.elements["terminal-output"];
+        if (output) TerminalStorage.saveOutput(output.innerHTML);
     }
 
-    private restoreState() {
+    private restoreState(): void {
         const savedState = TerminalStorage.getState();
-        if (savedState) {
-            this.state = { ...this.state, ...savedState };
-            this.state.history = TerminalStorage.getHistory();
-            this.state.historyIndex = this.state.history.length;
+        if (!savedState) return;
 
-            const output = TerminalStorage.getOutput();
-            if (output && this.elements["terminal-output"]) {
-                this.elements["terminal-output"].innerHTML = output;
-            }
+        this.state = { ...this.state, ...savedState };
+        this.state.history = TerminalStorage.getHistory();
+        this.state.historyIndex = this.state.history.length;
 
-            this.updateUI();
-        }
+        const output = TerminalStorage.getOutput();
+        const outputEl = this.elements["terminal-output"];
+        if (output && outputEl) outputEl.innerHTML = output;
+
+        this.updateUI();
     }
 
-    private focusInput() {
+    private focusInput(): void {
         this.elements["terminal-input"]?.focus();
     }
 
-    private scrollToBottom() {
-        if (this.elements["terminal-content"]) {
-            this.elements["terminal-content"].scrollTop = this.elements["terminal-content"].scrollHeight;
-        }
+    private scrollToBottom(): void {
+        const content = this.elements["terminal-content"];
+        if (content) content.scrollTop = content.scrollHeight;
     }
 
-    private handleResize() {
+    private handleResize(): void {
         this.matrix?.resize();
     }
 }

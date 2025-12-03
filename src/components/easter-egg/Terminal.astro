@@ -1,9 +1,7 @@
 ---
-import { getLangFromUrl, useTranslations } from "../../i18n/utils";
-import MaximizeIcon from "../icons/MaximizeIcon.astro";
+import { getLangFromUrl } from "../../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 
 const projectsData = [
     {
@@ -36,102 +34,117 @@ const aboutText =
     "I am a passionate Full Stack Developer with a strong focus on building scalable, user-centric applications. I love exploring new technologies and creating unique digital experiences.";
 ---
 
-<terminal-window
+<div
+    id="terminal-placeholder"
     data-projects={JSON.stringify(projectsData)}
     data-contact={JSON.stringify(contactInfo)}
     data-about={aboutText}
     data-lang={lang}
->
-    <!-- Minimized Tab -->
-    <div
-        id="terminal-minimized"
-        class="fixed bottom-0 right-8 bg-[#1a1b26] border-t border-x border-[#1a1b26] rounded-t-lg px-4 py-2 cursor-pointer transform translate-y-full transition-transform duration-300 z-50 flex items-center gap-2 shadow-lg hover:bg-[#24283b]"
-    >
-        <span class="text-[#33ff00]">➜</span>
-        <span class="text-white text-sm font-mono">Terminal</span>
-    </div>
-
-    <!-- Overlay -->
-    <div
-        id="terminal-overlay"
-        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden transition-opacity duration-300"
-    >
-        <!-- Window -->
-        <div
-            id="terminal-window"
-            class="w-full max-w-4xl h-[80vh] bg-[#1a1b26]/95 rounded-lg shadow-2xl flex flex-col overflow-hidden border border-[#24283b] transform transition-all duration-300 scale-0 opacity-0 translate-y-[500px]"
-        >
-            <!-- Matrix Canvas -->
-            <canvas
-                id="matrix-canvas"
-                class="absolute inset-0 pointer-events-none opacity-20 hidden"
-            ></canvas>
-
-            <!-- Header -->
-            <div
-                class="bg-[#1f2335] px-4 py-3 flex items-center justify-between border-b border-[#24283b] shrink-0 relative z-10"
-            >
-                <div class="flex items-center gap-2">
-                    <button
-                        id="term-close"
-                        class="w-3 h-3 rounded-full bg-[#ff5f56] hover:bg-[#ff5f56]/80 transition-colors"
-                    ></button>
-                    <button
-                        id="term-minimize"
-                        class="w-3 h-3 rounded-full bg-[#ffbd2e] hover:bg-[#ffbd2e]/80 transition-colors"
-                    ></button>
-                    <button
-                        id="term-maximize"
-                        class="w-3 h-3 rounded-full bg-[#27c93f] flex items-center justify-center hover:bg-[#27c93f]/80 transition-colors group"
-                        aria-label="Maximize"
-                    >
-                        <MaximizeIcon
-                            class="w-2 h-2 text-black opacity-0 group-hover:opacity-100 transition-opacity"
-                        />
-                    </button>
-                </div>
-                <div
-                    class="text-[#666] text-xs absolute left-1/2 transform -translate-x-1/2 font-mono"
-                >
-                    isaac@portfolio: ~
-                </div>
-                <div class="w-14"></div>
-            </div>
-
-            <!-- Content -->
-            <div
-                id="terminal-content"
-                class="flex-1 p-4 font-mono text-sm overflow-y-auto relative z-10 scrollbar-thin scrollbar-thumb-[#24283b] scrollbar-track-transparent"
-            >
-                <div id="terminal-output" class="text-[#a9b1d6] space-y-1">
-                    <div class="mb-4">
-                        <p>Welcome to Terminal Mode v1.1.0</p>
-                        <p>
-                            Type <span class="text-white">'help'</span> to see available
-                            commands.
-                        </p>
-                    </div>
-                </div>
-
-                <div
-                    id="terminal-input-line"
-                    class="flex items-center gap-2 mt-2"
-                >
-                    <span id="term-prompt-arrow" class="text-[#33ff00]">➜</span>
-                    <span id="term-prompt-path" class="text-[#00ccff]">~</span>
-                    <input
-                        type="text"
-                        id="terminal-input"
-                        class="flex-1 bg-transparent border-none outline-none text-[#33ff00] placeholder-gray-700 caret-[#33ff00]"
-                        autocomplete="off"
-                        spellcheck="false"
-                    />
-                </div>
-            </div>
-        </div>
-    </div>
-</terminal-window>
+></div>
 
 <script>
-    import "./logic/TerminalController";
+    import { TerminalStorage } from "./logic/Storage";
+
+    const TERMINAL_SHORTCUT = "k";
+
+    let isLoaded = false;
+    let isLoading = false;
+
+    function getTerminalHTML(data: DOMStringMap): string {
+        return `
+            <terminal-window
+                data-projects='${data.projects}'
+                data-contact='${data.contact}'
+                data-about="${data.about}"
+                data-lang="${data.lang}"
+            >
+                <div id="terminal-minimized" class="fixed bottom-0 right-8 bg-[#1a1b26] border-t border-x border-[#1a1b26] rounded-t-lg px-4 py-2 cursor-pointer transform translate-y-full transition-transform duration-300 z-50 flex items-center gap-2 shadow-lg hover:bg-[#24283b]">
+                    <span class="text-[#33ff00]">➜</span>
+                    <span class="text-white text-sm font-mono">Terminal</span>
+                </div>
+                <div id="terminal-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden transition-opacity duration-300">
+                    <div id="terminal-window" class="w-full max-w-4xl h-[80vh] bg-[#1a1b26]/95 rounded-lg shadow-2xl flex flex-col overflow-hidden border border-[#24283b] transform transition-all duration-300 scale-0 opacity-0 translate-y-[500px]">
+                        <canvas id="matrix-canvas" class="absolute inset-0 pointer-events-none opacity-20 hidden"></canvas>
+                        <div class="bg-[#1f2335] px-4 py-3 flex items-center justify-between border-b border-[#24283b] shrink-0 relative z-10">
+                            <div class="flex items-center gap-2">
+                                <button id="term-close" class="w-3 h-3 rounded-full bg-[#ff5f56] hover:bg-[#ff5f56]/80 transition-colors"></button>
+                                <button id="term-minimize" class="w-3 h-3 rounded-full bg-[#ffbd2e] hover:bg-[#ffbd2e]/80 transition-colors"></button>
+                                <button id="term-maximize" class="w-3 h-3 rounded-full bg-[#27c93f] flex items-center justify-center hover:bg-[#27c93f]/80 transition-colors group" aria-label="Maximize">
+                                    <svg class="w-2 h-2 text-black opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="text-[#666] text-xs absolute left-1/2 transform -translate-x-1/2 font-mono">isaac@portfolio: ~</div>
+                            <div class="w-14"></div>
+                        </div>
+                        <div id="terminal-content" class="flex-1 p-4 font-mono text-sm overflow-y-auto relative z-10 scrollbar-thin scrollbar-thumb-[#24283b] scrollbar-track-transparent">
+                            <div id="terminal-output" class="text-[#a9b1d6] space-y-1">
+                                <div class="mb-4">
+                                    <p>Welcome to Terminal Mode v1.1.0</p>
+                                    <p>Type <span class="text-white">'help'</span> to see available commands.</p>
+                                </div>
+                            </div>
+                            <div id="terminal-input-line" class="flex items-center gap-2 mt-2">
+                                <span id="term-prompt-arrow" class="text-[#33ff00]">➜</span>
+                                <span id="term-prompt-path" class="text-[#00ccff]">~</span>
+                                <input type="text" id="terminal-input" class="flex-1 bg-transparent border-none outline-none text-[#33ff00] placeholder-gray-700 caret-[#33ff00]" autocomplete="off" spellcheck="false" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </terminal-window>
+        `;
+    }
+
+    async function loadTerminal(autoOpen = true): Promise<void> {
+        if (isLoaded || isLoading) return;
+        isLoading = true;
+
+        const placeholder = document.getElementById("terminal-placeholder");
+        if (!placeholder) {
+            isLoading = false;
+            return;
+        }
+
+        placeholder.outerHTML = getTerminalHTML(placeholder.dataset);
+        await import("./logic/TerminalController");
+
+        isLoaded = true;
+        isLoading = false;
+
+        if (autoOpen) {
+            requestAnimationFrame(() => {
+                const terminal = document.querySelector("terminal-window") as HTMLElement & { openTerminal?: () => void };
+                terminal?.openTerminal?.();
+            });
+        }
+    }
+
+    function handleKeydown(e: KeyboardEvent): void {
+        if ((e.metaKey || e.ctrlKey) && e.key === TERMINAL_SHORTCUT) {
+            e.preventDefault();
+            if (!isLoaded) loadTerminal(true);
+        }
+    }
+
+    function init(): void {
+        if (TerminalStorage.hasActiveSession()) loadTerminal(false);
+    }
+
+    function setupListeners(): void {
+        window.addEventListener("keydown", handleKeydown);
+    }
+
+    function reset(): void {
+        isLoaded = false;
+        isLoading = false;
+        setupListeners();
+        init();
+    }
+
+    setupListeners();
+    init();
+
+    document.addEventListener("astro:after-swap", reset);
 </script>
