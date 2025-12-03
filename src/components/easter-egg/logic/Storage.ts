@@ -5,49 +5,64 @@ export interface TerminalState {
     sudo_mode?: boolean;
 }
 
-export class TerminalStorage {
-    private static readonly KEY_STATE = "terminal_state";
-    private static readonly KEY_HISTORY = "terminal_history";
-    private static readonly KEY_OUTPUT = "terminal_output";
-    private static readonly KEY_SNAKE_HIGHSCORE = "snake_highscore";
+const KEYS = {
+    STATE: "terminal_state",
+    HISTORY: "terminal_history",
+    OUTPUT: "terminal_output",
+    SNAKE_HIGHSCORE: "snake_highscore",
+} as const;
 
+export class TerminalStorage {
     static saveState(state: TerminalState): void {
-        sessionStorage.setItem(this.KEY_STATE, JSON.stringify(state));
+        sessionStorage.setItem(KEYS.STATE, JSON.stringify(state));
     }
 
     static getState(): TerminalState | null {
-        const data = sessionStorage.getItem(this.KEY_STATE);
-        return data ? JSON.parse(data) : null;
+        try {
+            const data = sessionStorage.getItem(KEYS.STATE);
+            return data ? JSON.parse(data) : null;
+        } catch {
+            return null;
+        }
+    }
+
+    static hasActiveSession(): boolean {
+        const state = this.getState();
+        return state?.isOpen === true || state?.isMinimized === true;
     }
 
     static saveHistory(history: string[]): void {
-        sessionStorage.setItem(this.KEY_HISTORY, JSON.stringify(history));
+        sessionStorage.setItem(KEYS.HISTORY, JSON.stringify(history));
     }
 
     static getHistory(): string[] {
-        const data = sessionStorage.getItem(this.KEY_HISTORY);
-        return data ? JSON.parse(data) : [];
+        try {
+            const data = sessionStorage.getItem(KEYS.HISTORY);
+            return data ? JSON.parse(data) : [];
+        } catch {
+            return [];
+        }
     }
 
     static saveOutput(html: string): void {
-        sessionStorage.setItem(this.KEY_OUTPUT, html);
+        sessionStorage.setItem(KEYS.OUTPUT, html);
     }
 
     static getOutput(): string {
-        return sessionStorage.getItem(this.KEY_OUTPUT) || "";
+        return sessionStorage.getItem(KEYS.OUTPUT) || "";
     }
 
     static clearSession(): void {
-        sessionStorage.removeItem(this.KEY_STATE);
-        sessionStorage.removeItem(this.KEY_HISTORY);
-        sessionStorage.removeItem(this.KEY_OUTPUT);
+        sessionStorage.removeItem(KEYS.STATE);
+        sessionStorage.removeItem(KEYS.HISTORY);
+        sessionStorage.removeItem(KEYS.OUTPUT);
     }
 
     static getSnakeHighScore(difficulty: string): number {
-        return parseInt(localStorage.getItem(`${this.KEY_SNAKE_HIGHSCORE}_${difficulty}`) || "0", 10);
+        return parseInt(localStorage.getItem(`${KEYS.SNAKE_HIGHSCORE}_${difficulty}`) || "0", 10);
     }
 
     static setSnakeHighScore(difficulty: string, score: number): void {
-        localStorage.setItem(`${this.KEY_SNAKE_HIGHSCORE}_${difficulty}`, score.toString());
+        localStorage.setItem(`${KEYS.SNAKE_HIGHSCORE}_${difficulty}`, score.toString());
     }
 }
