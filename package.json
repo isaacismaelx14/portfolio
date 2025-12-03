@@ -7,11 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "release": "release-it"
-  },
-  "devDependencies": {
-    "release-it": "^17.10.0",
-    "@release-it/conventional-changelog": "^8.0.2"
+    "release": "node scripts/generate-changelog.js",
+    "release:dry": "node scripts/generate-changelog.js --dry-run"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
