@@ -4,7 +4,7 @@ import SettingsPanel from "./SettingsPanel.astro";
 import MobileMenu from "./MobileMenu.astro";
 import NavLinks from "./NavLinks.astro";
 import I18nLink from "./I18nLink.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import SettingsIcon from "./icons/SettingsIcon.astro";
 import CloseIcon from "./icons/CloseIcon.astro";
 import MenuIcon from "./icons/MenuIcon.astro";
@@ -148,7 +148,7 @@ const t = useTranslations(lang);
     showTooltip,
     updateThemeButtons,
     getTheme,
-  } from "../scripts/theme";
+  } from "../../../scripts/theme";
 
   function openMobileSettings() {
     const modal = document.getElementById("mobile-settings-modal");

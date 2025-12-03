@@ -1,20 +1,20 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Hero from "../Hero.astro";
-import ProjectCard from "../ProjectCard.astro";
-import Section from "../Section.astro";
-import FeatureCard from "../FeatureCard.astro";
-import { getLocalizedProjects } from "../../data/projects";
-import { getPageDescription } from "../../data/about";
-import { useTranslations, useTranslatedPath } from "../../i18n/utils";
-import type { Lang } from "../../types";
-import FrontendIcon from "../icons/FrontendIcon.astro";
-import BackendIcon from "../icons/BackendIcon.astro";
-import AiIcon from "../icons/AiIcon.astro";
-import CloudIcon from "../icons/CloudIcon.astro";
-import UserIcon from "../icons/UserIcon.astro";
-import DocumentIcon from "../icons/DocumentIcon.astro";
-import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
+import Layout from "../../common/layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import ProjectCard from "../../projects/components/ProjectCard.astro";
+import Section from "../../common/components/Section.astro";
+import FeatureCard from "../components/FeatureCard.astro";
+import { getLocalizedProjects } from "../../../data/projects";
+import { getPageDescription } from "../../../data/about";
+import { useTranslations, useTranslatedPath } from "../../../i18n/utils";
+import type { Lang } from "../../../types";
+import FrontendIcon from "../../common/components/icons/FrontendIcon.astro";
+import BackendIcon from "../../common/components/icons/BackendIcon.astro";
+import AiIcon from "../../common/components/icons/AiIcon.astro";
+import CloudIcon from "../../common/components/icons/CloudIcon.astro";
+import UserIcon from "../../common/components/icons/UserIcon.astro";
+import DocumentIcon from "../../common/components/icons/DocumentIcon.astro";
+import ArrowRightIcon from "../../common/components/icons/ArrowRightIcon.astro";
 
 interface Props {
     lang: Lang;

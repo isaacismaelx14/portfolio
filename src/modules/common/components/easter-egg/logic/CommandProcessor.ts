@@ -1,4 +1,4 @@
-import { SudoService } from "../../../scripts/sudo";
+import { SudoService } from "../../../../../scripts/sudo";
 
 export interface CommandContext {
     lang: string;

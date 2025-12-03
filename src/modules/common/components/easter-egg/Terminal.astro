@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl } from "../../i18n/utils";
+import { getLangFromUrl } from "../../../../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 
@@ -40,7 +40,8 @@ const aboutText =
     data-contact={JSON.stringify(contactInfo)}
     data-about={aboutText}
     data-lang={lang}
-></div>
+>
+</div>
 
 <script>
     import { TerminalStorage } from "./logic/Storage";
@@ -115,7 +116,9 @@ const aboutText =
 
         if (autoOpen) {
             requestAnimationFrame(() => {
-                const terminal = document.querySelector("terminal-window") as HTMLElement & { openTerminal?: () => void };
+                const terminal = document.querySelector(
+                    "terminal-window",
+                ) as HTMLElement & { openTerminal?: () => void };
                 terminal?.openTerminal?.();
             });
         }

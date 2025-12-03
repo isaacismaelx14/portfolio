@@ -1,10 +1,10 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Section from "../Section.astro";
-import ResumeTemplate from "../ResumeTemplate.astro";
-import TerminalModal from "../TerminalModal.astro";
-import TerminalWindow from "../TerminalWindow.astro";
-import { useTranslations } from "../../i18n/utils";
+import Layout from "../../common/layouts/Layout.astro";
+import Section from "../../common/components/Section.astro";
+import ResumeTemplate from "../components/ResumeTemplate.astro";
+import TerminalModal from "../../common/components/TerminalModal.astro";
+import TerminalWindow from "../../common/components/TerminalWindow.astro";
+import { useTranslations } from "../../../i18n/utils";
 import {
     getExperience,
     getEducation,
@@ -12,11 +12,15 @@ import {
     skills,
     contactInfo,
     getPageDescription,
-} from "../../data/about";
-import type { Lang } from "../../types";
-import SpinnerIcon from "../icons/SpinnerIcon.astro";
-import DocumentIcon from "../icons/DocumentIcon.astro";
-import HiddenDigit from "../easter-egg/HiddenDigit.astro";
+} from "../../../data/about";
+import type { Lang } from "../../../types";
+import CheckIcon from "../../common/components/icons/CheckIcon.astro";
+import DocumentIcon from "../../common/components/icons/DocumentIcon.astro";
+import GitHubIcon from "../../common/components/icons/GitHubIcon.astro";
+import LinkedInIcon from "../../common/components/icons/LinkedInIcon.astro";
+import MailIcon from "../../common/components/icons/MailIcon.astro";
+import SpinnerIcon from "../../common/components/icons/SpinnerIcon.astro";
+import HiddenDigit from "../../common/components/easter-egg/HiddenDigit.astro";
 
 interface Props {
     lang: Lang;

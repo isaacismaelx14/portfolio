@@ -1,17 +1,17 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Section from "../Section.astro";
-import PageHeader from "../PageHeader.astro";
-import FormInput from "../FormInput.astro";
-import FormTextarea from "../FormTextarea.astro";
-import { useTranslations } from "../../i18n/utils";
-import { getPageDescription } from "../../data/about";
-import type { Lang } from "../../types";
-import CheckFilledIcon from "../icons/CheckFilledIcon.astro";
-import MailIcon from "../icons/MailIcon.astro";
-import GitHubIcon from "../icons/GitHubIcon.astro";
-import LinkedInIcon from "../icons/LinkedInIcon.astro";
-import XCircleIcon from "../icons/XCircleIcon.astro";
+import Layout from "../../common/layouts/Layout.astro";
+import Section from "../../common/components/Section.astro";
+import PageHeader from "../../common/components/PageHeader.astro";
+import FormInput from "../../common/components/FormInput.astro";
+import FormTextarea from "../../common/components/FormTextarea.astro";
+import { useTranslations } from "../../../i18n/utils";
+import { getPageDescription } from "../../../data/about";
+import type { Lang } from "../../../types";
+import CheckFilledIcon from "../../common/components/icons/CheckFilledIcon.astro";
+import MailIcon from "../../common/components/icons/MailIcon.astro";
+import GitHubIcon from "../../common/components/icons/GitHubIcon.astro";
+import LinkedInIcon from "../../common/components/icons/LinkedInIcon.astro";
+import XCircleIcon from "../../common/components/icons/XCircleIcon.astro";
 
 interface Props {
     lang: Lang;
@@ -126,7 +126,6 @@ const pageDescription = getPageDescription("contact", lang);
                         placeholder={t("contact.form.messagePlaceholder")}
                         required
                     />
-
                     <div>
                         <button
                             type="submit"
@@ -176,6 +175,7 @@ const pageDescription = getPageDescription("contact", lang);
                         </div>
                     </div>
                 </div>
+
                 <div
                     id="error-message"
                     class="hidden mt-6 p-4 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 rounded-xl border border-red-200 dark:border-red-800 flex items-center"

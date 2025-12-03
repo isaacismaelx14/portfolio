@@ -6,8 +6,8 @@ import {
     useTranslations,
     getLocalizedPath,
     useTranslatedPath,
-} from "../i18n/utils";
-import { APP_VERSION } from "../data/changelog";
+} from "../../../i18n/utils";
+import { APP_VERSION } from "../../../data/changelog";
 import SunIcon from "./icons/SunIcon.astro";
 import MoonIcon from "./icons/MoonIcon.astro";
 
@@ -159,7 +159,7 @@ const themeButtonClass = isDesktop
 </div>
 
 <script>
-    import { SudoService } from "../scripts/sudo";
+    import { SudoService } from "../../../scripts/sudo";
 
     // Handle Sudo Mode UI
     function initSudoMode() {

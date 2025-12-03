@@ -1,13 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ProjectCard from "../ProjectCard.astro";
-import Section from "../Section.astro";
-import PageHeader from "../PageHeader.astro";
-import { getLocalizedProjects } from "../../data/projects";
-import { getPageDescription } from "../../data/about";
-import { useTranslations } from "../../i18n/utils";
-import type { Lang } from "../../types";
-import SpinnerIcon from "../icons/SpinnerIcon.astro";
+import Layout from "../../common/layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Section from "../../common/components/Section.astro";
+import PageHeader from "../../common/components/PageHeader.astro";
+import { getLocalizedProjects } from "../../../data/projects";
+import { getPageDescription } from "../../../data/about";
+import { useTranslations } from "../../../i18n/utils";
+import type { Lang } from "../../../types";
+import SpinnerIcon from "../../common/components/icons/SpinnerIcon.astro";
 
 interface Props {
     lang: Lang;
@@ -31,6 +31,7 @@ const pageDescription = getPageDescription("projects", lang);
         >
             <SpinnerIcon slot="icon" class="animate-spin h-4 w-4" />
         </PageHeader>
+
         <p
             class="text-lg sm:text-xl text-gray-500 dark:text-gray-400 mb-8 sm:mb-12 max-w-3xl"
         >
