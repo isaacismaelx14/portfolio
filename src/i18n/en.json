@@ -14,9 +14,9 @@
         "beyondCode": "Why Work With Me",
         "beyondCodeDesc": "I bring 9+ years of hands-on experience building production systems that handle real traffic and real problems. I communicate clearly, ship consistently, and take ownership of the projects I work on. Whether it's a greenfield project or scaling an existing system, I get things done.",
         "features": {
-            "architecture": {
-                "title": "Architecture",
-                "desc": "Scalable systems, microservices, event-driven patterns"
+            "frontend": {
+                "title": "Frontend",
+                "desc": "React, Astro, TailwindCSS, Modern UI/UX"
             },
             "backend": {
                 "title": "Backend",
@@ -137,8 +137,14 @@
             }
         },
         "languagesList": {
-            "spanish": { "name": "Spanish", "level": "Native" },
-            "english": { "name": "English", "level": "Fluent" }
+            "spanish": {
+                "name": "Spanish",
+                "level": "Native"
+            },
+            "english": {
+                "name": "English",
+                "level": "Fluent"
+            }
         },
         "downloadResume": "Download Resume",
         "downloadingResume": "Generating PDF...",

@@ -8,7 +8,7 @@ import { getLocalizedProjects } from "../../data/projects";
 import { getPageDescription } from "../../data/about";
 import { useTranslations, useTranslatedPath } from "../../i18n/utils";
 import type { Lang } from "../../types";
-import ArchitectureIcon from "../icons/ArchitectureIcon.astro";
+import FrontendIcon from "../icons/FrontendIcon.astro";
 import BackendIcon from "../icons/BackendIcon.astro";
 import AiIcon from "../icons/AiIcon.astro";
 import CloudIcon from "../icons/CloudIcon.astro";
@@ -52,36 +52,32 @@ const pageDescription = getPageDescription("home", lang);
     <Section>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <FeatureCard
-                title={t("home.features.architecture.title")}
-                description={t("home.features.architecture.desc")}
-                iconBgColor="bg-blue-100 dark:bg-blue-900/30"
-                iconColor="text-blue-600 dark:text-blue-400"
+                title={t("home.features.frontend.title")}
+                description={t("home.features.frontend.desc")}
+                stack={["React", "Astro", "Tailwind", "TypeScript"]}
             >
-                <ArchitectureIcon slot="icon" class="h-6 w-6" />
+                <FrontendIcon slot="icon" class="h-5 w-5" />
             </FeatureCard>
             <FeatureCard
                 title={t("home.features.backend.title")}
                 description={t("home.features.backend.desc")}
-                iconBgColor="bg-green-100 dark:bg-green-900/30"
-                iconColor="text-green-600 dark:text-green-400"
+                stack={["Node.js", "NestJS", "PostgreSQL", "gRPC"]}
             >
-                <BackendIcon slot="icon" class="h-6 w-6" />
+                <BackendIcon slot="icon" class="h-5 w-5" />
             </FeatureCard>
             <FeatureCard
                 title={t("home.features.ai.title")}
                 description={t("home.features.ai.desc")}
-                iconBgColor="bg-purple-100 dark:bg-purple-900/30"
-                iconColor="text-purple-600 dark:text-purple-400"
+                stack={["Python", "LangChain", "OpenAI", "RAG"]}
             >
-                <AiIcon slot="icon" class="h-6 w-6" />
+                <AiIcon slot="icon" class="h-5 w-5" />
             </FeatureCard>
             <FeatureCard
                 title={t("home.features.cloud.title")}
                 description={t("home.features.cloud.desc")}
-                iconBgColor="bg-orange-100 dark:bg-orange-900/30"
-                iconColor="text-orange-600 dark:text-orange-400"
+                stack={["AWS", "Docker", "K8s", "Terraform"]}
             >
-                <CloudIcon slot="icon" class="h-6 w-6" />
+                <CloudIcon slot="icon" class="h-5 w-5" />
             </FeatureCard>
         </div>
     </Section>

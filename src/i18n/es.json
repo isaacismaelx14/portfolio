@@ -14,9 +14,9 @@
         "beyondCode": "Por Qué Trabajar Conmigo",
         "beyondCodeDesc": "Aporto más de 9 años de experiencia práctica construyendo sistemas en producción que manejan tráfico real y problemas reales. Me comunico con claridad, entrego consistentemente y me apropio de los proyectos en los que trabajo. Ya sea un proyecto desde cero o escalar un sistema existente, yo lo resuelvo.",
         "features": {
-            "architecture": {
-                "title": "Arquitectura",
-                "desc": "Sistemas escalables, microservicios, patrones orientados a eventos"
+            "frontend": {
+                "title": "Frontend",
+                "desc": "React, Astro, TailwindCSS, UI/UX Moderno"
             },
             "backend": {
                 "title": "Backend",
@@ -137,8 +137,14 @@
             }
         },
         "languagesList": {
-            "spanish": { "name": "Español", "level": "Nativo" },
-            "english": { "name": "Inglés", "level": "Fluido" }
+            "spanish": {
+                "name": "Español",
+                "level": "Nativo"
+            },
+            "english": {
+                "name": "Inglés",
+                "level": "Fluido"
+            }
         },
         "downloadResume": "Descargar CV",
         "downloadingResume": "Generando PDF...",
