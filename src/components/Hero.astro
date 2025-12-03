@@ -8,6 +8,7 @@ import {
 import ChevronDownIcon from "./icons/ChevronDownIcon.astro";
 import PlayIcon from "./icons/PlayIcon.astro";
 import SpinnerIcon from "./icons/SpinnerIcon.astro";
+import HiddenDigit from "./easter-egg/HiddenDigit.astro";
 
 interface Props {
   name: string;
@@ -263,10 +264,7 @@ const translatePath = useTranslatedPath(lang);
             <span>TERMINAL</span>
             <span class="text-gray-300 dark:text-gray-600">|</span>
             <span>OUTPUT</span>
-            <span
-              class="opacity-20 group-hover:opacity-100 transition-all duration-300 text-[10px] text-gray-400 dark:text-gray-600 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-bold select-none ml-2"
-              title="Secret">4</span
-            >
+            <HiddenDigit digit="4" class="text-[10px] ml-2" />
           </div>
           <button
             id="run-btn"

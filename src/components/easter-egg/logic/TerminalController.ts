@@ -178,47 +178,49 @@ export class TerminalController extends HTMLElement {
                 minimize: () => this.minimize(),
                 toggleMatrix: () => this.matrix?.isActive() ? this.matrix.stop() : this.matrix?.start(),
                 startGame: (diff) => this.snake?.start(diff as any),
-                promptPassword: (callback: (pwd: string) => boolean) => {
-                    this.state.inputMode = "password";
-                    let attempts = 0;
-                    const maxAttempts = 3;
-
-                    // Hide prompt and change input type
-                    if (this.elements["term-prompt-arrow"]) this.elements["term-prompt-arrow"].classList.add("hidden");
-                    if (this.elements["term-prompt-path"]) this.elements["term-prompt-path"].classList.add("hidden");
-                    const input = this.elements["terminal-input"] as HTMLInputElement;
-                    if (input) input.type = "password";
-
-                    this.print(`\n<span class="text-yellow-500">Password: </span>`);
-
-                    this.state.passwordCallback = (pwd) => {
-                        attempts++;
-                        const success = callback(pwd);
-
-                        if (success || attempts >= maxAttempts) {
-                            this.state.inputMode = "command";
-                            this.state.passwordCallback = null;
-
-                            // Restore prompt and input type
-                            if (this.elements["term-prompt-arrow"]) this.elements["term-prompt-arrow"].classList.remove("hidden");
-                            if (this.elements["term-prompt-path"]) this.elements["term-prompt-path"].classList.remove("hidden");
-                            if (input) input.type = "text";
-
-                            if (!success) {
-                                this.print(`\n<span class="text-red-500">sudo: 3 incorrect password attempts</span>`);
-                            }
-                        } else {
-                            this.print(`\n<span class="text-red-500">Sorry, try again.</span>`);
-                            this.print(`\n<span class="text-yellow-500">Password: </span>`);
-                        }
-                    };
-                }
+                promptPassword: (callback: (pwd: string) => boolean) => this.handlePasswordPrompt(callback)
             }
         });
 
         if (result) this.print(result);
         this.saveState();
         this.scrollToBottom();
+    }
+
+    private handlePasswordPrompt(callback: (pwd: string) => boolean) {
+        this.state.inputMode = "password";
+        let attempts = 0;
+        const maxAttempts = 3;
+
+        // Hide prompt and change input type
+        if (this.elements["term-prompt-arrow"]) this.elements["term-prompt-arrow"].classList.add("hidden");
+        if (this.elements["term-prompt-path"]) this.elements["term-prompt-path"].classList.add("hidden");
+        const input = this.elements["terminal-input"] as HTMLInputElement;
+        if (input) input.type = "password";
+
+        this.print(`\n<span class="text-yellow-500">Password: </span>`);
+
+        this.state.passwordCallback = (pwd) => {
+            attempts++;
+            const success = callback(pwd);
+
+            if (success || attempts >= maxAttempts) {
+                this.state.inputMode = "command";
+                this.state.passwordCallback = null;
+
+                // Restore prompt and input type
+                if (this.elements["term-prompt-arrow"]) this.elements["term-prompt-arrow"].classList.remove("hidden");
+                if (this.elements["term-prompt-path"]) this.elements["term-prompt-path"].classList.remove("hidden");
+                if (input) input.type = "text";
+
+                if (!success) {
+                    this.print(`\n<span class="text-red-500">sudo: 3 incorrect password attempts</span>`);
+                }
+            } else {
+                this.print(`\n<span class="text-red-500">Sorry, try again.</span>`);
+                this.print(`\n<span class="text-yellow-500">Password: </span>`);
+            }
+        };
     }
 
     private print(html: string) {

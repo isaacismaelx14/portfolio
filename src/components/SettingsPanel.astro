@@ -159,6 +159,8 @@ const themeButtonClass = isDesktop
 </div>
 
 <script>
+    import { SudoService } from "../scripts/sudo";
+
     // Handle Sudo Mode UI
     function initSudoMode() {
         const section = document.getElementById("sudo-mode-section");
@@ -169,42 +171,20 @@ const themeButtonClass = isDesktop
         const matrixBtn = document.getElementById("matrix-theme-toggle");
         const matrixStatus = document.getElementById("matrix-theme-status");
 
-        // Persistence Logic
-        const savePrefs = (prefs: any) => {
-            const current = JSON.parse(
-                sessionStorage.getItem("sudo_prefs") || "{}",
-            );
-            sessionStorage.setItem(
-                "sudo_prefs",
-                JSON.stringify({ ...current, ...prefs }),
-            );
-        };
+        const updateUI = () => {
+            const prefs = SudoService.getPrefs();
 
-        const loadPrefs = () => {
-            const prefs = JSON.parse(
-                sessionStorage.getItem("sudo_prefs") || "{}",
-            );
-
-            // Apply GOAT Mode
-            if (prefs.goat && goatBtn && goatStatus) {
-                document.designMode = "on";
-                document.body.classList.add("cursor-text");
-                goatStatus.textContent = "ON";
-                goatBtn.classList.add("bg-red-500/20");
+            if (goatBtn && goatStatus) {
+                goatStatus.textContent = prefs.goat ? "ON" : "OFF";
+                goatBtn.classList.toggle("bg-red-500/20", !!prefs.goat);
             }
-
-            // Apply Debug Mode
-            if (prefs.debug && debugBtn && debugStatus) {
-                document.documentElement.classList.add("debug-mode");
-                debugStatus.textContent = "ON";
-                debugBtn.classList.add("bg-blue-500/20");
+            if (debugBtn && debugStatus) {
+                debugStatus.textContent = prefs.debug ? "ON" : "OFF";
+                debugBtn.classList.toggle("bg-blue-500/20", !!prefs.debug);
             }
-
-            // Apply Matrix Theme
-            if (prefs.matrix && matrixBtn && matrixStatus) {
-                document.documentElement.classList.add("theme-matrix");
-                matrixStatus.textContent = "ON";
-                matrixBtn.classList.add("bg-green-500/20");
+            if (matrixBtn && matrixStatus) {
+                matrixStatus.textContent = prefs.matrix ? "ON" : "OFF";
+                matrixBtn.classList.toggle("bg-green-500/20", !!prefs.matrix);
             }
         };
 
@@ -214,7 +194,8 @@ const themeButtonClass = isDesktop
             );
             if (state.sudo_mode && section) {
                 section.classList.remove("hidden");
-                loadPrefs(); // Restore settings if sudo is unlocked
+                SudoService.applyPrefs();
+                updateUI();
             }
         };
 
@@ -224,54 +205,31 @@ const themeButtonClass = isDesktop
         // Listen for unlock event
         window.addEventListener("sudo-mode-unlocked", checkSudo);
 
-        // GOAT Mode Logic
-        if (goatBtn && goatStatus) {
+        // Bind Toggles
+        if (goatBtn) {
             goatBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
-                const isGoat = goatStatus.textContent === "OFF";
-
-                document.designMode = isGoat ? "on" : "off";
-                goatStatus.textContent = isGoat ? "ON" : "OFF";
-                goatBtn.classList.toggle("bg-red-500/20", isGoat);
-
-                if (isGoat) {
-                    document.body.classList.add("cursor-text");
-                } else {
-                    document.body.classList.remove("cursor-text");
-                }
-                savePrefs({ goat: isGoat });
+                const newState = goatStatus?.textContent === "OFF";
+                SudoService.toggleGoat(newState);
+                updateUI();
             });
         }
 
-        // Debug Mode Logic
-        if (debugBtn && debugStatus) {
+        if (debugBtn) {
             debugBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
-                const isDebug = debugStatus.textContent === "OFF";
-
-                document.documentElement.classList.toggle(
-                    "debug-mode",
-                    isDebug,
-                );
-                debugStatus.textContent = isDebug ? "ON" : "OFF";
-                debugBtn.classList.toggle("bg-blue-500/20", isDebug);
-                savePrefs({ debug: isDebug });
+                const newState = debugStatus?.textContent === "OFF";
+                SudoService.toggleDebug(newState);
+                updateUI();
             });
         }
 
-        // Matrix Theme Logic
-        if (matrixBtn && matrixStatus) {
+        if (matrixBtn) {
             matrixBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
-                const isMatrix = matrixStatus.textContent === "OFF";
-
-                document.documentElement.classList.toggle(
-                    "theme-matrix",
-                    isMatrix,
-                );
-                matrixStatus.textContent = isMatrix ? "ON" : "OFF";
-                matrixBtn.classList.toggle("bg-green-500/20", isMatrix);
-                savePrefs({ matrix: isMatrix });
+                const newState = matrixStatus?.textContent === "OFF";
+                SudoService.toggleMatrix(newState);
+                updateUI();
             });
         }
     }

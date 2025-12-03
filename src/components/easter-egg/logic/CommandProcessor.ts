@@ -1,3 +1,5 @@
+import { SudoService } from "../../../scripts/sudo";
+
 export interface CommandContext {
     lang: string;
     projects: any[];
@@ -79,14 +81,8 @@ export class CommandProcessor {
 
         if (subCmd === "su") {
             ctx.actions.promptPassword((password) => {
-                // The password is the 4 hidden digits combined.
-                // For now, let's assume the code is "7429" (Example digits)
-                // We will implement the actual digits in the UI next.
                 if (password === "7429") {
-                    const state = JSON.parse(sessionStorage.getItem("terminal_state") || "{}");
-                    state.sudo_mode = true;
-                    sessionStorage.setItem("terminal_state", JSON.stringify(state));
-                    window.dispatchEvent(new CustomEvent("sudo-mode-unlocked"));
+                    SudoService.unlockSudoMode();
 
                     const output = document.getElementById("terminal-output");
                     if (output) {
@@ -94,9 +90,8 @@ export class CommandProcessor {
                         output.scrollTop = output.scrollHeight;
                     }
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             });
             return;
         }
