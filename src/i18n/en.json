@@ -16,19 +16,19 @@
         "features": {
             "frontend": {
                 "title": "Frontend",
-                "desc": "React, Astro, TailwindCSS, Modern UI/UX"
+                "desc": "Building responsive, accessible, and performant user interfaces with modern architecture."
             },
             "backend": {
                 "title": "Backend",
-                "desc": "Node.js, TypeScript, NestJS, gRPC, PostgreSQL"
+                "desc": "Designing robust, scalable server-side systems that handle high concurrency and complex logic."
             },
             "ai": {
                 "title": "AI / ML",
-                "desc": "LLM integration, AI agents, RAG, embeddings"
+                "desc": "Integrating intelligent agents and LLMs to create adaptive, data-driven user experiences."
             },
             "cloud": {
                 "title": "Cloud",
-                "desc": "AWS, Docker, Kubernetes, Cloud-native arch"
+                "desc": "Deploying secure, resilient infrastructure using infrastructure-as-code and containerization."
             }
         },
         "cta": {
