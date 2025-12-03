@@ -204,3 +204,63 @@ const imageURL = new URL(image, Astro.url.origin);
 		<Terminal />
 	</body>
 </html>
+
+<style is:global>
+	/* Debug Mode */
+	:root.debug-mode * {
+		outline: 1px solid rgba(255, 0, 0, 0.2) !important;
+		background-color: rgba(255, 0, 0, 0.02) !important;
+	}
+	:root.debug-mode *:hover {
+		outline: 1px solid rgba(255, 0, 0, 0.8) !important;
+		background-color: rgba(255, 0, 0, 0.1) !important;
+	}
+
+	/* Matrix Theme */
+	:root.theme-matrix {
+		--bg-primary: #000000;
+		--text-primary: #00ff00;
+		--text-secondary: #008f11;
+		--accent: #00ff00;
+	}
+
+	:root.theme-matrix body {
+		background-color: #000000 !important;
+		color: #00ff00 !important;
+		font-family: "Courier New", Courier, monospace !important;
+	}
+
+	:root.theme-matrix * {
+		border-color: #003b00 !important;
+	}
+
+	:root.theme-matrix .bg-white,
+	:root.theme-matrix .bg-gray-50,
+	:root.theme-matrix .bg-gray-100,
+	:root.theme-matrix .dark\:bg-gray-800,
+	:root.theme-matrix .dark\:bg-gray-900 {
+		background-color: #001100 !important;
+		color: #00ff00 !important;
+	}
+
+	:root.theme-matrix .text-gray-900,
+	:root.theme-matrix .text-gray-600,
+	:root.theme-matrix .text-gray-500,
+	:root.theme-matrix .dark\:text-white,
+	:root.theme-matrix .dark\:text-gray-400 {
+		color: #00ff00 !important;
+		text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+	}
+
+	:root.theme-matrix a,
+	:root.theme-matrix button {
+		color: #00ff00 !important;
+		text-decoration: none !important;
+	}
+
+	:root.theme-matrix a:hover,
+	:root.theme-matrix button:hover {
+		background-color: #003b00 !important;
+		box-shadow: 0 0 10px #00ff00 !important;
+	}
+</style>
