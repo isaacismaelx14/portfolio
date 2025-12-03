@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 
 
+## [2.4.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.4.0) (2025-12-03)
+
+### Features
+
+* Lazy load and dynamically inject terminal component, persisting its state with local storage.
+* Refactor terminal to dynamically generate HTML and implement a new subscribable local storage class.
+* Add performance and style categories to changelog data parsing and display them in the UI.
+
+### Bug Fixes
+
+* Remove automatic dark mode based on system preference.
+
+### Refactoring
+
+* standardize capitalization of changelog items
+
 ## [2.3.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.3.0) (2025-12-03)
 
 ### Features
