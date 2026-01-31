@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 
+## [2.5.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.5.0) (2026-01-31)
+
+### Features
+
+* Add new 'Meraki' project and update 'Unprimer' project's featured status.
+
 ## [2.4.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.4.0) (2025-12-03)
 
 ### Features
