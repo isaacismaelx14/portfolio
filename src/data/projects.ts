@@ -14,6 +14,21 @@ export function getLocalizedProjects(lang: Lang): LocalizedProject[] {
 
 export const projects: Project[] = [
     {
+        title: 'Meraki',
+        description: {
+            en: 'Modern editorial platform transforming intimate writing into a clean, emotional visual experience.',
+            es: 'Plataforma editorial moderna que convierte la escritura íntima en una experiencia visual limpia y emocional.'
+        },
+        impact: {
+            en: 'Emotional Connection · Visual Experience',
+            es: 'Conexión Emocional · Experiencia Visual'
+        },
+        tags: ['Editorial', 'Minimalism', 'Experience'],
+        link: 'https://meraki.isaacmartinez.dev/',
+        image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=800&auto=format&fit=crop',
+        featured: true
+    },
+    {
         title: 'DevsCut',
         description: {
             en: 'Analytics platform enhancing digital interactions through advanced link shortening and tracking.',
@@ -56,7 +71,7 @@ export const projects: Project[] = [
         tags: ['Next.js', 'SaaS', 'Marketing'],
         link: 'https://www.unprimer.com/',
         image: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=800&auto=format&fit=crop',
-        featured: true
+        featured: false
     },
     {
         title: 'Project Templify',
