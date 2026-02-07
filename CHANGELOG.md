@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 
+## [2.6.1](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.6.1) (2026-02-07)
+
+### Bug Fixes
+
+* add spanish version for settings
+
 ## [2.6.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.6.0) (2026-02-07)
 
 ### Features
