@@ -191,11 +191,11 @@
         }
     },
     "settings": {
-        "title": "System Settings",
-        "appearance": "Appearance",
-        "language": "Language",
-        "light": "Light",
-        "dark": "Dark",
+        "title": "Configuración del Sistema",
+        "appearance": "Apariencia",
+        "language": "Idioma",
+        "light": "Claro",
+        "dark": "Oscuro",
         "systemOnline": "SYSTEM ONLINE",
         "tooltip": {
             "title": "NUEVA_FUNCIÓN",
