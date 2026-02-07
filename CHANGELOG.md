@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 
 
+## [2.6.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.6.0) (2026-02-07)
+
+### Features
+
+* add contact call-to-action button and translations for English and Spanish
+
+### Refactoring
+
+* update role references to Full Stack Developer and adjust experience descriptions
+
 ## [2.5.0](https://github.com/isaacismaelx14/portfolio/releases/tag/v2.5.0) (2026-01-31)
 
 ### Features
