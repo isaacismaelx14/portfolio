@@ -15,6 +15,7 @@ import CloudIcon from "../icons/CloudIcon.astro";
 import UserIcon from "../icons/UserIcon.astro";
 import DocumentIcon from "../icons/DocumentIcon.astro";
 import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
+import MailIcon from "../icons/MailIcon.astro";
 
 interface Props {
     lang: Lang;
@@ -29,7 +30,7 @@ const pageDescription = getPageDescription("home", lang);
 ---
 
 <Layout
-    title="Isaac Martinez | Software Architect"
+    title="Isaac Martinez | Full Stack Developer"
     description={pageDescription}
     fullWidth={true}
 >
@@ -167,9 +168,16 @@ const pageDescription = getPageDescription("home", lang);
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                 {t("home.beyondCode")}
             </h2>
-            <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
                 {t("home.beyondCodeDesc")}
             </p>
+            <a
+                href={translatePath("/contact")}
+                class="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold rounded-xl text-white bg-gray-900 dark:bg-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 transition-all hover:scale-[1.02] shadow-lg hover:shadow-xl"
+            >
+                <MailIcon class="h-5 w-5" />
+                {t("home.contactCta")}
+            </a>
         </div>
     </Section>
 </Layout>

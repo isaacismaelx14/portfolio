@@ -12,13 +12,6 @@ export function getExperience(t: TranslationFn): Experience[] {
             skills: ["Software Architecture", "React", "AWS", "TypeScript"],
         },
         {
-            year: `Oct 2023 - ${t("about.present")}`,
-            title: t("about.experienceList.zitdevs.title"),
-            company: `${t("about.experienceList.zitdevs.company")} · ${t("about.partTime")} · ${t("about.remote")}`,
-            description: t("about.experienceList.zitdevs.description"),
-            skills: ["Leadership", "Product Strategy", "Team Building"],
-        },
-        {
             year: "Apr 2024 - May 2025",
             title: t("about.experienceList.vpm.title"),
             company: `${t("about.experienceList.vpm.company")} · ${t("about.fullTime")} · ${t("about.remote")}`,
@@ -149,22 +142,22 @@ export const contactInfo = {
 export function getPageDescription(page: string, lang: Lang): string {
     const descriptions: Record<string, Record<Lang, string>> = {
         about: {
-            en: "Meet Isaac Martinez - Software Architect with 9+ years of experience in Node.js, TypeScript, AWS, and AI. View my experience, skills, and education.",
-            es: "Conoce a Isaac Martinez - Arquitecto de Software con más de 9 años de experiencia en Node.js, TypeScript, AWS e IA. Revisa mi experiencia, habilidades y educación.",
+            en: "Meet Isaac Martinez - Senior Full Stack Developer with 5+ years of experience in Node.js, TypeScript, AWS, and AI. View my experience, skills, and education.",
+            es: "Conoce a Isaac Martinez - Senior Full Stack Developer con 5+ años de experiencia en Node.js, TypeScript, AWS e IA. Revisa mi experiencia, habilidades y educación."
         },
         projects: {
-            en: "Explore Isaac Martinez's projects - From analytics platforms to CLI tools. Real-world solutions showcasing scalability and clean architecture.",
-            es: "Explora los proyectos de Isaac Martinez - Desde plataformas de analíticas hasta herramientas CLI. Soluciones reales demostrando escalabilidad y arquitectura limpia.",
+            en: "Explore Isaac Martinez's projects - Real-world solutions shipped end-to-end, focused on performance, scalability, and maintainable code.",
+            es: "Explora los proyectos de Isaac Martinez - Soluciones reales entregadas de punta a punta, enfocadas en performance, escalabilidad y código mantenible."
         },
         contact: {
-            en: "Contact Isaac Martinez for software development projects, consulting, or collaboration. Available for full-time roles or contract work.",
-            es: "Contacta a Isaac Martinez para proyectos de desarrollo de software, consultoría o colaboración. Disponible para roles full-time o trabajo por contrato.",
+            en: "Contact Isaac Martinez for full-stack development, consulting, or collaboration. Available for full-time roles or contract work.",
+            es: "Contacta a Isaac Martinez para desarrollo full stack, consultoría o colaboración. Disponible para roles full-time o trabajo por contrato."
         },
         home: {
-            en: "Isaac Martinez - Software Architect with 9+ years of experience. Specialized in Node.js, TypeScript, AWS, and AI integration. Available for hire.",
-            es: "Isaac Martinez - Arquitecto de Software con +9 años de experiencia. Especializado en Node.js, TypeScript, AWS e integración de IA. Disponible para contratación.",
-        },
+            en: "Isaac Martinez - Senior Full Stack Developer with 5+ years of experience. Specialized in Node.js, TypeScript, AWS, and AI integrations. Available for hire.",
+            es: "Isaac Martinez - Senior Full Stack Developer con 5+ años de experiencia. Especializado en Node.js, TypeScript, AWS e integraciones de IA. Disponible para contratación."
+        }
     };
-    
-    return descriptions[page]?.[lang] ?? descriptions[page]?.en ?? "";
+
+  return descriptions[page]?.[lang] ?? descriptions[page]?.en ?? "";
 }

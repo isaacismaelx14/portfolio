@@ -134,7 +134,7 @@ export class CommandProcessor {
 
     private getAbout(text: string): string {
         return `
-<div class="mb-2"><span class="text-white font-bold">Isaac Martinez</span><br/>Software Architect & Full Stack Developer</div>
+<div class="mb-2"><span class="text-white font-bold">Isaac Martinez</span><br/>Full Stack Developer</div>
 <p class="mb-2 text-gray-300">${text}</p>
 <div><span class="text-gray-400">Tech Stack:</span> Node.js, TypeScript, React, Astro, AWS, Docker.</div>`;
     }

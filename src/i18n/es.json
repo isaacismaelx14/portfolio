@@ -6,13 +6,14 @@
         "contact": "Contacto"
     },
     "home": {
-        "role": "Arquitecto de Software",
+        "role": "Full Stack Developer",
         "trustedBy": "Entregando resultados para equipos en EE. UU., Europa y LATAM",
         "featuredProjects": "Proyectos Destacados",
         "featuredProjectsDesc": "Soluciones reales que demuestran escalabilidad, rendimiento y arquitectura limpia.",
         "viewAll": "Ver todos los proyectos",
         "beyondCode": "Por Qué Trabajar Conmigo",
         "beyondCodeDesc": "Aporto más de 9 años de experiencia práctica construyendo sistemas en producción que manejan tráfico real y problemas reales. Me comunico con claridad, entrego consistentemente y me apropio de los proyectos en los que trabajo. Ya sea un proyecto desde cero o escalar un sistema existente, yo lo resuelvo.",
+        "contactCta": "Trabajemos Juntos",
         "features": {
             "frontend": {
                 "title": "Frontend",
@@ -42,8 +43,8 @@
         "available": "Disponible para contratación",
         "greeting": "Hola, soy",
         "title": "Construyo Sistemas Escalables <br class=\"hidden sm:block\" /> y Productos que Funcionan.",
-        "subtitle": "Arquitecto de Software · +9 Años en Backend, Cloud e IA",
-        "description": "Ayudo a empresas a construir software confiable y de alto rendimiento. Desde arquitecturas backend complejas hasta integraciones de IA, entrego soluciones que escalan con tu negocio.",
+        "subtitle": "Full Stack Developer · 5+ años en Frontend, Backend e IA",
+        "description": "Ayudo a empresas a convertir ideas en productos rápidos y confiables, con una UI limpia, APIs escalables y funcionalidades de IA que llegan a producción, rinden bajo tráfico real y permiten que los equipos avancen sin acumular deuda técnica.",
         "buttons": {
             "explore": "Ver mi trabajo",
             "contact": "Contrátame",
@@ -55,8 +56,8 @@
         "title": "Sobre Mí",
         "badge": "Running...",
         "quote": "No solo escribo código. Resuelvo problemas de negocio.",
-        "p1": "Soy Isaac Martinez, Arquitecto de Software en Santiago, República Dominicana. Me especializo en construir sistemas backend escalables, infraestructura cloud y funcionalidades con IA que generan valor real para el negocio.",
-        "p2": "Con más de 9 años de experiencia en Node.js, TypeScript y AWS, he ayudado a startups y empresas establecidas a lanzar productos más rápido, reducir deuda técnica y escalar sus sistemas de forma confiable. Me enorgullezco de escribir código limpio y mantenible, y comunicarme efectivamente con los equipos.",
+        "p1": "Soy Isaac Martinez, Senior Full Stack Developer, basado en Santiago, República Dominicana. Construyo aplicaciones web en producción de punta a punta — frontends modernos, APIs escalables y funcionalidades impulsadas por IA que generan valor real para el negocio.",
+        "p2": "Con 5+ años de experiencia en Node.js, TypeScript y AWS, he ayudado a equipos a entregar más rápido, reducir deuda técnica y escalar sistemas de forma confiable. Me enfoco en escribir código limpio, mantenible y en comunicarme con claridad.",
         "p3": "Actualmente estoy disponible para roles full-time o trabajo por contrato. Si buscas a alguien que pueda empezar de inmediato y entregar resultados, hablemos.",
         "experience": "Experiencia",
         "education": "Educación",
@@ -69,17 +70,12 @@
         "remote": "Remoto",
         "experienceList": {
             "wgsn": {
-                "title": "Arquitecto de Software",
+                "title": "Full Stack Developer (IA y Sistemas Data-Driven)",
                 "company": "WGSN",
-                "description": "Mantuve y optimicé un modelo predictivo interno que gestiona datos de la empresa y entrega pronósticos e información accionable desde reportes de negocio. Desarrollé un servicio AWS Lambda con streaming WebSocket para habilitar respuestas de chatbot en tiempo real, mejorando tanto el rendimiento como la seguridad. Colaboré con equipos multifuncionales para documentar procesos, resolver desafíos en el desarrollo de modelos e implementar soluciones escalables basadas en datos."
-            },
-            "zitdevs": {
-                "title": "CEO y Cofundador",
-                "company": "ZitDevs",
-                "description": "Liderando una empresa de desarrollo enfocada en entregar soluciones tecnológicas de impacto. Construyendo un equipo de desarrolladores apasionados creando productos y servicios innovadores."
+                "description": "Construí sistemas de IA que analizan grandes volúmenes de datos para entregar pronósticos, insights y respuestas en tiempo real. Desarrollé un chatbot seguro y de alto rendimiento capaz de entregar miles de respuestas respaldadas por datos de forma eficiente. Mejoré performance, seguridad y confiabilidad con soluciones cloud-native listas para producción."
             },
             "vpm": {
-                "title": "Ingeniero de Software",
+                "title": "Full Stack Developer",
                 "company": "VPM Solutions",
                 "description": "Contribuí a la mejora continua de la plataforma VPM Solutions manteniendo el código base y desarrollando nuevas funcionalidades para mejorar la funcionalidad general y la experiencia del usuario. Mejoré la funcionalidad de búsqueda de candidatos implementando un sistema de ordenamiento optimizado para mostrar los perfiles más relevantes. Construí reportes personalizados y dashboards visuales para ayudar a los dueños de empresas a obtener mejores insights sobre el rendimiento de su negocio. Trabajé extensamente en el panel de administración interno, construyendo herramientas y vistas para los equipos de Admin, Soporte y Marketing con visualización de datos en tiempo real, gráficos y reportes."
             },
@@ -165,7 +161,7 @@
     "projects": {
         "title": "Proyectos",
         "badge": "Compiling...",
-        "desc": "Una selección de proyectos que demuestran mi capacidad para entregar software de calidad, desde la arquitectura hasta el despliegue."
+        "desc": "Una selección de proyectos que demuestran mi capacidad de entregar software de calidad de punta a punta — desde la UI hasta APIs y despliegue."
     },
     "contact": {
         "title": "Trabajemos Juntos",
