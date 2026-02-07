@@ -13,6 +13,7 @@
         "viewAll": "View all projects",
         "beyondCode": "Why Work With Me",
         "beyondCodeDesc": "I bring 5+ years of hands-on experience building production systems that handle real traffic and real problems. I communicate clearly, ship consistently, and take ownership of the projects I work on. Whether it's a greenfield project or scaling an existing system, I get things done.",
+        "contactCta": "Let's Work Together",
         "features": {
             "frontend": {
                 "title": "Frontend",
