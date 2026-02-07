@@ -6,13 +6,13 @@
         "contact": "Contact"
     },
     "home": {
-        "role": "Software Architect",
+        "role": "Senior Full Stack Developer",
         "trustedBy": "Delivering results for teams across the U.S., Europe, and LATAM",
         "featuredProjects": "Featured Projects",
         "featuredProjectsDesc": "Real-world solutions showcasing scalability, performance, and clean architecture.",
         "viewAll": "View all projects",
         "beyondCode": "Why Work With Me",
-        "beyondCodeDesc": "I bring 9+ years of hands-on experience building production systems that handle real traffic and real problems. I communicate clearly, ship consistently, and take ownership of the projects I work on. Whether it's a greenfield project or scaling an existing system, I get things done.",
+        "beyondCodeDesc": "I bring 5+ years of hands-on experience building production systems that handle real traffic and real problems. I communicate clearly, ship consistently, and take ownership of the projects I work on. Whether it's a greenfield project or scaling an existing system, I get things done.",
         "features": {
             "frontend": {
                 "title": "Frontend",
@@ -42,8 +42,8 @@
         "available": "Available for hire",
         "greeting": "Hey, I'm",
         "title": "I Build Scalable Systems <br class=\"hidden sm:block\" /> & Ship Products That Perform.",
-        "subtitle": "Software Architect · 9+ Years in Backend, Cloud & AI",
-        "description": "I help companies build reliable, high-performance software. From complex backend architectures to AI integrations, I deliver solutions that scale with your business.",
+        "subtitle": "Full Stack Developer · 5+ Years in Frontend, Backend & AI",
+        "description": "I help companies turn ideas into fast, reliable products with clean UI, scalable APIs, and AI features that ship to production, perform under real traffic, and keep teams moving without piling up tech debt.",
         "buttons": {
             "explore": "See My Work",
             "contact": "Hire Me",
@@ -55,8 +55,8 @@
         "title": "About Me",
         "badge": "Running...",
         "quote": "I don't just write code. I solve business problems.",
-        "p1": "I'm Isaac Martinez, a Software Architect based in Santiago, Dominican Republic. I specialize in building scalable backend systems, cloud infrastructure, and AI-powered features that drive real business value.",
-        "p2": "With 9+ years of experience in Node.js, TypeScript, and AWS, I've helped startups and established companies ship products faster, reduce technical debt, and scale their systems reliably. I take pride in writing clean, maintainable code and communicating effectively with teams.",
+        "p1": "I'm Isaac Martinez, a Senior Full Stack Developer based in Santiago, Dominican Republic. I build production web applications end-to-end — modern frontends, scalable APIs, and AI-powered features that drive business value.",
+        "p2": "With 5+ years of experience in Node.js, TypeScript, and AWS, I've helped teams ship faster, reduce technical debt, and scale systems reliably. I take pride in clean, maintainable code and clear communication.",
         "p3": "I'm currently available for full-time roles or contract work. If you're looking for someone who can hit the ground running and deliver results, let's talk.",
         "experience": "Experience",
         "education": "Education",
@@ -69,17 +69,12 @@
         "remote": "Remote",
         "experienceList": {
             "wgsn": {
-                "title": "Software Architect",
+                "title": "Full Stack Developer (AI & Data-Driven Systems)",
                 "company": "WGSN",
-                "description": "Maintained and optimized an internal predictive model that manages company data and delivers actionable forecasts and insights from business reports. Developed an AWS Lambda service with WebSocket streaming to enable real-time chatbot responses, enhancing both performance and security. Collaborated with cross-functional teams to document processes, resolve challenges in model development, and implement scalable, data-driven solutions."
-            },
-            "zitdevs": {
-                "title": "CEO & Co-Founder",
-                "company": "ZitDevs",
-                "description": "Leading a development company focused on delivering impactful technological solutions. Building a team of passionate developers creating innovative products and services."
+                "description": "Built AI systems that analyze large-scale business data to deliver forecasts, insights, and real-time responses. Developed a secure, high-throughput chatbot delivering thousands of data-backed responses efficiently. Improved performance, security, and reliability with cloud-native, production-ready solutions."
             },
             "vpm": {
-                "title": "Software Engineer",
+                "title": "Full Stack Developer",
                 "company": "VPM Solutions",
                 "description": "Contributed to the continuous improvement of the VPM Solutions platform by maintaining the codebase and developing new features to enhance overall functionality and user experience. Improved the candidate search functionality by implementing an optimized sorting system to surface the most relevant profiles. Built custom reports and visual dashboards to help company owners gain better insights into their business performance. Worked extensively on the internal admin panel, building tools and views for the Admin, Support, and Marketing teams with real-time data displays, charts, and reports."
             },
@@ -165,7 +160,7 @@
     "projects": {
         "title": "Projects",
         "badge": "Compiling...",
-        "desc": "A selection of projects that demonstrate my ability to ship quality software, from architecture to deployment."
+        "desc": "A selection of projects that demonstrate my ability to ship quality software end-to-end — from UI to APIs and deployment."
     },
     "contact": {
         "title": "Let's Work Together",
