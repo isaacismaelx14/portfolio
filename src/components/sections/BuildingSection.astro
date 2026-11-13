@@ -1,9 +1,9 @@
 ---
 import Section from "../Section.astro";
 import SectionHeading from "./SectionHeading.astro";
-import ProjectCard from "../ProjectCard.astro";
+import ProjectCompactCard from "../projects/ProjectCompactCard.astro";
 import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
-import { getLocalizedProjects } from "../../data/projects";
+import { getFeaturedProjects } from "../../data/projects";
 import { useTranslations, useTranslatedPath } from "../../i18n/utils";
 import type { Lang } from "../../types";
 
@@ -14,7 +14,8 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
-const featuredProjects = getLocalizedProjects(lang).filter((p) => p.featured);
+const featuredProjects = getFeaturedProjects(lang);
+const projectsPath = translatePath("/projects");
 ---
 
 <Section
@@ -31,7 +32,7 @@ const featuredProjects = getLocalizedProjects(lang).filter((p) => p.featured);
             description={t("sections.building.desc")}
         />
         <a
-            href={translatePath("/projects")}
+            href={projectsPath}
             class="mb-8 sm:mb-12 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white font-medium flex items-center gap-1 group text-sm sm:text-base shrink-0"
         >
             {t("sections.building.viewAll")}
@@ -41,7 +42,15 @@ const featuredProjects = getLocalizedProjects(lang).filter((p) => p.featured);
         </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {featuredProjects.map((project) => <ProjectCard {...project} />)}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        {
+            featuredProjects.map((project) => (
+                <ProjectCompactCard
+                    project={project}
+                    lang={lang}
+                    caseStudyHref={`${projectsPath}#${project.id}`}
+                />
+            ))
+        }
     </div>
 </Section>

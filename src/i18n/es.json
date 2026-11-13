@@ -196,7 +196,25 @@
     "projects": {
         "title": "Proyectos",
         "badge": "Compiling...",
-        "desc": "Una selección de proyectos que demuestran mi capacidad de entregar software de calidad de punta a punta — desde la UI hasta APIs y despliegue."
+        "desc": "Cuatro proyectos contados como casos de estudio breves: el problema, lo que construí y las decisiones detrás. Después, algunos proyectos más pequeños.",
+        "featuredTitle": "Proyectos que construí y las decisiones detrás",
+        "problem": "Problema",
+        "built": "Qué construí",
+        "stack": "Stack",
+        "links": "Enlaces",
+        "caseStudy": "Ver caso de estudio",
+        "newTab": "(se abre en una pestaña nueva)",
+        "link": {
+            "github": "Ver en GitHub",
+            "site": "Visitar sitio",
+            "npm": "Ver en npm"
+        },
+        "diagram": {
+            "modules": "Módulos compartidos",
+            "planned": "planificado"
+        },
+        "moreEyebrow": "También construí",
+        "moreTitle": "Más proyectos"
     },
     "contact": {
         "title": "Trabajemos Juntos",

@@ -196,7 +196,25 @@
     "projects": {
         "title": "Projects",
         "badge": "Compiling...",
-        "desc": "A selection of projects that demonstrate my ability to ship quality software end-to-end — from UI to APIs and deployment."
+        "desc": "Four projects told as short case studies: the problem, what I built and the decisions behind it. A few smaller ones follow.",
+        "featuredTitle": "Projects I built and the decisions behind them",
+        "problem": "Problem",
+        "built": "What I built",
+        "stack": "Stack",
+        "links": "Links",
+        "caseStudy": "Read case study",
+        "newTab": "(opens in a new tab)",
+        "link": {
+            "github": "View on GitHub",
+            "site": "Visit site",
+            "npm": "View on npm"
+        },
+        "diagram": {
+            "modules": "Shared modules",
+            "planned": "planned"
+        },
+        "moreEyebrow": "Also built",
+        "moreTitle": "More projects"
     },
     "contact": {
         "title": "Let's Work Together",

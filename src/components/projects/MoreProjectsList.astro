@@ -1,0 +1,35 @@
+---
+import ExternalLink from "./ExternalLink.astro";
+import type { Lang, LocalizedProjectSummary } from "../../types";
+
+interface Props {
+    projects: LocalizedProjectSummary[];
+    lang: Lang;
+}
+
+const { projects, lang } = Astro.props;
+---
+
+<ul
+    class="divide-y divide-gray-200 dark:divide-gray-700 border-y border-gray-200 dark:border-gray-700"
+>
+    {
+        projects.map((project) => (
+            <li class="py-4 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6">
+                <div class="min-w-0 flex-grow">
+                    <h3 class="font-semibold text-gray-900 dark:text-white">
+                        {project.title}
+                    </h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {project.summary}
+                    </p>
+                </div>
+                {project.link && (
+                    <div class="shrink-0">
+                        <ExternalLink link={project.link} lang={lang} projectTitle={project.title} />
+                    </div>
+                )}
+            </li>
+        ))
+    }
+</ul>

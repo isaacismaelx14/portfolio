@@ -1,9 +1,11 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ProjectCard from "../ProjectCard.astro";
+import ProjectCaseStudy from "../projects/ProjectCaseStudy.astro";
+import MoreProjectsList from "../projects/MoreProjectsList.astro";
+import SectionHeading from "../sections/SectionHeading.astro";
 import Section from "../Section.astro";
 import PageHeader from "../PageHeader.astro";
-import { getLocalizedProjects } from "../../data/projects";
+import { getFeaturedProjects, getMoreProjects } from "../../data/projects";
 import { getPageDescription } from "../../data/about";
 import { useTranslations } from "../../i18n/utils";
 import type { Lang } from "../../types";
@@ -15,7 +17,8 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const projects = getLocalizedProjects(lang);
+const featured = getFeaturedProjects(lang);
+const more = getMoreProjects(lang);
 const pageDescription = getPageDescription("projects", lang);
 ---
 
@@ -37,10 +40,26 @@ const pageDescription = getPageDescription("projects", lang);
             {t("projects.desc")}
         </p>
 
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-        >
-            {projects.map((project) => <ProjectCard {...project} />)}
+        <h2 class="sr-only">{t("projects.featuredTitle")}</h2>
+        <div class="space-y-16 sm:space-y-24">
+            {
+                featured.map((project, index) => (
+                    <ProjectCaseStudy
+                        project={project}
+                        lang={lang}
+                        reversed={index % 2 === 1}
+                    />
+                ))
+            }
         </div>
+    </Section>
+
+    <Section labelledBy="more-projects-title">
+        <SectionHeading
+            id="more-projects-title"
+            eyebrow={t("projects.moreEyebrow")}
+            title={t("projects.moreTitle")}
+        />
+        <MoreProjectsList projects={more} lang={lang} />
     </Section>
 </Layout>

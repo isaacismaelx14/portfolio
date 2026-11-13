@@ -1,0 +1,80 @@
+---
+import ProjectVisual from "./ProjectVisual.astro";
+import ProjectStatus from "./ProjectStatus.astro";
+import StackChips from "./StackChips.astro";
+import ExternalLink from "./ExternalLink.astro";
+import { useTranslations } from "../../i18n/utils";
+import type { Lang, LocalizedFeaturedProject } from "../../types";
+
+interface Props {
+    project: LocalizedFeaturedProject;
+    lang: Lang;
+    /** Puts the visual on the right on large screens, to alternate the rhythm. */
+    reversed?: boolean;
+}
+
+const { project, lang, reversed = false } = Astro.props;
+const t = useTranslations(lang);
+const titleId = `project-${project.id}-title`;
+---
+
+<article
+    id={project.id}
+    aria-labelledby={titleId}
+    class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-start"
+>
+    <div class:list={["min-w-0", reversed && "lg:order-last"]}>
+        <ProjectVisual visual={project.visual} lang={lang} />
+    </div>
+
+    <div class="min-w-0">
+        <header class="mb-5">
+            {project.status && <ProjectStatus text={project.status} />}
+            <h3
+                id={titleId}
+                class="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
+            >
+                {project.title}
+            </h3>
+            <p class="mt-2 text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                {project.pitch}
+            </p>
+        </header>
+
+        <dl class="space-y-5">
+            <div class="pl-4 border-l-2 border-blue-200 dark:border-blue-800">
+                <dt class="text-xs font-mono font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-1">
+                    {t("projects.problem")}
+                </dt>
+                <dd class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {project.problem}
+                </dd>
+            </div>
+            <div class="pl-4 border-l-2 border-blue-200 dark:border-blue-800">
+                <dt class="text-xs font-mono font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-1">
+                    {t("projects.built")}
+                </dt>
+                <dd>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300 leading-relaxed list-disc pl-4 marker:text-gray-400 dark:marker:text-gray-500">
+                        {project.highlights.map((item) => <li>{item}</li>)}
+                    </ul>
+                </dd>
+            </div>
+        </dl>
+
+        <footer class="mt-6 pt-4 border-t border-dashed border-gray-200 dark:border-gray-700 flex flex-col gap-3">
+            <StackChips items={project.stack} label={t("projects.stack")} />
+            {
+                project.links.length > 0 && (
+                    <ul class="flex flex-wrap gap-x-5" aria-label={t("projects.links")}>
+                        {project.links.map((link) => (
+                            <li>
+                                <ExternalLink link={link} lang={lang} projectTitle={project.title} />
+                            </li>
+                        ))}
+                    </ul>
+                )
+            }
+        </footer>
+    </div>
+</article>

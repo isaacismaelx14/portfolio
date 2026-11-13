@@ -1,0 +1,48 @@
+---
+import ArchitectureDiagram from "./ArchitectureDiagram.astro";
+import CommandSnippet from "./CommandSnippet.astro";
+import type { Lang, ProjectVisual as Visual } from "../../types";
+
+interface Props {
+    visual: Visual<string>;
+    lang: Lang;
+}
+
+const { visual, lang } = Astro.props;
+---
+
+{
+    visual.kind === "image" && (
+        <figure class="m-0 aspect-7/4 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
+            <img
+                src={visual.src}
+                width={visual.width}
+                height={visual.height}
+                alt={visual.alt}
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover object-top"
+            />
+        </figure>
+    )
+}
+{
+    visual.kind === "diagram" && (
+        <div class="h-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
+            <ArchitectureDiagram
+                lang={lang}
+                label={visual.label}
+                entries={visual.entries}
+                modules={visual.modules}
+                store={visual.store}
+            />
+        </div>
+    )
+}
+{
+    visual.kind === "terminal" && (
+        <div class="h-full flex flex-col justify-center rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-3 sm:p-6">
+            <CommandSnippet filename={visual.filename} lines={visual.lines} />
+        </div>
+    )
+}

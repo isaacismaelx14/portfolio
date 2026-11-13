@@ -1,0 +1,50 @@
+---
+import ProjectVisual from "./ProjectVisual.astro";
+import ProjectStatus from "./ProjectStatus.astro";
+import ExternalLink from "./ExternalLink.astro";
+import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
+import { useTranslations } from "../../i18n/utils";
+import type { Lang, LocalizedFeaturedProject } from "../../types";
+
+interface Props {
+    project: LocalizedFeaturedProject;
+    lang: Lang;
+    /** Internal URL of this project's case study. */
+    caseStudyHref: string;
+}
+
+const { project, lang, caseStudyHref } = Astro.props;
+const t = useTranslations(lang);
+const primaryLink = project.links[0];
+---
+
+<article
+    class="h-full flex flex-col gap-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-4 sm:p-5"
+>
+    <ProjectVisual visual={project.visual} lang={lang} />
+
+    <div class="flex flex-col flex-grow min-w-0">
+        <h3 class="text-lg sm:text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {project.title}
+        </h3>
+        {project.status && <div class="mt-1"><ProjectStatus text={project.status} /></div>}
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 leading-relaxed flex-grow">
+            {project.pitch}
+        </p>
+
+        <div class="mt-3 flex flex-wrap items-center gap-x-5">
+            <a
+                href={caseStudyHref}
+                class="group/cs inline-flex items-center gap-1 min-h-11 text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 rounded"
+            >
+                {t("projects.caseStudy")}
+                <span class="sr-only">: {project.title}</span>
+                <ArrowRightIcon
+                    class="h-4 w-4 transition-transform group-hover/cs:translate-x-1 motion-reduce:transition-none"
+                    aria-hidden="true"
+                />
+            </a>
+            {primaryLink && <ExternalLink link={primaryLink} lang={lang} projectTitle={project.title} />}
+        </div>
+    </div>
+</article>

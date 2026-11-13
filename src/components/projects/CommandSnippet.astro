@@ -1,0 +1,32 @@
+---
+import TerminalWindow from "../TerminalWindow.astro";
+
+interface Props {
+    filename: string;
+    lines: { type: "input" | "prompt" | "output"; text: string }[];
+    class?: string;
+}
+
+const { filename, lines, class: className } = Astro.props;
+
+const lineClasses = {
+    input: "text-gray-900 dark:text-gray-100",
+    prompt: "text-gray-500 dark:text-gray-400",
+    output: "text-green-700 dark:text-green-400",
+};
+---
+
+<TerminalWindow filename={filename} showIcon class={className}>
+    <div class="p-4 sm:p-5 text-xs sm:text-sm font-mono leading-relaxed">
+        {
+            lines.map((line) => (
+                <p class:list={["break-words", lineClasses[line.type]]}>
+                    {line.type === "input" && (
+                        <span class="text-blue-600 dark:text-blue-400 select-none" aria-hidden="true">$ </span>
+                    )}
+                    {line.text}
+                </p>
+            ))
+        }
+    </div>
+</TerminalWindow>

@@ -1,0 +1,31 @@
+---
+import GitHubIcon from "../icons/GitHubIcon.astro";
+import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
+import { useTranslations } from "../../i18n/utils";
+import type { Lang, ProjectLink } from "../../types";
+
+interface Props {
+    link: ProjectLink;
+    lang: Lang;
+    /** Project name, appended for screen readers so the label stays unique. */
+    projectTitle: string;
+}
+
+const { link, lang, projectTitle } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<a
+    href={link.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group/link inline-flex items-center gap-1.5 min-h-11 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 rounded"
+>
+    {link.kind === "github" && <GitHubIcon class="h-4 w-4 shrink-0" />}
+    <span>{t(`projects.link.${link.kind}`)}</span>
+    <span class="sr-only">: {projectTitle} {t("projects.newTab")}</span>
+    <ArrowRightIcon
+        class="h-3.5 w-3.5 shrink-0 -rotate-45 transition-transform group-hover/link:translate-x-0.5 motion-reduce:transition-none"
+        aria-hidden="true"
+    />
+</a>

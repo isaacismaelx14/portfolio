@@ -34,27 +34,65 @@ export interface Language {
     flag: string;
 }
 
-export interface Project {
-    title: string;
-    description: { en: string; es: string };
-    impact: { en: string; es: string };
-    tags: string[];
-    link: string;
-    image: string;
-    featured: boolean;
-}
-
-export interface LocalizedProject {
-    title: string;
-    description: string;
-    impact: string;
-    tags: string[];
-    link: string;
-    image: string;
-    featured: boolean;
-}
-
 export type Localized = { en: string; es: string };
+
+/** Where an external project link points; drives its visible label. */
+export type ProjectLinkKind = "github" | "site" | "npm";
+
+export interface ProjectLink {
+    kind: ProjectLinkKind;
+    href: string;
+}
+
+/** How a featured project is pictured: a real screenshot, a diagram or a terminal snippet. */
+export type ProjectVisual<T = Localized> =
+    | { kind: "image"; src: string; width: number; height: number; alt: T }
+    | {
+          kind: "diagram";
+          label: T;
+          entries: string[];
+          modules: { name: string; planned?: boolean }[];
+          store: string;
+      }
+    | { kind: "terminal"; filename: string; lines: { type: "input" | "prompt" | "output"; text: string }[] };
+
+export interface FeaturedProject {
+    id: string;
+    title: string;
+    pitch: Localized;
+    problem: Localized;
+    highlights: Localized[];
+    stack: string[];
+    links: ProjectLink[];
+    /** Shown instead of (or next to) links, e.g. for private repositories. */
+    status?: Localized;
+    visual: ProjectVisual;
+}
+
+export interface LocalizedFeaturedProject {
+    id: string;
+    title: string;
+    pitch: string;
+    problem: string;
+    highlights: string[];
+    stack: string[];
+    links: ProjectLink[];
+    status?: string;
+    visual: ProjectVisual<string>;
+}
+
+export interface ProjectSummary {
+    title: string;
+    summary: Localized;
+    link?: ProjectLink;
+}
+
+export interface LocalizedProjectSummary {
+    title: string;
+    summary: string;
+    link?: ProjectLink;
+}
+
 
 export interface CaseStudy {
     company: string;
