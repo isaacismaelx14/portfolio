@@ -5,18 +5,31 @@ type TranslationFn = (key: string) => string;
 export function getExperience(t: TranslationFn): Experience[] {
     return [
         {
-            year: `Jun 2025 - ${t("about.present")}`,
+            year: `Mar 2026 - ${t("about.present")}`,
+            title: t("about.experienceList.serhant.title"),
+            company: `${t("about.experienceList.serhant.company")} · ${t("about.fullTime")} · ${t("about.experienceList.serhant.location")}`,
+            description: t("about.experienceList.serhant.description"),
+            highlights: [
+                t("about.experienceList.serhant.highlights.canva"),
+                t("about.experienceList.serhant.highlights.delivery"),
+                t("about.experienceList.serhant.highlights.backfill"),
+                t("about.experienceList.serhant.highlights.dx"),
+            ],
+            skills: ["TypeScript", "React Native (Expo)", "Next.js", "Node.js", "PostgreSQL", "SvelteKit", "React Query", "Tailwind", "Hono", "Supabase", "Inngest", "Mastra", "Vercel", "PostHog"],
+        },
+        {
+            year: "Jun 2025 - Feb 2026",
             title: t("about.experienceList.wgsn.title"),
-            company: `${t("about.experienceList.wgsn.company")} · ${t("about.fullTime")} · ${t("about.remote")}`,
+            company: `${t("about.experienceList.wgsn.company")} · ${t("about.fullTime")} · ${t("about.experienceList.wgsn.location")}`,
             description: t("about.experienceList.wgsn.description"),
-            skills: ["Software Architecture", "React", "AWS", "TypeScript"],
+            skills: ["Python", "TypeScript", "React", "Next.js", "AWS Lambda", "Express", "MongoDB"],
         },
         {
             year: "Apr 2024 - May 2025",
             title: t("about.experienceList.vpm.title"),
-            company: `${t("about.experienceList.vpm.company")} · ${t("about.fullTime")} · ${t("about.remote")}`,
+            company: `${t("about.experienceList.vpm.company")} · ${t("about.fullTime")} · ${t("about.experienceList.vpm.location")}`,
             description: t("about.experienceList.vpm.description"),
-            skills: ["Vue.js", "Express.js", "MySQL", "GraphQL", "Full-Stack Development"],
+            skills: ["Vue.js", "TypeScript", "Express.js", "MySQL", "AWS EC2", "Docker"],
         },
         {
             year: "Apr 2022 - Apr 2024",
@@ -63,7 +76,7 @@ export function getExperience(t: TranslationFn): Experience[] {
 export function getEducation(t: TranslationFn): Education[] {
     return [
         {
-            year: `2026 (${t("about.expected")})`,
+            year: "2021 - 2023",
             title: t("about.educationList.uapa.title"),
             company: t("about.educationList.uapa.company"),
             description: t("about.educationList.uapa.description"),
@@ -75,7 +88,7 @@ export function getEducation(t: TranslationFn): Education[] {
             description: "",
         },
         {
-            year: "2021",
+            year: "2022",
             title: t("about.educationList.itla.title"),
             company: t("about.educationList.itla.company"),
             description: "",
@@ -96,12 +109,14 @@ export function getEducation(t: TranslationFn): Education[] {
 }
 
 export const skills: Skill[] = [
-    { name: "Node.js", years: "+9y" },
-    { name: "TypeScript", years: "+7y" },
-    { name: "React", years: "+6y" },
-    { name: "Next.js", years: "+5y" },
-    { name: "AWS", years: "+4y" },
-    { name: "Vue.js", years: "+3y" },
+    { name: "Node.js" },
+    { name: "TypeScript" },
+    { name: "React" },
+    { name: "Next.js" },
+    { name: "AWS" },
+    { name: "Vue.js" },
+    { name: "React Native" },
+    { name: "Python" },
     { name: "NestJS" },
     { name: "Express.js" },
     { name: "GraphQL" },
@@ -142,8 +157,8 @@ export const contactInfo = {
 export function getPageDescription(page: string, lang: Lang): string {
     const descriptions: Record<string, Record<Lang, string>> = {
         about: {
-            en: "Meet Isaac Martinez - Senior Full Stack Developer with 5+ years of experience in Node.js, TypeScript, AWS, and AI. View my experience, skills, and education.",
-            es: "Conoce a Isaac Martinez - Senior Full Stack Developer con 5+ años de experiencia en Node.js, TypeScript, AWS e IA. Revisa mi experiencia, habilidades y educación."
+            en: "Meet Isaac Martinez - Full-Stack Software Engineer at SERHANT with 5+ years building production systems end to end in TypeScript, React, React Native, Node.js and AI. Experience, skills and education.",
+            es: "Conoce a Isaac Martinez - Ingeniero de Software Full-Stack en SERHANT con más de 5 años construyendo sistemas en producción de punta a punta con TypeScript, React, React Native, Node.js e IA. Experiencia, habilidades y educación."
         },
         projects: {
             en: "Explore Isaac Martinez's projects - Real-world solutions shipped end-to-end, focused on performance, scalability, and maintainable code.",
@@ -154,8 +169,12 @@ export function getPageDescription(page: string, lang: Lang): string {
             es: "Contacta a Isaac Martinez para desarrollo full stack, consultoría o colaboración. Disponible para roles full-time o trabajo por contrato."
         },
         home: {
-            en: "Isaac Martinez - Senior Full Stack Developer with 5+ years of experience. Specialized in Node.js, TypeScript, AWS, and AI integrations. Available for hire.",
-            es: "Isaac Martinez - Senior Full Stack Developer con 5+ años de experiencia. Especializado en Node.js, TypeScript, AWS e integraciones de IA. Disponible para contratación."
+            en: "Isaac Martinez - Full-Stack Software Engineer at SERHANT who takes features from the problem to a safe production run, and cares about clean architecture, honest tests and safe releases. Case studies, trajectory and principles. Available for hire.",
+            es: "Isaac Martinez - Ingeniero de Software Full-Stack en SERHANT que lleva features del problema a producción de forma segura, y al que le importan la arquitectura limpia, los tests honestos y los releases seguros. Casos de estudio, trayectoria y principios. Disponible para contratación."
+        },
+        lead: {
+            en: "Isaac Martinez - Full-Stack Software Engineer ready to lead, with evidence: team process, developer experience, a team led at Minnek, and production judgment.",
+            es: "Isaac Martinez - Ingeniero de Software Full-Stack listo para liderar, con evidencia: proceso de equipo, experiencia de desarrollo, un equipo liderado en Minnek y criterio en producción."
         }
     };
 

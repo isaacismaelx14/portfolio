@@ -1,0 +1,77 @@
+---
+import Section from "../Section.astro";
+import SectionHeading from "./SectionHeading.astro";
+import { getTrajectory } from "../../data/narrative";
+import { useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../types";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const steps = getTrajectory(lang);
+const career = steps.filter((step) => !step.parallel);
+const parallel = steps.filter((step) => step.parallel);
+---
+
+<Section
+    class="bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800"
+    labelledBy="trajectory-title"
+>
+    <SectionHeading
+        id="trajectory-title"
+        eyebrow={t("sections.trajectory.eyebrow")}
+        title={t("sections.trajectory.title")}
+        description={t("sections.trajectory.desc")}
+    />
+
+    <div class="grid lg:grid-cols-3 gap-8 lg:gap-12">
+        <ol class="lg:col-span-2 space-y-0">
+            {
+                career.map((step) => (
+                    <li class="relative pl-8 pb-8 border-l-2 border-gray-200 dark:border-gray-700 last:border-transparent last:pb-0">
+                        <span
+                            class:list={[
+                                "absolute left-0 top-1 w-3.5 h-3.5 -translate-x-[8px] rounded-full border-2 border-white dark:border-gray-900",
+                                step.current ? "bg-green-500" : "bg-blue-500",
+                            ]}
+                            aria-hidden="true"
+                        />
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-1">
+                            <span class="text-xs font-mono text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                                {step.period}
+                            </span>
+                            <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">
+                                {step.organization}
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                            {step.headline}
+                        </h3>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {step.narrative}
+                        </p>
+                    </li>
+                ))
+            }
+        </ol>
+
+        {
+            parallel.map((step) => (
+                <aside class="h-fit p-5 sm:p-6 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
+                    <p class="text-xs font-mono uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
+                        {step.period} · {step.organization}
+                    </p>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                        {step.headline}
+                    </h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {step.narrative}
+                    </p>
+                </aside>
+            ))
+        }
+    </div>
+</Section>

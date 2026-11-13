@@ -1,0 +1,46 @@
+---
+import Section from "../Section.astro";
+import { getStackGroups } from "../../data/narrative";
+import { useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../types";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const groups = getStackGroups(lang);
+---
+
+<Section
+    class="!py-8 border-y border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50"
+    labelledBy="stack-title"
+>
+    <h2
+        id="stack-title"
+        class="text-xs font-mono font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4"
+    >
+        {t("home.stackTitle")}
+    </h2>
+    <dl class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        {
+            groups.map((group) => (
+                <div>
+                    <dt class="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                        {group.label}
+                    </dt>
+                    <dd>
+                        <ul class="flex flex-wrap gap-1.5">
+                            {group.items.map((item) => (
+                                <li class="text-xs font-mono px-2 py-0.5 rounded bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </dd>
+                </div>
+            ))
+        }
+    </dl>
+</Section>

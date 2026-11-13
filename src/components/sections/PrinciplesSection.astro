@@ -1,0 +1,40 @@
+---
+import Section from "../Section.astro";
+import SectionHeading from "./SectionHeading.astro";
+import { getPrinciples } from "../../data/narrative";
+import { useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../types";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const principles = getPrinciples(lang);
+---
+
+<Section labelledBy="principles-title">
+    <SectionHeading
+        id="principles-title"
+        eyebrow={t("sections.principles.eyebrow")}
+        title={t("sections.principles.title")}
+        description={t("sections.principles.desc")}
+    />
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {
+            principles.map((principle) => (
+                <li class="h-full p-5 sm:p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                    <figure>
+                        <blockquote class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-3 pl-3 border-l-4 border-blue-500 leading-snug">
+                            “{principle.quote}”
+                        </blockquote>
+                        <figcaption class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {principle.explanation}
+                        </figcaption>
+                    </figure>
+                </li>
+            ))
+        }
+    </ul>
+</Section>

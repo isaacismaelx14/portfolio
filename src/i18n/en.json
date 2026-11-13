@@ -5,46 +5,26 @@
         "projects": "Projects",
         "contact": "Contact"
     },
+    "meta": {
+        "homeTitle": "Isaac Martinez | Full-Stack Software Engineer",
+        "leadTitle": "Isaac Martinez | Full-Stack Engineer, Ready to Lead"
+    },
     "home": {
-        "role": "Senior Full Stack Developer",
-        "trustedBy": "Delivering results for teams across the U.S., Europe, and LATAM",
-        "featuredProjects": "Featured Projects",
-        "featuredProjectsDesc": "Real-world solutions showcasing scalability, performance, and clean architecture.",
-        "viewAll": "View all projects",
-        "beyondCode": "Why Work With Me",
-        "beyondCodeDesc": "I bring 5+ years of hands-on experience building production systems that handle real traffic and real problems. I communicate clearly, ship consistently, and take ownership of the projects I work on. Whether it's a greenfield project or scaling an existing system, I get things done.",
-        "contactCta": "Let's Work Together",
-        "features": {
-            "frontend": {
-                "title": "Frontend",
-                "desc": "Building responsive, accessible, and performant user interfaces with modern architecture."
-            },
-            "backend": {
-                "title": "Backend",
-                "desc": "Designing robust, scalable server-side systems that handle high concurrency and complex logic."
-            },
-            "ai": {
-                "title": "AI / ML",
-                "desc": "Integrating intelligent agents and LLMs to create adaptive, data-driven user experiences."
-            },
-            "cloud": {
-                "title": "Cloud",
-                "desc": "Deploying secure, resilient infrastructure using infrastructure-as-code and containerization."
-            }
-        },
-        "cta": {
-            "title": "Ready to Learn More?",
-            "description": "Discover my journey, skills, and what drives me to build great software.",
-            "resumeButton": "Download Resume",
-            "aboutButton": "Read My Story"
-        }
+        "stackTitle": "Stack I work in"
     },
     "hero": {
         "available": "Available for hire",
         "greeting": "Hey, I'm",
-        "title": "I Build Scalable Systems <br class=\"hidden sm:block\" /> & Ship Products That Perform.",
-        "subtitle": "Full Stack Developer · 5+ Years in Frontend, Backend & AI",
-        "description": "I help companies turn ideas into fast, reliable products with clean UI, scalable APIs, and AI features that ship to production, perform under real traffic, and keep teams moving without piling up tech debt.",
+        "ic": {
+            "title": "I take features all the way, <br class=\"hidden sm:block\" /> from the problem to production.",
+            "subtitle": "Full-Stack Software Engineer at SERHANT · 5+ years",
+            "description": "I work end to end on S.MPLE, SERHANT's AI platform for real estate agents: mobile apps, the agent PWA, the advisor dashboard and the core API. I care about the integration, the production run, and the developer experience of the team that maintains it."
+        },
+        "lead": {
+            "title": "I make the system, <br class=\"hidden sm:block\" /> and the team around it, better.",
+            "subtitle": "Full-Stack Software Engineer at SERHANT · former Team Lead",
+            "description": "Ready to lead, with evidence: I review across web and mobile teams, proposed a release strategy, turned local setup into one command, and treat production safety as a default. Before that, I led a team of three at Minnek."
+        },
         "buttons": {
             "explore": "See My Work",
             "contact": "Hire Me",
@@ -52,32 +32,85 @@
             "running": "Running..."
         }
     },
+    "sections": {
+        "caseStudy": {
+            "problem": "Problem",
+            "decision": "Decision",
+            "outcome": "Outcome"
+        },
+        "work": {
+            "eyebrow": "Selected work",
+            "title": "What I've built at SERHANT",
+            "desc": "Four problems from production, each told as the problem, the decision I made, and what happened."
+        },
+        "evidence": {
+            "eyebrow": "Evidence",
+            "title": "How I make teams better",
+            "desc": "Not a title, a track record: team process, developer experience, a team I led, and the production judgment behind it."
+        },
+        "trajectory": {
+            "eyebrow": "Trajectory",
+            "title": "How I got here",
+            "desc": "Each step added a layer of ownership: from shipping for clients, to tooling and leading a team, to taking features end to end as part of a product team."
+        },
+        "principles": {
+            "eyebrow": "How I think",
+            "title": "Principles I work by",
+            "desc": "Short versions of the opinions that shape my code, my reviews and my production changes."
+        },
+        "building": {
+            "eyebrow": "Building on my own",
+            "title": "ZitDevs and side projects",
+            "desc": "ZitDevs is my studio. ZitStack is its shared platform (identity, payments and billing as a modular monolith), with products built on top: Kreds, a leaderboard and internal economy for engineering teams built on GitHub activity, and Fiestik, event ticketing, QR entry and venue operations for the Dominican Republic (pre-launch).",
+            "viewAll": "View all projects"
+        },
+        "contact": {
+            "title": "Let's talk about your team",
+            "desc": "Looking for an engineer who cares about clean architecture, honest tests and safe releases? Let's talk, or grab my resume.",
+            "contactButton": "Get in Touch",
+            "resumeButton": "Download Resume",
+            "aboutButton": "Read My Story"
+        }
+    },
     "about": {
         "title": "About Me",
         "badge": "Running...",
-        "quote": "I don't just write code. I solve business problems.",
-        "p1": "I'm Isaac Martinez, a Senior Full Stack Developer based in Santiago, Dominican Republic. I build production web applications end-to-end — modern frontends, scalable APIs, and AI-powered features that drive business value.",
-        "p2": "With 5+ years of experience in Node.js, TypeScript, and AWS, I've helped teams ship faster, reduce technical debt, and scale systems reliably. I take pride in clean, maintainable code and clear communication.",
-        "p3": "I'm currently available for full-time roles or contract work. If you're looking for someone who can hit the ground running and deliver results, let's talk.",
+        "quote": "What I enjoy most is taking a feature all the way: understanding the problem, building the integration, and making sure it runs safely in production.",
+        "p1": "I'm Isaac Martinez, a Full-Stack Software Engineer based in Santiago, Dominican Republic. At SERHANT I work end to end on S.MPLE, an AI platform for real estate agents, across iOS and Android, the agent PWA, the advisor dashboard and the core API.",
+        "p2": "Over 5+ years I've gone from freelancing to building tooling and leading a team of three at Minnek, real-estate systems at VPM Solutions, and AI systems at WGSN. Along the way I learned to treat production safety as a default and developer experience as part of the product.",
+        "p3": "I'm open to Senior Full Stack roles and to opportunities to lead. If you need someone who owns the outcome, not just the ticket, let's talk.",
         "experience": "Experience",
         "education": "Education",
         "skills": "Skills",
         "languages": "Languages",
         "present": "Present",
-        "expected": "Expected",
         "fullTime": "Full-time",
         "partTime": "Part-time",
         "remote": "Remote",
         "experienceList": {
+            "serhant": {
+                "title": "Full-Stack Software Engineer",
+                "company": "SERHANT",
+                "location": "Remote (US)",
+                "description": "Working end to end on S.MPLE, an AI platform for real estate agents, across iOS and Android (Expo), the agent PWA, the advisor dashboard and the core API. Owned the Canva Connect integration, ran safe production backfills, built automatic delivery of AI-generated content, and improved the team's developer experience.",
+                "highlights": {
+                    "canva": "Owned the Canva Connect integration (OAuth + Autofill) and turned it into a shared driver reused across features.",
+                    "delivery": "Built automatic delivery of AI-generated content with retries, human hand-off and a reconciliation sweep.",
+                    "backfill": "Ran a production backfill over tens of thousands of rows: dry-run by default, canary, verified rollback, zero failures.",
+                    "dx": "Shipped a one-command local setup and fixed CI out-of-memory type-checking by moving to TypeScript 7."
+                }
+            },
             "wgsn": {
                 "title": "Full Stack Developer (AI & Data-Driven Systems)",
                 "company": "WGSN",
-                "description": "Built AI systems that analyze large-scale business data to deliver forecasts, insights, and real-time responses. Developed a secure, high-throughput chatbot delivering thousands of data-backed responses efficiently. Improved performance, security, and reliability with cloud-native, production-ready solutions."
+                "description": "Maintained and optimized an internal predictive model that produces forecasts and insights from business reports. Built an AWS Lambda service with WebSocket streaming for real-time chatbot responses.",
+                "location": "Remote (London)"
             },
             "vpm": {
                 "title": "Full Stack Developer",
                 "company": "VPM Solutions",
-                "description": "Contributed to the continuous improvement of the VPM Solutions platform by maintaining the codebase and developing new features to enhance overall functionality and user experience. Improved the candidate search functionality by implementing an optimized sorting system to surface the most relevant profiles. Built custom reports and visual dashboards to help company owners gain better insights into their business performance. Worked extensively on the internal admin panel, building tools and views for the Admin, Support, and Marketing teams with real-time data displays, charts, and reports."
+                "description": "Maintained and extended a real-estate platform. Improved candidate search with an optimized ranking that surfaces the most relevant profiles. Built custom reports and dashboards that give company owners insight into business performance, and admin panel tools for the Admin, Support and Marketing teams.",
+                "location": "Remote (Houston)"
             },
             "minnek": {
                 "title": "Full Stack Engineer → Team Lead",
@@ -94,7 +127,7 @@
                     },
                     "junior": {
                         "title": "Full Stack Engineer",
-                        "description": "Developed E-Commerce pages for BigCommerce. Created Cominnek, a CLI tool for Conventional Commits linked to Jira tickets. Built internal dashboards using Vue, Express, and MongoDB."
+                        "description": "Developed e-commerce for BigCommerce stores with 20k+ products and thousands of automated events a day. Created Cominnek, a Go CLI for conventional commits linked to Jira from the branch name. Built internal dashboards using Vue, Express and MongoDB."
                     }
                 }
             },
@@ -111,7 +144,7 @@
         },
         "educationList": {
             "uapa": {
-                "title": "Bachelor's Degree in Software Engineering",
+                "title": "Software Engineering studies",
                 "company": "Universidad Abierta para Adultos (UAPA)",
                 "description": "Relevant Coursework: Software Development, Database Management, Web Technologies"
             },
@@ -156,7 +189,9 @@
             "close": "Press any key or click outside to close",
             "error": "Error generating PDF. Please try again.",
             "progress": "Progress"
-        }
+        },
+        "resumeTitle": "Full-Stack Software Engineer",
+        "resumeSummary": "Full-Stack Software Engineer with 5+ years building production systems end to end. Currently at SERHANT on S.MPLE, an AI platform for real estate agents: Canva Connect integration, safe production backfills, automated AI content delivery and developer tooling. Former Team Lead at Minnek Digital Studio."
     },
     "projects": {
         "title": "Projects",

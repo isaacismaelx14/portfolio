@@ -53,3 +53,62 @@ export interface LocalizedProject {
     image: string;
     featured: boolean;
 }
+
+export type Localized = { en: string; es: string };
+
+export interface CaseStudy {
+    company: string;
+    title: Localized;
+    problem: Localized;
+    decision: Localized;
+    outcome: Localized;
+    tags: string[];
+}
+
+export interface LocalizedCaseStudy {
+    id: string;
+    company: string;
+    title: string;
+    problem: string;
+    decision: string;
+    outcome: string;
+    tags: string[];
+}
+
+export interface Principle {
+    quote: Localized;
+    explanation: Localized;
+}
+
+export interface LocalizedPrinciple {
+    quote: string;
+    explanation: string;
+}
+
+export interface TrajectoryStep {
+    period: Localized | string;
+    organization: Localized;
+    headline: Localized;
+    narrative: Localized;
+    current?: boolean;
+    parallel?: boolean;
+}
+
+export interface LocalizedTrajectoryStep {
+    period: string;
+    organization: string;
+    headline: string;
+    narrative: string;
+    current: boolean;
+    parallel: boolean;
+}
+
+export interface StackGroup {
+    label: Localized;
+    items: string[];
+}
+
+export interface LocalizedStackGroup {
+    label: string;
+    items: string[];
+}

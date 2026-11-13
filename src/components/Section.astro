@@ -4,13 +4,22 @@ interface Props {
     maxWidth?: string;
     id?: string;
     first?: boolean;
+    /** Id of the heading that names this section, for assistive tech. */
+    labelledBy?: string;
 }
 
-const { class: className, maxWidth = "7xl", id, first = false } = Astro.props;
+const {
+    class: className,
+    maxWidth = "7xl",
+    id,
+    first = false,
+    labelledBy,
+} = Astro.props;
 ---
 
 <section
     id={id}
+    aria-labelledby={labelledBy}
     class:list={[
         `mx-auto px-4 sm:px-6 lg:px-8 max-w-${maxWidth}`,
         first ? "pt-20 pb-12 sm:pt-24 sm:pb-20" : "py-12 sm:py-20",

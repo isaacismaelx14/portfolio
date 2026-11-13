@@ -5,46 +5,26 @@
         "projects": "Proyectos",
         "contact": "Contacto"
     },
+    "meta": {
+        "homeTitle": "Isaac Martinez | Ingeniero de Software Full-Stack",
+        "leadTitle": "Isaac Martinez | Ingeniero Full-Stack, listo para liderar"
+    },
     "home": {
-        "role": "Full Stack Developer",
-        "trustedBy": "Entregando resultados para equipos en EE. UU., Europa y LATAM",
-        "featuredProjects": "Proyectos Destacados",
-        "featuredProjectsDesc": "Soluciones reales que demuestran escalabilidad, rendimiento y arquitectura limpia.",
-        "viewAll": "Ver todos los proyectos",
-        "beyondCode": "Por Qué Trabajar Conmigo",
-        "beyondCodeDesc": "Aporto más de 9 años de experiencia práctica construyendo sistemas en producción que manejan tráfico real y problemas reales. Me comunico con claridad, entrego consistentemente y me apropio de los proyectos en los que trabajo. Ya sea un proyecto desde cero o escalar un sistema existente, yo lo resuelvo.",
-        "contactCta": "Trabajemos Juntos",
-        "features": {
-            "frontend": {
-                "title": "Frontend",
-                "desc": "Creando interfaces de usuario responsivas, accesibles y de alto rendimiento con arquitectura moderna."
-            },
-            "backend": {
-                "title": "Backend",
-                "desc": "Diseñando sistemas robustos y escalables capaces de manejar alta concurrencia y lógica compleja."
-            },
-            "ai": {
-                "title": "IA / ML",
-                "desc": "Integrando agentes inteligentes y LLMs para crear experiencias adaptativas basadas en datos."
-            },
-            "cloud": {
-                "title": "Nube",
-                "desc": "Desplegando infraestructura segura y resiliente utilizando infraestructura como código."
-            }
-        },
-        "cta": {
-            "title": "¿Quieres Saber Más?",
-            "description": "Descubre mi trayectoria, habilidades y lo que me motiva a construir gran software.",
-            "resumeButton": "Descargar CV",
-            "aboutButton": "Conoce Mi Historia"
-        }
+        "stackTitle": "Stack con el que trabajo"
     },
     "hero": {
         "available": "Disponible para contratación",
         "greeting": "Hola, soy",
-        "title": "Construyo Sistemas Escalables <br class=\"hidden sm:block\" /> y Productos que Funcionan.",
-        "subtitle": "Full Stack Developer · 5+ años en Frontend, Backend e IA",
-        "description": "Ayudo a empresas a convertir ideas en productos rápidos y confiables, con una UI limpia, APIs escalables y funcionalidades de IA que llegan a producción, rinden bajo tráfico real y permiten que los equipos avancen sin acumular deuda técnica.",
+        "ic": {
+            "title": "Llevo cada feature de punta a punta, <br class=\"hidden sm:block\" /> del problema a producción.",
+            "subtitle": "Ingeniero de Software Full-Stack en SERHANT · 5+ años",
+            "description": "Trabajo de punta a punta en S.MPLE, la plataforma de IA de SERHANT para agentes inmobiliarios: apps móviles, la PWA de agentes, el dashboard de asesores y la API principal. Me importan la integración, la ejecución en producción y la experiencia de desarrollo del equipo que lo mantiene."
+        },
+        "lead": {
+            "title": "Mejoro el sistema <br class=\"hidden sm:block\" /> y al equipo que lo rodea.",
+            "subtitle": "Ingeniero de Software Full-Stack en SERHANT · ex Team Lead",
+            "description": "Listo para liderar, con evidencia: reviso código de los equipos web y móvil, propuse una estrategia de releases, convertí la configuración local en un solo comando y trato la seguridad en producción como un valor por defecto. Antes, lideré un equipo de tres en Minnek."
+        },
         "buttons": {
             "explore": "Ver mi trabajo",
             "contact": "Contrátame",
@@ -52,32 +32,85 @@
             "running": "Running..."
         }
     },
+    "sections": {
+        "caseStudy": {
+            "problem": "Problema",
+            "decision": "Decisión",
+            "outcome": "Resultado"
+        },
+        "work": {
+            "eyebrow": "Trabajo destacado",
+            "title": "Lo que he construido en SERHANT",
+            "desc": "Cuatro problemas de producción, contados como el problema, la decisión que tomé y lo que pasó."
+        },
+        "evidence": {
+            "eyebrow": "Evidencia",
+            "title": "Cómo mejoro a los equipos",
+            "desc": "No un título, sino un historial: proceso de equipo, experiencia de desarrollo, un equipo que lideré y el criterio de producción detrás."
+        },
+        "trajectory": {
+            "eyebrow": "Trayectoria",
+            "title": "Cómo llegué aquí",
+            "desc": "Cada etapa sumó una capa de responsabilidad: de entregar para clientes, a crear herramientas y liderar un equipo, a llevar features de punta a punta como parte de un equipo de producto."
+        },
+        "principles": {
+            "eyebrow": "Cómo pienso",
+            "title": "Principios con los que trabajo",
+            "desc": "Versiones cortas de las opiniones que dan forma a mi código, mis revisiones y mis cambios en producción."
+        },
+        "building": {
+            "eyebrow": "Construyendo por mi cuenta",
+            "title": "ZitDevs y proyectos propios",
+            "desc": "ZitDevs es mi estudio. ZitStack es su plataforma compartida (identidad, pagos y facturación como un monolito modular), con productos construidos encima: Kreds, un leaderboard y economía interna para equipos de ingeniería basado en la actividad de GitHub, y Fiestik, venta de entradas, acceso por QR y operación de eventos para República Dominicana (en pre-lanzamiento).",
+            "viewAll": "Ver todos los proyectos"
+        },
+        "contact": {
+            "title": "Hablemos de tu equipo",
+            "desc": "¿Buscas un ingeniero al que le importen la arquitectura limpia, los tests honestos y los releases seguros? Hablemos, o descarga mi CV.",
+            "contactButton": "Contáctame",
+            "resumeButton": "Descargar CV",
+            "aboutButton": "Conoce Mi Historia"
+        }
+    },
     "about": {
         "title": "Sobre Mí",
         "badge": "Running...",
-        "quote": "No solo escribo código. Resuelvo problemas de negocio.",
-        "p1": "Soy Isaac Martinez, Senior Full Stack Developer, basado en Santiago, República Dominicana. Construyo aplicaciones web en producción de punta a punta — frontends modernos, APIs escalables y funcionalidades impulsadas por IA que generan valor real para el negocio.",
-        "p2": "Con 5+ años de experiencia en Node.js, TypeScript y AWS, he ayudado a equipos a entregar más rápido, reducir deuda técnica y escalar sistemas de forma confiable. Me enfoco en escribir código limpio, mantenible y en comunicarme con claridad.",
-        "p3": "Actualmente estoy disponible para roles full-time o trabajo por contrato. Si buscas a alguien que pueda empezar de inmediato y entregar resultados, hablemos.",
+        "quote": "Lo que más disfruto es llevar una feature de punta a punta: entender el problema, construir la integración y asegurarme de que funcione de forma segura en producción.",
+        "p1": "Soy Isaac Martinez, Ingeniero de Software Full-Stack basado en Santiago, República Dominicana. En SERHANT trabajo de punta a punta en S.MPLE, una plataforma de IA para agentes inmobiliarios, entre iOS y Android, la PWA de agentes, el dashboard de asesores y la API principal.",
+        "p2": "En más de 5 años pasé de trabajar como independiente a crear herramientas y liderar un equipo de tres en Minnek, sistemas para bienes raíces en VPM Solutions y sistemas de IA en WGSN. En el camino aprendí a tratar la seguridad en producción como un valor por defecto y la experiencia de desarrollo como parte del producto.",
+        "p3": "Estoy abierto a roles Senior Full Stack y a oportunidades de liderazgo. Si necesitas a alguien que se haga cargo del resultado, no solo del ticket, hablemos.",
         "experience": "Experiencia",
         "education": "Educación",
         "skills": "Habilidades",
         "languages": "Idiomas",
         "present": "Presente",
-        "expected": "Esperado",
         "fullTime": "Tiempo completo",
         "partTime": "Medio tiempo",
         "remote": "Remoto",
         "experienceList": {
+            "serhant": {
+                "title": "Ingeniero de Software Full-Stack",
+                "company": "SERHANT",
+                "location": "Remoto (EE. UU.)",
+                "description": "Trabajo de punta a punta en S.MPLE, una plataforma de IA para agentes inmobiliarios, entre iOS y Android (Expo), la PWA de agentes, el dashboard de asesores y la API principal. Responsable de la integración con Canva Connect, ejecuté backfills seguros en producción, construí la entrega automática de contenido generado con IA y mejoré la experiencia de desarrollo del equipo.",
+                "highlights": {
+                    "canva": "Responsable de la integración con Canva Connect (OAuth + Autofill), convertida en un driver compartido reutilizado en otras features.",
+                    "delivery": "Construí la entrega automática de contenido generado con IA, con reintentos, traspaso a un asesor y un barrido de reconciliación.",
+                    "backfill": "Ejecuté un backfill en producción sobre decenas de miles de filas: dry-run por defecto, canary, rollback verificado y cero fallas.",
+                    "dx": "Entregué un setup local de un solo comando y resolví los errores de memoria del type-check en CI migrando a TypeScript 7."
+                }
+            },
             "wgsn": {
                 "title": "Full Stack Developer (IA y Sistemas Data-Driven)",
                 "company": "WGSN",
-                "description": "Construí sistemas de IA que analizan grandes volúmenes de datos para entregar pronósticos, insights y respuestas en tiempo real. Desarrollé un chatbot seguro y de alto rendimiento capaz de entregar miles de respuestas respaldadas por datos de forma eficiente. Mejoré performance, seguridad y confiabilidad con soluciones cloud-native listas para producción."
+                "description": "Mantuve y optimicé un modelo predictivo interno que genera pronósticos e insights a partir de reportes de negocio. Construí un servicio en AWS Lambda con streaming por WebSocket para respuestas de chatbot en tiempo real.",
+                "location": "Remoto (Londres)"
             },
             "vpm": {
                 "title": "Full Stack Developer",
                 "company": "VPM Solutions",
-                "description": "Contribuí a la mejora continua de la plataforma VPM Solutions manteniendo el código base y desarrollando nuevas funcionalidades para mejorar la funcionalidad general y la experiencia del usuario. Mejoré la funcionalidad de búsqueda de candidatos implementando un sistema de ordenamiento optimizado para mostrar los perfiles más relevantes. Construí reportes personalizados y dashboards visuales para ayudar a los dueños de empresas a obtener mejores insights sobre el rendimiento de su negocio. Trabajé extensamente en el panel de administración interno, construyendo herramientas y vistas para los equipos de Admin, Soporte y Marketing con visualización de datos en tiempo real, gráficos y reportes."
+                "description": "Mantuve y amplié una plataforma de bienes raíces. Mejoré la búsqueda de candidatos con un ranking optimizado que muestra los perfiles más relevantes. Construí reportes y dashboards personalizados para que los dueños entendieran el rendimiento del negocio, y herramientas del panel de administración para los equipos de Admin, Soporte y Marketing.",
+                "location": "Remoto (Houston)"
             },
             "minnek": {
                 "title": "Ingeniero Full Stack → Team Lead",
@@ -94,7 +127,7 @@
                     },
                     "junior": {
                         "title": "Ingeniero Full Stack",
-                        "description": "Desarrollé páginas de E-Commerce para BigCommerce. Creé Cominnek, una herramienta CLI para Commits Convencionales vinculados a tickets de Jira. Construí dashboards internos usando Vue, Express y MongoDB."
+                        "description": "Desarrollé e-commerce para tiendas BigCommerce con más de 20 mil productos y miles de eventos automatizados al día. Creé Cominnek, un CLI en Go para commits convencionales vinculados a Jira a partir del nombre de la rama. Construí dashboards internos con Vue, Express y MongoDB."
                     }
                 }
             },
@@ -111,7 +144,7 @@
         },
         "educationList": {
             "uapa": {
-                "title": "Ingeniero de Software",
+                "title": "Estudios de Ingeniería de Software",
                 "company": "Universidad Abierta para Adultos (UAPA)",
                 "description": "Cursos Relevantes: Desarrollo de Software, Gestión de Bases de Datos, Tecnologías Web"
             },
@@ -156,7 +189,9 @@
             "close": "Presiona cualquier tecla o clic afuera para cerrar",
             "error": "Error al generar PDF. Intenta de nuevo.",
             "progress": "Progreso"
-        }
+        },
+        "resumeTitle": "Ingeniero de Software Full-Stack",
+        "resumeSummary": "Ingeniero de Software Full-Stack con más de 5 años construyendo sistemas en producción de punta a punta. Actualmente en SERHANT, en S.MPLE, una plataforma de IA para agentes inmobiliarios: integración con Canva Connect, backfills seguros en producción, entrega automática de contenido generado con IA y herramientas de desarrollo. Ex Team Lead en Minnek Digital Studio."
     },
     "projects": {
         "title": "Proyectos",

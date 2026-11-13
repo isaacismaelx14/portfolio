@@ -1,0 +1,47 @@
+---
+import Section from "../Section.astro";
+import SectionHeading from "./SectionHeading.astro";
+import ProjectCard from "../ProjectCard.astro";
+import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
+import { getLocalizedProjects } from "../../data/projects";
+import { useTranslations, useTranslatedPath } from "../../i18n/utils";
+import type { Lang } from "../../types";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+const featuredProjects = getLocalizedProjects(lang).filter((p) => p.featured);
+---
+
+<Section
+    class="bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800"
+    labelledBy="building-title"
+>
+    <div
+        class="flex flex-col md:flex-row md:justify-between md:items-end gap-4"
+    >
+        <SectionHeading
+            id="building-title"
+            eyebrow={t("sections.building.eyebrow")}
+            title={t("sections.building.title")}
+            description={t("sections.building.desc")}
+        />
+        <a
+            href={translatePath("/projects")}
+            class="mb-8 sm:mb-12 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white font-medium flex items-center gap-1 group text-sm sm:text-base shrink-0"
+        >
+            {t("sections.building.viewAll")}
+            <ArrowRightIcon
+                class="h-4 w-4 transition-transform group-hover:translate-x-1"
+            />
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {featuredProjects.map((project) => <ProjectCard {...project} />)}
+    </div>
+</Section>

@@ -1,0 +1,49 @@
+---
+import Section from "../Section.astro";
+import SectionHeading from "./SectionHeading.astro";
+import CaseStudyCard from "./CaseStudyCard.astro";
+import { getCaseStudies, type CaseStudyId } from "../../data/narrative";
+import { useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../types";
+
+interface Props {
+    lang: Lang;
+    /** Ordered selection of case studies for this landing. */
+    ids: CaseStudyId[];
+    /** i18n namespace under `sections.*` that frames the list for this landing. */
+    framing: "work" | "evidence";
+}
+
+const { lang, ids, framing } = Astro.props;
+const t = useTranslations(lang);
+const studies = getCaseStudies(ids, lang);
+const labels = {
+    problem: t("sections.caseStudy.problem"),
+    decision: t("sections.caseStudy.decision"),
+    outcome: t("sections.caseStudy.outcome"),
+};
+---
+
+<Section id="work" class="scroll-mt-20" labelledBy="work-title">
+    <SectionHeading
+        id="work-title"
+        eyebrow={t(`sections.${framing}.eyebrow`)}
+        title={t(`sections.${framing}.title`)}
+        description={t(`sections.${framing}.desc`)}
+    />
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        {
+            studies.map((study) => (
+                <CaseStudyCard
+                    company={study.company}
+                    title={study.title}
+                    problem={study.problem}
+                    decision={study.decision}
+                    outcome={study.outcome}
+                    tags={study.tags}
+                    labels={labels}
+                />
+            ))
+        }
+    </div>
+</Section>

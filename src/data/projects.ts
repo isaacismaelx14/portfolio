@@ -29,6 +29,21 @@ export const projects: Project[] = [
         featured: true
     },
     {
+        title: 'Kreds',
+        description: {
+            en: 'Leaderboard and internal economy for engineering teams, built on GitHub activity and backed by a double-entry ledger.',
+            es: 'Leaderboard y economía interna para equipos de ingeniería, basado en la actividad de GitHub y respaldado por un libro contable de partida doble.'
+        },
+        impact: {
+            en: 'Engineering Teams · Double-entry Ledger',
+            es: 'Equipos de Ingeniería · Partida Doble'
+        },
+        tags: ['GitHub', 'Double-entry Ledger', 'Gamification', 'ZitDevs'],
+        link: 'https://kreds.sh',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop',
+        featured: true
+    },
+    {
         title: 'DevsCut',
         description: {
             en: 'Analytics platform enhancing digital interactions through advanced link shortening and tracking.',
@@ -41,19 +56,19 @@ export const projects: Project[] = [
         tags: ['Analytics', 'Serverless', 'AWS'],
         link: 'https://devscut.com/',
         image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop',
-        featured: true
+        featured: false
     },
     {
-        title: 'ZitDevs',
+        title: 'ZitDevs · ZitStack',
         description: {
-            en: 'Software agency connecting passionate developers with meaningful projects through flexible collaboration.',
-            es: 'Agencia de software que conecta desarrolladores apasionados con proyectos significativos mediante colaboración flexible.'
+            en: 'My studio. ZitStack is its shared platform: identity, payments and billing as a modular monolith, powering products like Kreds and Fiestik.',
+            es: 'Mi estudio. ZitStack es su plataforma compartida: identidad, pagos y facturación como un monolito modular, que impulsa productos como Kreds y Fiestik.'
         },
         impact: {
-            en: 'Community Driven · Custom Software',
-            es: 'Impulsado por la Comunidad · Software a Medida'
+            en: 'Modular Monolith · Shared Platform',
+            es: 'Monolito Modular · Plataforma Compartida'
         },
-        tags: ['Astro', 'Agency', 'Platform'],
+        tags: ['Modular Monolith', 'Identity', 'Payments', 'Billing'],
         link: 'https://zitdevs.com/en/',
         image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop',
         featured: true

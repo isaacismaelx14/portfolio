@@ -1,0 +1,43 @@
+---
+/**
+ * Unlisted landing for Tech Lead / Staff conversations.
+ * Same facts as HomePage; only the framing and section order differ.
+ * Not linked from navigation, noindex, and filtered out of the sitemap.
+ */
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../Hero.astro";
+import CaseStudiesSection from "../sections/CaseStudiesSection.astro";
+import TrajectoryTimeline from "../sections/TrajectoryTimeline.astro";
+import PrinciplesSection from "../sections/PrinciplesSection.astro";
+import BuildingSection from "../sections/BuildingSection.astro";
+import ContactCtaSection from "../sections/ContactCtaSection.astro";
+import { getPageDescription } from "../../data/about";
+import { landings } from "../../data/narrative";
+import { useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../types";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Layout
+    title={t("meta.leadTitle")}
+    description={getPageDescription("lead", lang)}
+    fullWidth={true}
+    noindex={true}
+>
+    <Hero name="Isaac Martinez" variant="lead" />
+    <CaseStudiesSection
+        lang={lang}
+        ids={landings.lead.caseStudies}
+        framing="evidence"
+    />
+    <PrinciplesSection lang={lang} />
+    <TrajectoryTimeline lang={lang} />
+    <BuildingSection lang={lang} />
+    <ContactCtaSection lang={lang} />
+</Layout>

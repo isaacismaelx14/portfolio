@@ -31,6 +31,21 @@ interface Language {
     level: string;
 }
 
+const MAX_DESCRIPTION_LENGTH = 200;
+
+// Keep whole sentences so the PDF never ends a description mid-word.
+function summarize(text: string, max = MAX_DESCRIPTION_LENGTH): string {
+    if (text.length <= max) return text;
+    // A sentence ends at punctuation followed by whitespace, so "S.MPLE" stays intact.
+    const sentences = text.match(/.+?[.!?](?=\s+|$)\s*/gs) ?? [text];
+    let result = "";
+    for (const sentence of sentences) {
+        if ((result + sentence).trim().length > max) break;
+        result += sentence;
+    }
+    return (result || sentences[0]).trim();
+}
+
 interface Props {
     name: string;
     title: string;
@@ -167,8 +182,16 @@ const {
                         
                         {!item.isGrouped && item.description && (
                             <p style="font-size: 10px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.5;">
-                                {item.description.length > 180 ? item.description.slice(0, 180) + '...' : item.description}
+                                {summarize(item.description)}
                             </p>
+                        )}
+
+                        {item.highlights && item.highlights.length > 0 && (
+                            <ul style="margin: 0 0 8px 0; padding-left: 14px; list-style: disc;">
+                                {item.highlights.map((highlight) => (
+                                    <li style="font-size: 10px; color: #374151; line-height: 1.45; margin: 0 0 2px 0;">{highlight}</li>
+                                ))}
+                            </ul>
                         )}
                         
                         {item.isGrouped && item.positions && (

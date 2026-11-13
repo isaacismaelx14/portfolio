@@ -17,7 +17,12 @@ export default defineConfig({
     }
   },
 
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // The /[lang]/lead landing is unlisted: keep it out of the sitemap.
+      filter: (page) => !/^\/[a-z]{2}\/lead\/?$/.test(new URL(page).pathname),
+    }),
+  ],
 
   i18n: {
     defaultLocale: "en",

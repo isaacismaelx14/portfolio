@@ -271,16 +271,14 @@ const pageDescription = getPageDescription("about", lang);
     >
         <ResumeTemplate
             name={contactInfo.name}
-            title={lang === "es"
-                ? "Desarrollador Full Stack (IA y Sistemas Data-Driven)"
-                : "Full Stack Developer (AI and Data-Driven Systems)"}
+            title={t("about.resumeTitle")}
             email={contactInfo.email}
             phone={contactInfo.phone}
             location={contactInfo.location}
             website={contactInfo.website}
             linkedin={contactInfo.linkedin}
             github={contactInfo.github}
-            summary={t("about.p1")}
+            summary={t("about.resumeSummary")}
             experience={experience}
             education={education}
             skills={skills}
